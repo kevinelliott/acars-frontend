@@ -2,6 +2,11 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
+      <router-link to="/stations">Stations</router-link> |
+      <router-link to="/stations/leaderboard">Leaderboard</router-link> |
+      <router-link to="/airframes">Airframes</router-link> |
+      <router-link to="/flights">Flights</router-link> |
+      <router-link to="/messages">Messages</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>

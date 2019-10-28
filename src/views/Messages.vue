@@ -1,11 +1,8 @@
 <template>
   <div class="home">
     <div class="container">
-      <h3>Stations</h3>
-      <StationsTable :stations="stations" />
-      <br>
-
-      <h3>Recent Live Messages</h3>
+      <h3>Messages</h3>
+      <MessagesNav />
       <MessagesList :messages="messages" />
     </div>
   </div>
@@ -14,13 +11,13 @@
 <script>
 // @ is an alias to /src
 import MessagesList from '@/components/MessagesList.vue';
-import StationsTable from '@/components/StationsTable.vue';
+import MessagesNav from '@/components/MessagesNav.vue';
 
 export default {
-  name: 'home',
+  name: 'messages',
   components: {
     MessagesList,
-    StationsTable,
+    MessagesNav,
   },
   sockets: {
     connect() {
@@ -33,21 +30,16 @@ export default {
     newMessages(val) {
       console.log('Socket: new-messages', val);
       let messages = val.concat(this.$data.messages);
-      if (messages.length > 20) {
-        messages = messages.slice(0, 20);
+      if (messages.length > 1000) {
+        messages = messages.slice(0, 1000);
       }
       this.$data.messages = messages;
-      console.log('Messages:', this.$data.messages);
-    },
-    stations(val) {
-      this.$data.stations = val;
-      console.log('Stations:', this.$data.stations);
+      // console.log('Messages:', this.$data.messages);
     },
   },
   data() {
     return {
       messages: [],
-      stations: [],
     };
   },
 };

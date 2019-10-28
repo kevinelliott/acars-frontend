@@ -1,0 +1,12 @@
+{
+  "maintainer": {
+    "description": "The maintainer of this airports-related datafile is Kevin Elliott. Please submit any corrections to him directly for quickest update to this information.",
+    "comment": "Please feel free to use this in your projects but provide attribution.",
+    "name": "Kevin Elliott",
+    "email": "kevin@phunc.com"
+  },
+  "airports": [
+    { "name": "Sacramento International Airport", "iata_code": "SMF", "icao_code": "KSMF", "faa_lid": "SMF", "location": "Sacramento County, California, USA" },
+    { "name": "Washington Dulles International", "iata_code": "IAD", "icao_code": "KIAD",  "latitude": 0.0, "longitude": 0.0 }
+  ]
+}

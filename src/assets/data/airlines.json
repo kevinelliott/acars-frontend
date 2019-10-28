@@ -1,0 +1,13 @@
+{
+  "description": "Comprehensive airline data, containing IATA and ICAO codes and locations.",
+  "comment": "Non-commercial use of this data in your projects is free when attribution is provided. Contact us for commercial use.",
+  "maintainer": {
+    "name": "Kevin Elliott",
+    "email": "kevin@phunc.com"
+  },
+  "airlines": {
+    "A3": { "name": "Aegean Airlines", "iata_code": "A3", "icao_code": "" },
+    "AA": { "name": "American Airlines", "iata_code": "AA", "icao_code": "AAL" },
+    "": { "name": "", "iata_code": "", "icao_code": "" },
+  }
+}
