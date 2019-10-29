@@ -18,7 +18,7 @@ import store from './store';
 
 const appHost = process.env.BACKEND_HOST ? process.env.BACKEND_HOST : 'localhost';
 const appPort = process.env.BACKEND_PORT ? process.env.BACKEND_PORT : '3000';
-const remoteUrl = 'http://' + appHost + ':' + appPort;
+const remoteUrl = `http://${appHost}:${appPort}`;
 const socket = io(remoteUrl);
 Vue.use(VueSocketIOExt, socket);
 
