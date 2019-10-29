@@ -19,7 +19,7 @@ import store from './store';
 const appHost = process.env.BACKEND_HOST ? process.env.BACKEND_HOST : 'airframes.io';
 const appPort = process.env.BACKEND_PORT ? process.env.BACKEND_PORT : '5581';
 const remoteUrl = `http://${appHost}:${appPort}`;
-const socket = io(remoteUrl);
+const socket = io(remoteUrl, { secure: false });
 Vue.use(VueSocketIOExt, socket);
 
 library.add(faHeart);
