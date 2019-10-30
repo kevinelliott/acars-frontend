@@ -10,7 +10,7 @@
         :key="station.id">
       <td>{{ station.id }}</td>
       <td>{{ station.ident }}</td>
-      <td>{{ station.ipAddress }}</td>
+      <td>{{ ipMask(station.ipAddress) }}</td>
       <td>{{ station.messagesCount }}</td>
     </tr>
   </table>
@@ -19,9 +19,17 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
+import { HostUtils } from '../utilities/host_utils';
+
 @Component
 export default class StationsTable extends Vue {
   @Prop() private stations!: Array<Object>;
+
+  hostUtils = new HostUtils();
+
+  ipMask(ipAddress: string) : string { // eslint-disable-line class-methods-use-this
+    return this.hostUtils.ipMask(ipAddress);
+  }
 }
 </script>
 
