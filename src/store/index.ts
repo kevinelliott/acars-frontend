@@ -9,7 +9,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     acarsData,
+    messagesHistorical: [],
+    messagesLive: [],
     lastMessageFromAirframes: [],
+    lastMessageFromStations: [],
   },
   mutations: {
     setLastHeardFromAirframe(state: any, tail: any) {
@@ -29,7 +32,14 @@ export default new Vuex.Store({
       lastMessageFromAirframes = lastMessageFromAirframes.sort((a: any, b: any) => (b.when - a.when)); // eslint-disable-line max-len
 
       Vue.set(state, 'lastMessageFromAirframes', lastMessageFromAirframes);
-      console.log(state.lastMessageFromAirframes);
+    },
+    setLastHeardFromStation(state: any, station: any) {
+      const { lastMessageFromStations } = state;
+
+      const last = { station, when: Date.now() };
+      lastMessageFromStations[station.id] = last;
+
+      Vue.set(state, 'lastMessageFromStations', lastMessageFromStations);
     },
   },
   actions: {

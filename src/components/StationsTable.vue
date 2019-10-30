@@ -5,6 +5,7 @@
       <th>Ident</th>
       <th>IP Address</th>
       <th># of Messages</th>
+      <th>Last Heard</th>
     </tr>
     <tr v-for="station in stations"
         :key="station.id">
@@ -12,6 +13,11 @@
       <td>{{ station.ident }}</td>
       <td>{{ ipMask(station.ipAddress) }}</td>
       <td>{{ station.messagesCount }}</td>
+      <td>
+        <span v-if="lastHeardFromStation(station)">
+          {{ new Date(lastHeardFromStation(station)) | moment("from", "now") }}
+        </span>
+      </td>
     </tr>
   </table>
 </template>
@@ -29,6 +35,16 @@ export default class StationsTable extends Vue {
 
   ipMask(ipAddress: string) : string { // eslint-disable-line class-methods-use-this
     return this.hostUtils.ipMask(ipAddress);
+  }
+
+  lastHeardFromStation(station: any) : string {
+    const last = this.$store.state.lastMessageFromStations[station.id];
+
+    let lastHeard;
+    if (last) {
+      lastHeard = last.when;
+    }
+    return lastHeard;
   }
 }
 </script>

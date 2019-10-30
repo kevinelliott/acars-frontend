@@ -35,6 +35,11 @@ export default {
     },
     newMessages(val) {
       console.log('Socket: new-messages', val);
+
+      for (const message of val) { // eslint-disable-line no-restricted-syntax,guard-for-in
+        this.$store.commit('setLastHeardFromStation', message.station);
+      }
+
       let messages = val.concat(this.$data.messages);
       if (messages.length > 20) {
         messages = messages.slice(0, 20);
