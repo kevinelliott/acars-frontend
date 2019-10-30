@@ -157,16 +157,6 @@ export default class MessagesList extends Vue {
     return values;
   }
 
-  lastMessageClass(last: any) : any { // eslint-disable-line class-methods-use-this
-    const lastDate = moment(last.when);
-    const now = moment();
-    const diff = now.diff(lastDate, 'minutes');
-
-    return {
-      'text-muted': diff >= 2,
-    };
-  }
-
   knownAirframes() : Array<any> {
     const airframes = this.messages.map((message: any) => message.airframe);
 
@@ -187,8 +177,6 @@ export default class MessagesList extends Vue {
 
     if (this.filterAirframes.length > 0) {
       const tails = this.filterAirframes.map(airframe => airframe.tail);
-      console.log('Tails');
-      console.log(tails);
       matchingMessages = messages.filter((message: any) => tails.includes(message.airframe.tail)); // eslint-disable-line max-len
     } else {
       matchingMessages = messages;
@@ -217,7 +205,6 @@ export default class MessagesList extends Vue {
 
   textSearchChanged(event: any) {
     if (event && event.target) {
-      console.log('Setting text search to ', event.target.value);
       this.filterTextSearch = event.target.value;
     }
   }

@@ -16,11 +16,22 @@
 <script lang="ts">
 
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import moment from 'moment-timezone';
 
 @Component({
 
 })
 export default class ActiveAirframes extends Vue {
+  lastMessageClass(last: any) : any { // eslint-disable-line class-methods-use-this
+    const lastDate = moment(last.when);
+    const now = moment();
+    const diff = now.diff(lastDate, 'minutes');
+
+    return {
+      'text-muted': diff >= 2,
+    };
+  }
+
   lastMessageFromAirframes() : Object {
     return this.$store.state.lastMessageFromAirframes;
   }

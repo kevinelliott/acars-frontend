@@ -140,10 +140,10 @@ export default class MessagesListItem extends Vue {
     const explodedWords : Array<string> = text.split(' ');
 
     const highlightedWords = explodedWords.map((word) => {
-      console.log(`Word: ${word}`);
+      // console.log(`Word: ${word}`);
       const airport = this.lookupAirportByIata(word);
       if (airport) {
-        console.log('Airport found');
+        console.log('Word Match: Airport found');
       }
       return word;
     });
@@ -188,11 +188,11 @@ export default class MessagesListItem extends Vue {
       if (message.text.includes('#M1BPOS')) {
         console.log('DECODER: #M1BPOS detected');
         const parts = message.text.replace('#M1BPOS', '').split('/')[0].split(',');
-        console.log(parts);
+        // console.log(parts);
 
         const coordsRegex = /(?<lac>[NS])(?<la>\d+)(?<lnc>[EW])(?<ln>\d+)/;
         const results = parts[0].match(coordsRegex);
-        console.log(results);
+        // console.log(results);
 
         const latitude = results.groups.la / 1000;
         const longitude = results.groups.ln / 1000;
@@ -215,8 +215,8 @@ export default class MessagesListItem extends Vue {
           if (part.includes('DT')) {
             const regex = /DT(?<dest>\w+),(?<rway>.+),(?<fuel>.+),(?<eta>.+),(?<rem>.+)/;
             const result = message.text.match(regex);
-            console.log('DT result');
-            console.log(result);
+            // console.log('DT result');
+            // console.log(result);
           }
 
           if (part.includes('FN')) {
