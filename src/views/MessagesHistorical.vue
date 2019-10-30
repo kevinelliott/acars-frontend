@@ -13,7 +13,7 @@ import MessagesList from '@/components/MessagesList.vue';
 import MessagesNav from '@/components/MessagesNav.vue';
 
 export default {
-  name: 'messages_live',
+  name: 'messages_historical',
   components: {
     MessagesList,
     MessagesNav,

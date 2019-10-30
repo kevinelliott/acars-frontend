@@ -65,7 +65,7 @@
         </div>
       </div>
 
-      <ActiveAirframes v-if="enableActiveAirframes == true" />
+      <ActiveAirframes v-if="enableActiveAirframes" />
     </div>
     <div class="col-8">
       <MessagesListItemSlim
@@ -91,6 +91,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import Multiselect from 'vue-multiselect';
 import moment from 'moment-timezone';
 
+import ActiveAirframes from '@/components/ActiveAirframes.vue';
 import MessagesListItem from '@/components/MessagesListItem.vue';
 import MessagesListItemSlim from '@/components/MessagesListItemSlim.vue';
 
@@ -104,6 +105,7 @@ import MessagesListItemSlim from '@/components/MessagesListItemSlim.vue';
     },
   },
   components: {
+    ActiveAirframes,
     MessagesListItem,
     MessagesListItemSlim,
     Multiselect,

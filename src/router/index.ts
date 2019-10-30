@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Home from '../views/Home.vue';
-import Messages from '../views/Messages.vue';
-import MessagesLive from '../views/MessagesLive.vue';
+import Home from '@/views/Home.vue';
+import Messages from '@/views/Messages.vue';
+import MessagesHistorical from '@/views/MessagesHistorical.vue';
+import MessagesLive from '@/views/MessagesLive.vue';
 
 Vue.use(VueRouter);
 
@@ -27,13 +28,13 @@ const routes = [
     component: Messages,
   },
   {
-    path: '/messages/recent',
-    name: 'messages',
-    component: Messages,
+    path: '/messages/historical',
+    name: 'messages_historical',
+    component: MessagesHistorical,
   },
   {
     path: '/messages/live',
-    name: 'messages',
+    name: 'messages_live',
     component: MessagesLive,
   },
 ];
