@@ -5,8 +5,11 @@
       <StationsTable :stations="stations" />
       <br>
 
-      <h3>Recent Live Messages</h3>
-      <MessagesList :messages="messages" />
+      <h3>
+        Recent Live Messages
+        <small><router-link to="/messages/live">See All</router-link></small>
+      </h3>
+      <MessagesList :messages="messages" :enableActiveAirframes="false"  :enableFilters="false" />
     </div>
   </div>
 </template>

@@ -1,6 +1,7 @@
 <template>
-  <div class="row">
+  <div class="row" v-if="enableActiveAirframes || enableFilters">
     <div class="col-4">
+
       <div class="mb-4 p-4 bg-light border">
         <h4 class="mb-4">Filters</h4>
         <div class="mb-4">
@@ -64,18 +65,7 @@
         </div>
       </div>
 
-      <div>
-        <h4 class="mb-1">Active Airframes</h4>
-        <div class="mb-3 text-muted">Heard within last 5 minutes</div>
-        <table class="table table-sm">
-          <tr v-for="last in lastMessageFromAirframes()"
-            :class="lastMessageClass(last)"
-            :key="`last-heard-${last.tail}`">
-            <td>{{ last.tail }}</td>
-            <td>{{ new Date(last.when) | moment("from", "now") }}</td>
-          </tr>
-        </table>
-      </div>
+      <ActiveAirframes v-if="enableActiveAirframes == true" />
     </div>
     <div class="col-8">
       <MessagesListItemSlim
@@ -84,7 +74,15 @@
         :message="message"
         />
     </div>
-
+  </div>
+  <div class="row" v-else>
+    <div class="col-12">
+      <MessagesListItemSlim
+        v-for="message in filteredMessages"
+        :key="`message-list-item-slim-${message.id}`"
+        :message="message"
+        />
+    </div>
   </div>
 </template>
 
@@ -97,6 +95,14 @@ import MessagesListItem from '@/components/MessagesListItem.vue';
 import MessagesListItemSlim from '@/components/MessagesListItemSlim.vue';
 
 @Component({
+  props: {
+    enableActiveAirframes: {
+      default: false,
+    },
+    enableFilters: {
+      default: false,
+    },
+  },
   components: {
     MessagesListItem,
     MessagesListItemSlim,
@@ -157,10 +163,6 @@ export default class MessagesList extends Vue {
     return {
       'text-muted': diff >= 2,
     };
-  }
-
-  lastMessageFromAirframes() : Object {
-    return this.$store.state.lastMessageFromAirframes;
   }
 
   knownAirframes() : Array<any> {
