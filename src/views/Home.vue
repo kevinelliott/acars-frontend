@@ -37,11 +37,11 @@ export default {
         messages = messages.slice(0, 20);
       }
       this.$data.messages = messages;
-      console.log('Messages:', this.$data.messages);
+      // console.log('Messages:', this.$data.messages);
     },
     stations(val) {
-      this.$data.stations = val;
-      console.log('Stations:', this.$data.stations);
+      this.$data.stations = val.sort((a, b) => (b.messagesCount - a.messagesCount));
+      // console.log('Stations:', this.$data.stations);
     },
   },
   data() {
