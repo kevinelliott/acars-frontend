@@ -114,7 +114,7 @@ import MessagesListItemSlim from '@/components/MessagesListItemSlim.vue';
 export default class MessagesList extends Vue {
   @Prop() private messages!: Array<Object>;
 
-  @Prop({ default: null }) private messagesCountMaximum: int;
+  @Prop({ default: null }) private messagesCountMaximum!: Number;
 
   filterErrorOptions = [
     { name: 'Level 0', error: 0 },
