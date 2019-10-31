@@ -170,8 +170,7 @@ export default class MessagesListItem extends Vue {
     return airport;
   }
 
-  convertNewlinesToBRs(text: string) : string {
-    console.log(this.$store);
+  convertNewlinesToBRs(text: string) : string { // eslint-disable-line class-methods-use-this
     return text.replace('\n', '<br>');
   }
 

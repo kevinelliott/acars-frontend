@@ -9,7 +9,11 @@
         Recent Live Messages
         <small><router-link to="/messages/live">See All</router-link></small>
       </h3>
-      <MessagesList :messages="messages" :enableActiveAirframes="false"  :enableFilters="false" />
+      <MessagesList
+        :messages="messagesFiltered"
+        :enableActiveAirframes="false"
+        :enableFilters="false"
+        />
     </div>
   </div>
 </template>
@@ -31,20 +35,20 @@ export default {
       this.$socket.client.emit('events', 'testing');
     },
     events(val) {
-      console.log('Socket: events', val);
+      // console.log('Socket: events', val);
     },
     newMessages(val) {
-      console.log('Socket: new-messages', val);
+      // console.log('Socket: new-messages', val);
 
       for (const message of val) { // eslint-disable-line no-restricted-syntax,guard-for-in
         this.$store.commit('setLastHeardFromStation', message.station);
       }
 
-      let messages = val.concat(this.$data.messages);
-      if (messages.length > 20) {
-        messages = messages.slice(0, 20);
-      }
-      this.$data.messages = messages;
+      // let messages = val.concat(this.$data.messages);
+      // if (messages.length > 20) {
+      //   messages = messages.slice(0, 20);
+      // }
+      // this.$data.messages = messages;
       // console.log('Messages:', this.$data.messages);
     },
     stations(val) {
@@ -54,9 +58,20 @@ export default {
   },
   data() {
     return {
-      messages: [],
+      messagesFiltered: [],
       stations: [],
     };
+  },
+  created() {
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'prependNewLiveMessages') {
+        if (state.messagesLive.length > 20) {
+          this.messagesFiltered = state.messagesLive.slice(0, 20);
+        } else {
+          this.messagesFiltered = state.messagesLive;
+        }
+      }
+    });
   },
 };
 </script>

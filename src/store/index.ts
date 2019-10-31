@@ -15,6 +15,9 @@ export default new Vuex.Store({
     lastMessageFromStations: [],
   },
   mutations: {
+    prependNewLiveMessages(state: any, newMessages: Array<any>) {
+      Vue.set(state, 'messagesLive', newMessages.concat(state.messagesLive));
+    },
     setLastHeardFromAirframe(state: any, tail: any) {
       let { lastMessageFromAirframes } = state;
 
@@ -40,6 +43,9 @@ export default new Vuex.Store({
       lastMessageFromStations[station.id] = last;
 
       Vue.set(state, 'lastMessageFromStations', lastMessageFromStations);
+    },
+    setStations(state: any, stations: Array<any>) {
+      Vue.set(state, 'stations', stations);
     },
   },
   actions: {

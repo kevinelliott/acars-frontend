@@ -13,6 +13,36 @@
   </div>
 </template>
 
+<script lang="ts">
+
+import Vue from 'vue';
+
+export default {
+  name: 'app',
+  sockets: {
+    connect() {
+      console.log('App: Socket connected.');
+    },
+    events(val) {
+      // console.log('Socket: events', val);
+    },
+    newMessages(messages) {
+      console.log('App: Socket: new-messages', messages);
+
+      for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in
+        this.$store.commit('setLastHeardFromStation', message.station);
+      }
+
+      this.$store.commit('prependNewLiveMessages', messages);
+    },
+    stations(stations) {
+      this.$store.commit('setStations', stations);
+    },
+  },
+};
+
+</script>
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
