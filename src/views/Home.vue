@@ -16,7 +16,9 @@
               can see more about flights as they traverse covered territories.
             </div>
             <div class="text-center">
-              <a href="/about" class="btn btn-primary">Learn more about Feeding</a>
+              <router-link to="/about" class="btn btn-primary">
+                Learn more about Feeding
+              </router-link>
             </div>
           </div>
         </div>
