@@ -14,8 +14,8 @@
       <td>{{ ipMask(station.ipAddress) }}</td>
       <td>{{ station.messagesCount }}</td>
       <td>
-        <span v-if="lastHeardFromStation(station)">
-          {{ new Date(lastHeardFromStation(station)) | moment("from", "now") }}
+        <span v-if="station.lastReportAt">
+          {{ station.lastReportAt | moment("from", "now") }}
         </span>
       </td>
     </tr>
