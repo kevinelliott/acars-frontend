@@ -114,6 +114,8 @@ import MessagesListItemSlim from '@/components/MessagesListItemSlim.vue';
 export default class MessagesList extends Vue {
   @Prop() private messages!: Array<Object>;
 
+  @Prop({ default: null }) private messagesCountMaximum: int;
+
   filterErrorOptions = [
     { name: 'Level 0', error: 0 },
     { name: 'Level 1', error: 1 },
@@ -198,9 +200,13 @@ export default class MessagesList extends Vue {
   }
 
   get filteredMessages() {
-    return this.excludeByError(
+    let filtered = this.excludeByError(
       this.excludeByLabel(this.matchText(this.includeByAirframe(this.$props.messages))),
     );
+    if (this.$props.messagesCountMaximum) {
+      filtered = filtered.slice(0, this.$props.messagesCountMaximum);
+    }
+    return filtered;
   }
 
   textSearchChanged(event: any) {

@@ -31,6 +31,7 @@
         </h3>
         <MessagesList
           :messages="messagesFiltered"
+          :messagesCountMaximum="4"
           :enableActiveAirframes="false"
           :enableFilters="false"
           />
@@ -44,29 +45,19 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
 import MessagesList from '@/components/MessagesList.vue';
-import StationsTable from '@/components/StationsTable.vue';
 
 @Component({
   components: {
     MessagesList,
-    StationsTable,
   },
 })
 export default class Home extends Vue {
   messagesFiltered = []
 
-  get stations() {
-    return this.$store.state.stations;
-  }
-
   created() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'prependNewLiveMessages') {
-        if (state.messagesLive.length > 20) {
-          this.messagesFiltered = state.messagesLive.slice(0, 20);
-        } else {
-          this.messagesFiltered = state.messagesLive;
-        }
+        this.messagesFiltered = state.messagesLive.slice(0, 20);
       }
     });
   }
