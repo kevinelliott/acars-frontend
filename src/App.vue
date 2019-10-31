@@ -9,7 +9,9 @@
       <router-link to="/messages/live">Messages</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
     <div id="status_bar"
          class="fixed-bottom p-1 px-4 bg-light border-top d-flex justify-content-between">
       <span class="font-weight-light text-muted">{{ version() }}</span>
