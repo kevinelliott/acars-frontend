@@ -4,7 +4,7 @@ export class Version {
   }
 
   public version() : string { // eslint-disable-line class-methods-use-this
-    return '0.1.4';
+    return '0.1.5';
   }
 
   public toString() : string { // eslint-disable-line class-methods-use-this
