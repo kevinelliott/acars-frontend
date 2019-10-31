@@ -9,12 +9,27 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     acarsData,
+    isConnected: false,
     messagesHistorical: [],
     messagesLive: [],
+    messagesLivePerSecond: 0,
+    messagesLiveCountLast: 0,
     lastMessageFromAirframes: [],
     lastMessageFromStations: [],
   },
   mutations: {
+    socket_connect(state, status) {
+      console.log('Socket connect');
+      state.isConnected = true;
+    },
+    calculateMessagesLivePerSecond(state: any) {
+      const { messagesLiveCountLast } = state;
+      const messagesLiveCountNow = state.messagesLive.length;
+      const mps = messagesLiveCountNow - messagesLiveCountLast;
+
+      Vue.set(state, 'messagesLivePerSecond', mps);
+      Vue.set(state, 'messagesLiveCountLast', messagesLiveCountNow);
+    },
     prependNewLiveMessages(state: any, newMessages: Array<any>) {
       Vue.set(state, 'messagesLive', newMessages.concat(state.messagesLive));
     },
@@ -49,6 +64,25 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    socket_newMessages({ commit, dispatch }, messages) {
+      console.log('Store: Socket: newMessages');
+      for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in
+        commit('setLastHeardFromStation', message.station);
+      }
+
+      for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in,max-len
+        if (message.airframe && message.airframe.tail) {
+          console.log(message.airframe.tail);
+          commit('setLastHeardFromAirframe', message.airframe.tail);
+        }
+      }
+
+      commit('prependNewLiveMessages', messages);
+    },
+    socket_stations({ commit, dispatch }, stations) {
+      console.log('Store: Socket: stations');
+      commit('setStations', stations.sort((a: any, b: any) => (b.messagesCount - a.messagesCount)));
+    },
   },
   modules: {
   },

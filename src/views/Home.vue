@@ -19,49 +19,25 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+
 import MessagesList from '@/components/MessagesList.vue';
 import StationsTable from '@/components/StationsTable.vue';
 
-export default {
-  name: 'home',
+@Component({
   components: {
     MessagesList,
     StationsTable,
   },
-  sockets: {
-    connect() {
-      console.log('Socket connected.');
-      this.$socket.client.emit('events', 'testing');
-    },
-    events(val) {
-      // console.log('Socket: events', val);
-    },
-    newMessages(val) {
-      // console.log('Socket: new-messages', val);
+})
+export default class Home extends Vue {
+  messagesFiltered = []
 
-      for (const message of val) { // eslint-disable-line no-restricted-syntax,guard-for-in
-        this.$store.commit('setLastHeardFromStation', message.station);
-      }
+  get stations() {
+    return this.$store.state.stations;
+  }
 
-      // let messages = val.concat(this.$data.messages);
-      // if (messages.length > 20) {
-      //   messages = messages.slice(0, 20);
-      // }
-      // this.$data.messages = messages;
-      // console.log('Messages:', this.$data.messages);
-    },
-    stations(val) {
-      this.$data.stations = val.sort((a, b) => (b.messagesCount - a.messagesCount));
-      // console.log('Stations:', this.$data.stations);
-    },
-  },
-  data() {
-    return {
-      messagesFiltered: [],
-      stations: [],
-    };
-  },
   created() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'prependNewLiveMessages') {
@@ -72,6 +48,6 @@ export default {
         }
       }
     });
-  },
-};
+  }
+}
 </script>

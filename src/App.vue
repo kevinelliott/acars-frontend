@@ -6,40 +6,50 @@
       <router-link to="/stations/leaderboard">Leaderboard</router-link> |
       <router-link to="/airframes">Airframes</router-link> |
       <router-link to="/flights">Flights</router-link> |
-      <router-link to="/messages">Messages</router-link> |
+      <router-link to="/messages/live">Messages</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
+    <div id="status_bar"
+         class="fixed-bottom p-1 px-4 bg-light border-top d-flex justify-content-between">
+      <span class="font-weight-light text-muted">{{ version() }}</span>
+      <span
+        class="font-weight-bold"
+        :class="{ 'text-success': $socket.connected, 'text-danger': !$socket.connected }">
+        {{ $socket.connected ? 'Connected' : 'Disconnected' }}
+      </span>
+      <span class="font-weight-light text-muted">
+        {{ $store.state.messagesLivePerSecond }} messages/second
+      </span>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 
-import Vue from 'vue';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
-export default {
-  name: 'app',
-  sockets: {
-    connect() {
-      console.log('App: Socket connected.');
-    },
-    events(val) {
-      // console.log('Socket: events', val);
-    },
-    newMessages(messages) {
-      console.log('App: Socket: new-messages', messages);
+import { Version } from './utilities/version';
 
-      for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in
-        this.$store.commit('setLastHeardFromStation', message.station);
-      }
+@Component({
 
-      this.$store.commit('prependNewLiveMessages', messages);
-    },
-    stations(stations) {
-      this.$store.commit('setStations', stations);
-    },
-  },
-};
+})
+export default class App extends Vue {
+  messagesLivePerSecondInterval = 0;
+
+  updateMessagesListPerSecond() {
+    this.$store.commit('calculateMessagesLivePerSecond');
+  }
+
+  version() { // eslint-disable-line class-methods-use-this
+    const version = new Version();
+    return version.toString();
+  }
+
+  mounted() {
+    this.$data.messagesLivePerSecondInterval = setInterval(this.updateMessagesListPerSecond, 1000);
+  }
+}
 
 </script>
 
@@ -63,5 +73,12 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+#status_bar {
+  /* position: absolute;
+  bottom: 0;
+  margin: auto 0;
+  width: 100%; */
 }
 </style>

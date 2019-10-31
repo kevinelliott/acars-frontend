@@ -19,8 +19,9 @@ import store from './store';
 const appHost = process.env.BACKEND_HOST ? process.env.BACKEND_HOST : 'api.airframes.io';
 const appPort = process.env.BACKEND_PORT ? process.env.BACKEND_PORT : '443';
 const remoteUrl = `https://${appHost}:${appPort}`;
+
 const socket = io(remoteUrl, { secure: false });
-Vue.use(VueSocketIOExt, socket);
+Vue.use(VueSocketIOExt, socket, { store });
 
 library.add(faHeart);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
