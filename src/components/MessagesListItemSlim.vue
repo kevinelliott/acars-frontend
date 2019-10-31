@@ -74,10 +74,10 @@
                 </span>
 
                 <span class="ml-1 text-muted">B:</span>
-                {{ message.block_id ? message.block_id : 'N/A' }}
+                {{ message.blockId ? message.blockId : 'N/A' }}
 
                 <span class="ml-1 text-muted">M#:</span>
-                {{ message.message_number ? message.message_number : 'N/A' }}
+                {{ message.messageNumber ? message.messageNumber : 'N/A' }}
 
                 <span v-if="message.error >= 1" class="ml-1 text-danger">
                   <strong>E:</strong>
