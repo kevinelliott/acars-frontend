@@ -5,6 +5,7 @@ import Home from '@/views/Home.vue';
 import Messages from '@/views/Messages.vue';
 import MessagesHistorical from '@/views/MessagesHistorical.vue';
 import MessagesLive from '@/views/MessagesLive.vue';
+import Stations from '@/views/Stations.vue';
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,11 @@ const routes = [
     path: '/messages/live',
     name: 'messages_live',
     component: MessagesLive,
+  },
+  {
+    path: '/stations',
+    name: 'stations',
+    component: Stations,
   },
 ];
 
