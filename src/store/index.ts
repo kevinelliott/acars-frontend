@@ -9,6 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     acarsData,
+    clients: {},
     isConnected: false,
     messagesHistorical: [],
     messagesLive: [],
@@ -18,6 +19,10 @@ export default new Vuex.Store({
     lastMessageFromStations: [],
   },
   mutations: {
+    socket_clients(state, clients) {
+      console.log('Store: Socket: clients');
+      Vue.set(state, 'clients', clients);
+    },
     socket_connect(state, status) {
       console.log('Socket connect');
       state.isConnected = true;
@@ -78,6 +83,9 @@ export default new Vuex.Store({
       }
 
       commit('prependNewLiveMessages', messages);
+    },
+    socket_clients({ commit, dispatch }, clients) {
+      commit('socket_clients', clients);
     },
     socket_stations({ commit, dispatch }, stations) {
       console.log('Store: Socket: stations');
