@@ -68,6 +68,7 @@
       <ActiveAirframes v-if="enableActiveAirframes" />
     </div>
     <div class="col-8">
+      <MessagesLivePaused />
       <MessagesListItemSlim
         v-for="message in filteredMessages"
         :key="`message-list-item-${message.id}`"
@@ -77,6 +78,7 @@
   </div>
   <div class="row" v-else>
     <div class="col-12">
+      <MessagesLivePaused />
       <MessagesListItemSlim
         v-for="message in filteredMessages"
         :key="`message-list-item-slim-${message.id}`"
@@ -94,6 +96,7 @@ import moment from 'moment-timezone';
 import ActiveAirframes from '@/components/ActiveAirframes.vue';
 import MessagesListItem from '@/components/MessagesListItem.vue';
 import MessagesListItemSlim from '@/components/MessagesListItemSlim.vue';
+import MessagesLivePaused from '@/components/messages/MessagesLivePaused.vue';
 
 @Component({
   props: {
@@ -108,6 +111,7 @@ import MessagesListItemSlim from '@/components/MessagesListItemSlim.vue';
     ActiveAirframes,
     MessagesListItem,
     MessagesListItemSlim,
+    MessagesLivePaused,
     Multiselect,
   },
 })

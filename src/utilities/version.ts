@@ -1,10 +1,10 @@
 export class Version {
   public date() : string { // eslint-disable-line class-methods-use-this
-    return '20191104';
+    return '20191105';
   }
 
   public version() : string { // eslint-disable-line class-methods-use-this
-    return '0.1.6';
+    return '0.1.7';
   }
 
   public toString() : string { // eslint-disable-line class-methods-use-this
