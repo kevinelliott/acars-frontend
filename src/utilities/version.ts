@@ -1,10 +1,13 @@
+const packageJson = require('../../package.json');
+const versionJson = require('../../version.json');
+
 export class Version {
   public date() : string { // eslint-disable-line class-methods-use-this
     return '20191105';
   }
 
   public version() : string { // eslint-disable-line class-methods-use-this
-    return '0.1.8';
+    return packageJson.version;
   }
 
   public toString() : string { // eslint-disable-line class-methods-use-this
