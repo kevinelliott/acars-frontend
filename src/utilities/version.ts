@@ -6,12 +6,16 @@ export class Version {
     return versionJson.date;
   }
 
+  public shortDate() : string {
+    return this.date().split(' ')[0];
+  }
+
   public version() : string { // eslint-disable-line class-methods-use-this
     return packageJson.version;
   }
 
   public toString() : string { // eslint-disable-line class-methods-use-this
-    return `Version ${this.version()} (${this.date()})`;
+    return `Version ${this.version()} (${this.shortDate()})`;
   }
 }
 
