@@ -1,12 +1,12 @@
 {
   "name": "acars-frontend",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "postversion": "auto-changelog -p --template keepachangelog && git add CHANGELOG.md && git log v$npm_package_version -1 --pretty=tformat:'{ \"commit\": \"%H\", \"author\": \"%an\", \"author_email\": \"%ae\", \"date\": \"%ad\", \"message\": \"%f\", \"tag\": \"${npm_package_version}\" }' > version.json"
+    "postversion": "auto-changelog -p --template keepachangelog && git add CHANGELOG.md && git log v$npm_package_version -1 --pretty=tformat:'{ \"commit\": \"%H\", \"author\": \"%an\", \"author_email\": \"%ae\", \"date\": \"%ai\", \"message\": \"%f\", \"tag\": \"%S\" }' > version.json"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.3.2",
