@@ -59,7 +59,7 @@ export default class App extends Vue {
   version = new Version();
 
   mounted() {
-    this.$data.messagesLivePerSecondInterval = setInterval(this.updateMessagesListPerSecond, 1000);
+    this.$data.messagesLivePerSecondInterval = setInterval(this.updateMessagesListPerSecond, 5000);
   }
 
   pauseLiveMessages() {

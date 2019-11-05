@@ -33,7 +33,7 @@ export default new Vuex.Store({
       if (!state.isLiveMessagesPaused) {
         const { messagesLiveCountLast } = state;
         const messagesLiveCountNow = state.messagesLive.length;
-        const mps = messagesLiveCountNow - messagesLiveCountLast;
+        const mps = (messagesLiveCountNow - messagesLiveCountLast) / 5;
 
         Vue.set(state, 'messagesLivePerSecond', mps);
         Vue.set(state, 'messagesLiveCountLast', messagesLiveCountNow);
