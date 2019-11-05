@@ -25,7 +25,10 @@ export default {
   },
   created() {
     this.$store.subscribe((mutation, state) => {
-      if (mutation.type === 'prependNewLiveMessages') {
+      if (
+        mutation.type === 'prependNewLiveMessages'
+        && !state.isLiveMessagesPaused
+      ) {
         this.messages = state.messagesLive;
       }
     });

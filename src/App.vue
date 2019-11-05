@@ -21,7 +21,19 @@
         {{ $socket.connected ? 'Connected' : 'Disconnected' }}
       </span>
       <span class="font-weight-light text-muted">
-        {{ $store.state.messagesLivePerSecond }} messages/second
+        {{ $store.state.messagesLivePerSecond }} msgs/second
+        <span v-if="$store.state.isLiveMessagesPaused" class="ml-2">
+          <font-awesome-icon
+            icon="play-circle"
+            v-on:click="playLiveMessages()"
+            />
+        </span>
+        <span v-else class="ml-2">
+          <font-awesome-icon
+            icon="pause-circle"
+            v-on:click="pauseLiveMessages()"
+            />
+        </span>
       </span>
     </div>
   </div>
@@ -39,6 +51,20 @@ import { Version } from './utilities/version';
 export default class App extends Vue {
   messagesLivePerSecondInterval = 0;
 
+  mounted() {
+    this.$data.messagesLivePerSecondInterval = setInterval(this.updateMessagesListPerSecond, 1000);
+  }
+
+  pauseLiveMessages() {
+    console.log('Pausing live messages.');
+    this.$store.commit('pauseLiveMessages');
+  }
+
+  playLiveMessages() {
+    console.log('Playing live messages.');
+    this.$store.commit('playLiveMessages');
+  }
+
   updateMessagesListPerSecond() {
     this.$store.commit('calculateMessagesLivePerSecond');
   }
@@ -46,10 +72,6 @@ export default class App extends Vue {
   version() { // eslint-disable-line class-methods-use-this
     const version = new Version();
     return version.toString();
-  }
-
-  mounted() {
-    this.$data.messagesLivePerSecondInterval = setInterval(this.updateMessagesListPerSecond, 1000);
   }
 }
 

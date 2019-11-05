@@ -11,12 +11,14 @@ export default new Vuex.Store({
     acarsData,
     clients: {},
     isConnected: false,
+    isLiveMessagesPaused: false,
     messagesHistorical: [],
     messagesLive: [],
     messagesLivePerSecond: 0,
     messagesLiveCountLast: 0,
     lastMessageFromAirframes: [],
     lastMessageFromStations: [],
+    stats: {},
   },
   mutations: {
     socket_clients(state, clients) {
@@ -28,33 +30,46 @@ export default new Vuex.Store({
       state.isConnected = true;
     },
     calculateMessagesLivePerSecond(state: any) {
-      const { messagesLiveCountLast } = state;
-      const messagesLiveCountNow = state.messagesLive.length;
-      const mps = messagesLiveCountNow - messagesLiveCountLast;
+      if (!state.isLiveMessagesPaused) {
+        const { messagesLiveCountLast } = state;
+        const messagesLiveCountNow = state.messagesLive.length;
+        const mps = messagesLiveCountNow - messagesLiveCountLast;
 
-      Vue.set(state, 'messagesLivePerSecond', mps);
-      Vue.set(state, 'messagesLiveCountLast', messagesLiveCountNow);
+        Vue.set(state, 'messagesLivePerSecond', mps);
+        Vue.set(state, 'messagesLiveCountLast', messagesLiveCountNow);
+      } else {
+        Vue.set(state, 'messagesLivePerSecond', 0);
+        Vue.set(state, 'messagesLiveCountLast', 0);
+      }
+    },
+    pauseLiveMessages(state: any) {
+      Vue.set(state, 'isLiveMessagesPaused', true);
+    },
+    playLiveMessages(state: any) {
+      Vue.set(state, 'isLiveMessagesPaused', false);
     },
     prependNewLiveMessages(state: any, newMessages: Array<any>) {
       Vue.set(state, 'messagesLive', newMessages.concat(state.messagesLive));
     },
     setLastHeardFromAirframe(state: any, tail: any) {
-      let { lastMessageFromAirframes } = state;
+      if (!state.isLiveMessagesPaused) {
+        let { lastMessageFromAirframes } = state;
 
-      const filter = function t(last: any) {
-        const lastDate = moment(last.when);
-        const now = moment();
-        const diff = now.diff(lastDate, 'minutes');
-        return last.tail !== tail && diff < 5;
-      };
+        const filter = function t(last: any) {
+          const lastDate = moment(last.when);
+          const now = moment();
+          const diff = now.diff(lastDate, 'minutes');
+          return last.tail !== tail && diff < 5;
+        };
 
-      lastMessageFromAirframes = lastMessageFromAirframes.filter(filter);
+        lastMessageFromAirframes = lastMessageFromAirframes.filter(filter);
 
-      const last = { tail, when: Date.now() };
-      lastMessageFromAirframes.push(last);
-      lastMessageFromAirframes = lastMessageFromAirframes.sort((a: any, b: any) => (b.when - a.when)); // eslint-disable-line max-len
+        const last = { tail, when: Date.now() };
+        lastMessageFromAirframes.push(last);
+        lastMessageFromAirframes = lastMessageFromAirframes.sort((a: any, b: any) => (b.when - a.when)); // eslint-disable-line max-len
 
-      Vue.set(state, 'lastMessageFromAirframes', lastMessageFromAirframes);
+        Vue.set(state, 'lastMessageFromAirframes', lastMessageFromAirframes);
+      }
     },
     setLastHeardFromStation(state: any, station: any) {
       const { lastMessageFromStations } = state;
@@ -66,6 +81,9 @@ export default new Vuex.Store({
     },
     setStations(state: any, stations: Array<any>) {
       Vue.set(state, 'stations', stations);
+    },
+    setStats(state: any, stats: any) {
+      Vue.set(state, 'stats', stats);
     },
   },
   actions: {

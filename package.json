@@ -1,6 +1,6 @@
 {
   "name": "acars-frontend",
-  "version": "0.1.0",
+  "version": "0.1.6",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -16,6 +16,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.7",
     "@types/moment-timezone": "^0.5.12",
     "@types/vue-moment": "^4.0.0",
+    "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.4",
     "core-js": "^3.1.2",
@@ -23,6 +24,7 @@
     "sass-loader": "^8.0.0",
     "socket.io-client": "^2.3.0",
     "vue": "^2.6.10",
+    "vue-axios": "^2.1.5",
     "vue-class-component": "^7.0.2",
     "vue-moment": "^4.0.0",
     "vue-multiselect": "^2.1.6",
