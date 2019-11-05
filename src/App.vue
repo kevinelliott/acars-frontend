@@ -14,7 +14,12 @@
     </keep-alive>
     <div id="status_bar"
          class="fixed-bottom p-1 px-4 bg-light border-top d-flex justify-content-between">
-      <span class="font-weight-light text-muted">{{ version() }}</span>
+      <a
+        :href="`https://github.com/kevinelliott/acars-frontend/releases/tag/v${version.version()}`"
+        target="_blank"
+        class="font-weight-light text-muted">
+        {{ version.toString() }}
+      </a>
       <span
         class="font-weight-bold"
         :class="{ 'text-success': $socket.connected, 'text-danger': !$socket.connected }">
@@ -51,6 +56,8 @@ import { Version } from './utilities/version';
 export default class App extends Vue {
   messagesLivePerSecondInterval = 0;
 
+  version = new Version();
+
   mounted() {
     this.$data.messagesLivePerSecondInterval = setInterval(this.updateMessagesListPerSecond, 1000);
   }
@@ -67,11 +74,6 @@ export default class App extends Vue {
 
   updateMessagesListPerSecond() {
     this.$store.commit('calculateMessagesLivePerSecond');
-  }
-
-  version() { // eslint-disable-line class-methods-use-this
-    const version = new Version();
-    return version.toString();
   }
 }
 
