@@ -3,7 +3,7 @@ const versionJson = require('../../version.json');
 
 export class Version {
   public date() : string { // eslint-disable-line class-methods-use-this
-    return '20191105';
+    return versionJson.date;
   }
 
   public version() : string { // eslint-disable-line class-methods-use-this
