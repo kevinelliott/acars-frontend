@@ -9,8 +9,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     acarsData,
+    apiServerBaseUrl: process.env.NODE_ENV === 'production' ? 'https://api.airframes.io' : 'http://localhost:3001',
     clients: {},
     isConnected: false,
+    isProduction: process.env.NODE_ENV === 'production',
     isLiveMessagesPaused: false,
     messagesHistorical: [],
     messagesLive: [],

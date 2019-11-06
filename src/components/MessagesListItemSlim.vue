@@ -1,5 +1,6 @@
 <template>
-  <div class="mb-4 border border-grey" @click="showModal">
+  <div class="mb-4 border border-grey" @click="showMessageModal">
+    <FlightDetailModal :message="message" :flight="message.flight" />
     <b-modal
       :id="`message-modal-${message.id}`"
       size="lg"
@@ -11,7 +12,7 @@
       <h5>Station</h5>
       <div class="mb-2">{{ message.station.ident }}</div>
       <h5>Text</h5>
-      <div class="mb-2 text-wrap">{{ message.text }}</div>
+      <div class="mb-2 text-wrap text-break" v-html="convertNewlinesToBRs(message.text)" />
       <h5>Decoded</h5>
       <div class="text-wrap">
         <span v-if="decodeMessage(message)" v-html="decodeMessage(message)" />
@@ -34,8 +35,14 @@
                 </span>
 
                 <span v-if="message.flight.flight">
-                  <span class="ml-1 text-muted">F:</span>
-                  {{ message.flight ? message.flight.flight : 'N/A' }}
+                  <span class="ml-1 text-muted">F: </span>
+                  <a
+                    href="#"
+                    @click="$bvModal.show(`flight-modal-from-message-${message.id}`)"
+                    @click.stop
+                    >
+                      {{ message.flight.flight }}
+                  </a>
                 </span>
               </div>
               <div class="p-1 float-right">
@@ -140,9 +147,14 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
+import FlightDetailModal from '@/components/flights/FlightDetailModal.vue';
 import { MessageDecoder } from '@/utilities/decoders/acars/MessageDecoder';
 
-@Component
+@Component({
+  components: {
+    FlightDetailModal,
+  },
+})
 export default class MessagesListItem extends Vue {
   @Prop() private message!: any;
 
@@ -178,7 +190,11 @@ export default class MessagesListItem extends Vue {
     return decoder.decodeMessage(message);
   }
 
-  showModal() {
+  showFlightModal() {
+    this.$bvModal.show(`flight-modal-${this.message.flight.id}`);
+  }
+
+  showMessageModal() {
     this.$bvModal.show(`message-modal-${this.message.id}`);
   }
 }

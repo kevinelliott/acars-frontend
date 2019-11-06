@@ -7,7 +7,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHeart, faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faHeart,
+  faPlayCircle,
+  faPauseCircle,
+  faSync,
+  faSpinner
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client';
@@ -34,6 +40,8 @@ Vue.use(VueSocketIOExt, socket, { store });
 library.add(faHeart);
 library.add(faPauseCircle);
 library.add(faPlayCircle);
+library.add(faSpinner);
+library.add(faSync);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;

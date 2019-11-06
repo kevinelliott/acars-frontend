@@ -86,6 +86,7 @@
         />
     </div>
   </div>
+  <FlightDetailModal />
 </template>
 
 <script lang="ts">

@@ -51,7 +51,7 @@ export default class AdminStatsMessageLabels extends Vue {
     });
 
     console.log('Fetching stats...');
-    Vue.axios.get('http://localhost:3001/admin/stats').then((response) => {
+    Vue.axios.get(`${this.$store.state.apiServerBaseUrl}/admin/stats`).then((response) => {
       console.log('Fetched stats.');
       this.saveStats(response.data);
       console.log(response.data);
