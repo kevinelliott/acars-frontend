@@ -137,6 +137,8 @@ export default class MessagesList extends Vue {
 
   filterAirframes : Array<any> = [];
 
+  filterStations : Array<any> = [];
+
   excludeByError(messages: Array<any>) : Array<any> {
     const errorsToMatch = this.filterErrorValues.map(value => value.error);
     const filteredMessages = messages.filter(message => !errorsToMatch.includes(message.error));

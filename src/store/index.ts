@@ -88,14 +88,13 @@ export default new Vuex.Store({
   },
   actions: {
     socket_newMessages({ commit, dispatch }, messages) {
-      console.log('Store: Socket: newMessages');
+      // console.log('Store: Socket: newMessages');
       for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in
         commit('setLastHeardFromStation', message.station);
       }
 
       for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in,max-len
         if (message.airframe && message.airframe.tail) {
-          console.log(message.airframe.tail);
           commit('setLastHeardFromAirframe', message.airframe.tail);
         }
       }
@@ -106,7 +105,7 @@ export default new Vuex.Store({
       commit('socket_clients', clients);
     },
     socket_stations({ commit, dispatch }, stations) {
-      console.log('Store: Socket: stations');
+      // console.log('Store: Socket: stations');
       commit('setStations', stations.sort((a: any, b: any) => (b.messagesCount - a.messagesCount)));
     },
   },

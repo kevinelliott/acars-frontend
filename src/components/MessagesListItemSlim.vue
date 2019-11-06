@@ -234,6 +234,7 @@ export default class MessagesListItem extends Vue {
       let icaoCode;
       let latitude;
       let longitude;
+      let stationNumber;
       let vdlFrequency;
 
       if (!network) {
@@ -241,16 +242,16 @@ export default class MessagesListItem extends Vue {
       }
 
       if (preamble === '02XA') {
-        const regex = /0(\d)X(?<org>\w)(?<iata>\w\w\w)(?<icao>\w\w\w\w)(?<lat>\d+[NS])(?<lng>\d+[EW])V(?<vfreq>\d+)\/ARINC/;
+        const regex = /0(\d)X(?<org>\w)(?<iata>\w\w\w)(?<icao>\w\w\w\w)(?<station>\d)(?<lat>\d+)(?<latd>[NS])(?<lng>\d+)(?<lngd>[EW])V(?<vfreq>\d+)\/ARINC/;
         const result = message.text.match(regex);
-        // console.log(result);
 
-        if (result.length === 8) {
+        if (result.length >= 8) {
           iataCode = result.groups.iata;
           icaoCode = result.groups.icao;
+          stationNumber = result.groups.station;
           airport = this.lookupAirportByIata(iataCode);
-          latitude = result.groups.lat;
-          longitude = result.groups.lng;
+          latitude = `${Number(result.groups.lat) / 1000} ${result.groups.latd}`;
+          longitude = `${Number(result.groups.lng) / 1000} ${result.groups.lngd}`;
           vdlFrequency = result.groups.vfreq;
         }
       }
@@ -262,16 +263,22 @@ export default class MessagesListItem extends Vue {
         network,
         iataCode,
         icaoCode,
+        stationNumber,
         airport,
         latitude,
         longitude,
         vdlFrequency,
       };
+      console.log(decodedMessage);
 
       decodedString = `
         <div>${decodedMessage.description}</div>
         <div>Network: ${decodedMessage.network}</div>
       `;
+
+      if (decodedMessage.stationNumber) {
+        decodedString += `<div>Ground Station: ${decodedMessage.icaoCode}${decodedMessage.stationNumber}</div>`;
+      }
 
       if (iataCode) {
         decodedString += `<div>IATA: ${iataCode}</div>`;
