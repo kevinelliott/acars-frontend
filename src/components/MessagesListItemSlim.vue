@@ -1,5 +1,25 @@
 <template>
-  <div class="mb-4 border border-grey">
+  <div class="mb-4 border border-grey" @click="showModal">
+    <b-modal
+      :id="`message-modal-${message.id}`"
+      size="lg"
+      ref="messageModal"
+      title="Message Detail"
+      >
+      <h5>ID</h5>
+      <div class="mb-2">{{ message.id }}</div>
+      <h5>Station</h5>
+      <div class="mb-2">{{ message.station.ident }}</div>
+      <h5>Text</h5>
+      <div class="mb-2 text-wrap">{{ message.text }}</div>
+      <h5>Decoded</h5>
+      <div class="text-wrap">
+        <span v-if="decodeMessage(message)" v-html="decodeMessage(message)" />
+        <span v-else>
+          Not decodable at this time.
+        </span>
+      </div>
+    </b-modal>
     <div class="bg-light">
       <div class="row">
         <div class="col-12">
@@ -124,7 +144,7 @@ import { MessageDecoder } from '@/utilities/decoders/acars/MessageDecoder';
 
 @Component
 export default class MessagesListItem extends Vue {
-  @Prop() private message!: Object;
+  @Prop() private message!: any;
 
   frequencyName(frequency: number) : string {
     const frequencyString = frequency.toFixed(3);
@@ -156,6 +176,10 @@ export default class MessagesListItem extends Vue {
   decodeMessage(message: any) : string {
     const decoder = new MessageDecoder(this.$store);
     return decoder.decodeMessage(message);
+  }
+
+  showModal() {
+    this.$bvModal.show(`message-modal-${this.message.id}`);
   }
 }
 </script>
