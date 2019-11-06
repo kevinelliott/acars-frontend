@@ -83,8 +83,8 @@ export class MessageDecoder {
           icaoCode = result.groups.icao;
           stationNumber = result.groups.station;
           airport = this.lookupAirportByIata(iataCode);
-          latitude = `${Number(result.groups.lat) / 1000} ${result.groups.latd}`;
-          longitude = `${Number(result.groups.lng) / 1000} ${result.groups.lngd}`;
+          latitude = `${Number(result.groups.lat) / 100} ${result.groups.latd}`;
+          longitude = `${Number(result.groups.lng) / 100} ${result.groups.lngd}`;
           vdlFrequency = result.groups.vfreq;
         }
       }
