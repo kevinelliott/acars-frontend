@@ -7,12 +7,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { 
+import {
   faHeart,
   faPlayCircle,
   faPauseCircle,
   faSync,
-  faSpinner
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueSocketIOExt from 'vue-socket.io-extended';
