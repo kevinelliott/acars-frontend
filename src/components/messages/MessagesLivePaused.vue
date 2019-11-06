@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="$store.state.isLiveMessagesPaused"
-    class="p-4 bg-light"
+    class="mb-4 p-4 bg-light"
     >
     Live messages are paused.
   </div>

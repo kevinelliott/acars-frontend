@@ -3,6 +3,9 @@
     <h4 class="mb-1">Active Airframes</h4>
     <div class="mb-3 text-muted">Heard within last 5 minutes</div>
     <table class="table table-sm">
+      <tr v-if="$store.state.isLiveMessagesPaused">
+        <td colspan="2">Live messages are paused.</td>
+      </tr>
       <tr v-for="last in lastMessageFromAirframes()"
         :class="lastMessageClass(last)"
         :key="`last-heard-${last.tail}`">
