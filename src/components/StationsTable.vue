@@ -54,7 +54,7 @@ export default class StationsTable extends Vue {
         id: station.id,
         ident: station.ident,
         ipAddress: this.ipMask(station.ipAddress),
-        messageCount: station.messagesCount,
+        messagesCount: station.messagesCount,
         lastReportAt: station.lastReportAt,
       };
       items.push(mergedStation);
