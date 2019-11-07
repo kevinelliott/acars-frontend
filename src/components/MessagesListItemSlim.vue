@@ -182,7 +182,7 @@ export default class MessagesListItem extends Vue {
   }
 
   convertNewlinesToBRs(text: string) : string { // eslint-disable-line class-methods-use-this
-    return text.replace('\n', '<br>');
+    return text.split('\n').join('<br>');
   }
 
   decodeMessage(message: any) : string {
