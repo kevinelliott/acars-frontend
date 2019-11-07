@@ -20,6 +20,7 @@ export default new Vuex.Store({
     messagesLiveCountLast: 0,
     lastMessageFromAirframes: [],
     lastMessageFromStations: [],
+    stations: [],
     stats: {},
   },
   mutations: {
