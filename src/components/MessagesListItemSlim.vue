@@ -20,6 +20,21 @@
           Not decodable at this time.
         </span>
       </div>
+      <template v-slot:modal-footer="{ ok, cancel, hide }">
+        <div class="w-100">
+          <span @click="cancel()" class="float-left">
+            <router-link
+              :to="`/messages/${message.id}`"
+              class="btn btn-sm btn-secondary"
+              >
+              View
+            </router-link>
+          </span>
+          <b-button size="sm" variant="secondary" class="float-right" @click="cancel()">
+            Close
+          </b-button>
+        </div>
+      </template>
     </b-modal>
     <div class="bg-light">
       <div class="row">

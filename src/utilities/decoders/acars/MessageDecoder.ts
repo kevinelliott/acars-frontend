@@ -150,7 +150,7 @@ export class MessageDecoder {
 
       if (parts[0].substr(0, 11) === '3N01 POSRPT') {
         // 3N01 POSRPT
-        let posRptRegex = /^3N01 POSRPT \d\d\d\d\/\d\d (?<orig>\w+)\/(?<dest>\w+) \.(?<tail>\w+)(\/(?<agate>.+) (?<sta>\w+:\w+))*/; // eslint-disable-line max-len
+        let posRptRegex = /^3N01 POSRPT \d\d\d\d\/\d\d (?<orig>\w+)\/(?<dest>\w+) \.(?<tail>[\w-]+)(\/(?<agate>.+) (?<sta>\w+:\w+))*/; // eslint-disable-line max-len
         let results = parts[0].match(posRptRegex);
         if (results && results.length > 0) {
           // This implementation with embedded HTML is temporary
@@ -173,9 +173,14 @@ export class MessageDecoder {
             if (results) {
               for (const result of results) { // eslint-disable-line no-restricted-syntax
                 switch (result.groups.field) {
-                  case 'DWND':
+                  case 'ALT': {
+                    decodedString += `<tr><td>Altitude (${result.groups.field})</td><td>${result.groups.value} feet</td></tr>`;
+                    break;
+                  }
+                  case 'DWND': {
                     decodedString += `<tr><td>Unknown (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
                     break;
+                  }
                   case 'ETA':
                     decodedString += `<tr><td>Estimated Time of Arrival (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
                     break;
@@ -189,7 +194,7 @@ export class MessageDecoder {
                     decodedString += `<tr><td>Heading (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
                     break;
                   case 'MCH':
-                    decodedString += `<tr><td>Aircraft Speed (${result.groups.field})</td><td>${result.groups.value} Mach</td></tr>`;
+                    decodedString += `<tr><td>Aircraft Speed (${result.groups.field})</td><td>${result.groups.value} mach</td></tr>`;
                     break;
                   case 'NWYP':
                     decodedString += `<tr><td>Unknown (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
@@ -312,7 +317,10 @@ export class MessageDecoder {
     if (message.label === 'SQ') {
       const preamble = message.text.substring(0, 4);
       const version = message.text[1];
-      let network = this.store.state.acarsData.labels.SQ.decoderHints.brands[message.text[3]];
+      let network = 'Unknown';
+      if (message.text && message.text !== '') {
+        network = this.store.state.acarsData.labels.SQ.decoderHints.brands[message.text[3]];
+      }
       let airport;
       let iataCode;
       let icaoCode;
