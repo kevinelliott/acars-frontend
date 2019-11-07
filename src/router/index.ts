@@ -11,6 +11,7 @@ import AdminStatsFrequencies from '@/views/admin/stats/AdminStatsFrequencies.vue
 import AdminStatsMessageLabels from '@/views/admin/stats/AdminStatsMessageLabels.vue';
 import AdminStatsStations from '@/views/admin/stats/AdminStatsStations.vue';
 import Home from '@/views/Home.vue';
+import MessageDetail from '@/views/MessageDetail.vue';
 import Messages from '@/views/Messages.vue';
 import MessagesHistorical from '@/views/MessagesHistorical.vue';
 import MessagesLive from '@/views/MessagesLive.vue';
@@ -91,6 +92,11 @@ const routes = [
     path: '/messages/live',
     name: 'messages_live',
     component: MessagesLive,
+  },
+  {
+    path: '/messages/:id',
+    name: 'message_detail',
+    component: MessageDetail,
   },
   {
     path: '/stations',
