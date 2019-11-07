@@ -238,5 +238,8 @@
     "CRUISE": { "name": "Cruise Level", "code": "CRUISE" },
     "SMI": { "name": "Standard Message Identifier", "code": "SMI" },
     "SMT": { "name": "Standard Message Text", "code": "SMT" }
+  },
+  "mfi": {
+    "": {}
   }
 }
