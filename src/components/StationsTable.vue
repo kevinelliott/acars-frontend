@@ -15,6 +15,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import moment from 'moment-timezone';
 
 import { HostUtils } from '../utilities/host_utils';
 
@@ -36,7 +37,7 @@ export default class StationsTable extends Vue {
       label: 'Last Heard',
       sortable: true,
       formatter: (value: any, key: any, item: any) => { // eslint-disable-line arrow-body-style
-        return this.$moment(value).fromNow();
+        return moment().from(value);
       },
     },
   ];
