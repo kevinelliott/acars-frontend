@@ -5,48 +5,83 @@
       <div class="mb-4 p-4 bg-light border">
         <h4 class="mb-4">Filters</h4>
         <div class="mb-4">
-          <label>Airframe</label>
-          <multiselect v-model="filterAirframes"
-                      :options="knownAirframes()"
-                      :multiple="true"
-                      :close-on-select="false"
-                      :clear-on-select="false"
-                      :preserve-search="true"
-                      placeholder="Select Airframes to Include"
-                      label="tail"
-                      track-by="tail"
-                      :preselect-first="false">
-          </multiselect>
+          <label>Stations</label>
+          <multiselect
+            v-model="filterIncludeStations"
+            :options="knownStations"
+            :multiple="true"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :preserve-search="true"
+            placeholder="Select Stations to Include"
+            label="ident"
+            track-by="ident"
+            :preselect-first="false"
+            />
+        </div>
+
+        <div class="mb-4">
+          <label>Airframes</label>
+          <multiselect
+            v-model="filterIncludeAirframes"
+            :options="knownAirframes"
+            :multiple="true"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :preserve-search="true"
+            placeholder="Select Airframes to Include"
+            label="tail"
+            track-by="tail"
+            :preselect-first="false"
+            />
         </div>
 
         <div class="mb-4">
           <label>Errors to Exclude</label>
-          <multiselect v-model="filterErrorValues"
-                      :options="filterErrorOptions"
-                      :multiple="true"
-                      :close-on-select="false"
-                      :clear-on-select="false"
-                      :preserve-search="true"
-                      placeholder="Select Errors to Exclude"
-                      label="name"
-                      track-by="name"
-                      :preselect-first="true">
-          </multiselect>
+          <multiselect
+            v-model="filterExcludeErrors"
+            :options="optionsForFilterExcludeErrors"
+            :multiple="true"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :preserve-search="true"
+            placeholder="Select Errors to Exclude"
+            label="name"
+            track-by="name"
+            :preselect-first="true"
+            />
+        </div>
+
+        <div class="mb-4">
+          <label>Labels to Include</label>
+          <multiselect
+            v-model="filterIncludeLabels"
+            :options="optionsForFilterLabels()"
+            :multiple="true"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :preserve-search="true"
+            placeholder="Select Labels to Exclude"
+            label="displayName"
+            track-by="displayName"
+            :preselect-first="false"
+            />
         </div>
 
         <div class="mb-4">
           <label>Labels to Exclude</label>
-          <multiselect v-model="filterLabelValues"
-                      :options="filterLabelOptions()"
-                      :multiple="true"
-                      :close-on-select="false"
-                      :clear-on-select="false"
-                      :preserve-search="true"
-                      placeholder="Select Labels to Exclude"
-                      label="displayName"
-                      track-by="displayName"
-                      :preselect-first="true">
-          </multiselect>
+          <multiselect
+            v-model="filterExcludeLabels"
+            :options="optionsForFilterLabels()"
+            :multiple="true"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :preserve-search="true"
+            placeholder="Select Labels to Exclude"
+            label="displayName"
+            track-by="displayName"
+            :preselect-first="false"
+            />
         </div>
 
         <div class="mb-4">
@@ -94,6 +129,7 @@ import Multiselect from 'vue-multiselect';
 import moment from 'moment-timezone';
 
 import ActiveAirframes from '@/components/ActiveAirframes.vue';
+import { MessageFilter } from '@/utilities/MessageFilter';
 import MessagesListItem from '@/components/MessagesListItem.vue';
 import MessagesListItemSlim from '@/components/MessagesListItemSlim.vue';
 import MessagesLivePaused from '@/components/messages/MessagesLivePaused.vue';
@@ -120,55 +156,49 @@ export default class MessagesList extends Vue {
 
   @Prop({ default: null }) private messagesCountMaximum!: Number;
 
-  filterErrorOptions = [
+  optionsForFilterExcludeErrors = [
     { name: 'Level 0', error: 0 },
     { name: 'Level 1', error: 1 },
     { name: 'Level 2', error: 2 },
     { name: 'Level 3', error: 3 },
   ]
 
-  filterErrorValues : Array<any> = [{ error: 3, name: 'Level 3' }]
-
   defaultFilterLabels = ['_d', 'Q0'];
 
-  filterLabelValues : Array<any> = this.filterLabelOptions().filter(option => this.defaultFilterLabels.includes(option.label)); // eslint-disable-line max-len
+  filterIncludeAirframes : Array<any> = [];
 
-  filterTextSearch = '';
+  filterIncludeLabels : Array<any> = [];
 
-  filterAirframes : Array<any> = [];
+  filterIncludeTextSearch = '';
 
-  filterStations : Array<any> = [];
+  filterIncludeStations : Array<any> = [];
 
-  excludeByError(messages: Array<any>) : Array<any> {
-    const errorsToMatch = this.filterErrorValues.map(value => value.error);
-    const filteredMessages = messages.filter(message => !errorsToMatch.includes(message.error));
+  filterExcludeErrors : Array<any> = [{ error: 3, name: 'Level 3' }]
 
-    return filteredMessages;
+  filterExcludeLabels : Array<any> = this.optionsForFilterLabels().filter((option: any) => this.defaultFilterLabels.includes(option.label)); // eslint-disable-line max-len
+
+  get filteredMessages() {
+    console.log('filtered messages');
+    const airframeIdsToInclude = this.filterIncludeAirframes.map((airframe: any) => airframe.id);
+    const errorsToExclude = this.filterExcludeErrors.map((value: any) => value.error);
+    const labelsToExclude = this.filterExcludeLabels.map((value: any) => value.label);
+    const labelsToInclude = this.filterIncludeLabels.map((value: any) => value.label);
+    const stationIdsToInclude = this.filterIncludeStations.map((station: any) => station.id);
+    const textToInclude = this.filterIncludeTextSearch;
+
+    return new MessageFilter(this.messages)
+      .includeByStations(stationIdsToInclude)
+      .includeByLabels(labelsToInclude)
+      .includeByAirframes(airframeIdsToInclude)
+      .includeByText(textToInclude)
+      .excludeByLabels(labelsToExclude)
+      .excludeByErrors(errorsToExclude)
+      .filter();
   }
 
-  excludeByLabel(messages: Array<any>) : Array<any> {
-    const labelsToMatch = this.filterLabelValues.map(value => value.label);
-    const filteredMessages = messages.filter(message => !labelsToMatch.includes(message.label));
-
-    return filteredMessages;
-  }
-
-  filterLabelOptions() : Array<any> {
-    const labelsObj = this.$store.state.acarsData.labels;
-    const labels = Object.keys(labelsObj).map(key => labelsObj[key]);
-    const values = labels.map((label) => {
-      const fixedLabel = label;
-      fixedLabel.displayName = `${label.label} - ${label.name}`;
-      return fixedLabel;
-    });
-
-    return values;
-  }
-
-  knownAirframes() : Array<any> {
-    const airframes = this.messages.map((message: any) => message.airframe);
-
+  get knownAirframes() {
     const result = [];
+    const airframes = this.messages.map((message: any) => message.airframe);
     const map = new Map();
     for (const airframe of airframes) { // eslint-disable-line no-restricted-syntax
       if (!map.has(airframe.id) && airframe.tail !== '') {
@@ -176,48 +206,36 @@ export default class MessagesList extends Vue {
         result.push(airframe);
       }
     }
-
     return result;
   }
 
-  includeByAirframe(messages: Array<any>) : Array<any> {
-    let matchingMessages;
-
-    if (this.filterAirframes.length > 0) {
-      const tails = this.filterAirframes.map(airframe => airframe.tail);
-      matchingMessages = messages.filter((message: any) => tails.includes(message.airframe.tail)); // eslint-disable-line max-len
-    } else {
-      matchingMessages = messages;
+  get knownStations() {
+    const result = [];
+    const stations = this.$store.state.stations.sort((a: any, b: any) => (a.ident > b.ident ? 1 : -1)); // eslint-disable-line max-len
+    const map = new Map();
+    for (const station of stations) { // eslint-disable-line no-restricted-syntax
+      if (!map.has(station.id) && station.ident !== '') {
+        map.set(station.id, true);
+        result.push(station);
+      }
     }
-
-    return matchingMessages;
+    return result;
   }
 
-  matchText(messages: Array<any>) : Array<any> {
-    let filteredMessages = [];
-
-    if (this.filterTextSearch && this.filterTextSearch !== '') {
-      filteredMessages = messages.filter(message => message.text.includes(this.filterTextSearch));
-    } else {
-      filteredMessages = messages;
-    }
-
-    return filteredMessages;
-  }
-
-  get filteredMessages() {
-    let filtered = this.excludeByError(
-      this.excludeByLabel(this.matchText(this.includeByAirframe(this.$props.messages))),
-    );
-    if (this.$props.messagesCountMaximum) {
-      filtered = filtered.slice(0, this.$props.messagesCountMaximum);
-    }
-    return filtered;
+  optionsForFilterLabels() : Array<any> {
+    const labelsObj = this.$store.state.acarsData.labels;
+    const labels = Object.keys(labelsObj).map(key => labelsObj[key]);
+    const values = labels.map((label) => {
+      const fixedLabel = label;
+      fixedLabel.displayName = `${label.label} - ${label.name}`;
+      return fixedLabel;
+    });
+    return values;
   }
 
   textSearchChanged(event: any) {
     if (event && event.target) {
-      this.filterTextSearch = event.target.value;
+      this.filterIncludeTextSearch = event.target.value;
     }
   }
 }
