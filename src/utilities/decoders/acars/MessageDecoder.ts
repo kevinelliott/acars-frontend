@@ -120,7 +120,7 @@ export class MessageDecoder {
         decodedString += `<div>Message Type: ${typeDescription} (${type})</div>`;
 
         if (type === 'B3') {
-          const rdcRegex = /^(?<from>\w\w\w)(?<to>\w\w\w) (?<unknown1>\d\d) R(?<runway>.+) G(?<unknown2>.+)$/;
+          const rdcRegex = /^(?<from>\w\w\w)(?<to>\w\w\w) (?<unknown1>\d\d) R(?<runway>.+) G(?<unknown2>.+)$/; // eslint-disable-line max-len
           results = remainder.match(rdcRegex);
 
           if (results) {
@@ -138,6 +138,85 @@ export class MessageDecoder {
       } else {
         // Unknown
         console.log(`Unknown 5Z message: ${message.text}`);
+      }
+    }
+
+    if (message.label === '80') {
+      // Airline Defined
+      decodedString += '<div>Airline Defined</div>';
+
+      const parts = message.text.split('\n');
+      console.log(parts);
+
+      if (parts[0].substr(0, 11) === '3N01 POSRPT') {
+        // 3N01 POSRPT
+        let posRptRegex = /^3N01 POSRPT \d\d\d\d\/\d\d (?<orig>\w+)\/(?<dest>\w+) \.(?<tail>\w+)(\/(?<agate>.+) (?<sta>\w+:\w+))*/; // eslint-disable-line max-len
+        let results = parts[0].match(posRptRegex);
+        if (results && results.length > 0) {
+          // This implementation with embedded HTML is temporary
+          console.log('DECODER: 3N01 POSRPT match');
+          decodedString += '<div class="mb-2">Position Report</div>';
+          decodedString += '<table class="table table-sm table-bordered">';
+          decodedString += `<tr><td>Origin</td><td>${results.groups.orig}</td></tr>`;
+          decodedString += `<tr><td>Destination</td><td>${results.groups.dest}</td></tr>`;
+          decodedString += `<tr><td>Tail</td><td>${results.groups.tail}</td></tr>`;
+          if (results.groups.agate) {
+            decodedString += `<tr><td>Arrival Gate</td><td>${results.groups.agate}</td></tr>`;
+            decodedString += `<tr><td>Scheduled Time of Arrival (STA)</td><td>${results.groups.sta}</td></tr>`;
+          }
+
+          posRptRegex = /\/(?<field>\w+)\s(?<value>[\w\+\-:\.^\s]+)/g; // eslint-disable-line no-useless-escape
+          const remainingParts = parts.slice(1);
+          for (const part of remainingParts) { // eslint-disable-line no-restricted-syntax
+            results = part.matchAll(posRptRegex);
+            console.log(results);
+            if (results) {
+              for (const result of results) { // eslint-disable-line no-restricted-syntax
+                switch (result.groups.field) {
+                  case 'DWND':
+                    decodedString += `<tr><td>Unknown (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
+                    break;
+                  case 'ETA':
+                    decodedString += `<tr><td>Estimated Time of Arrival (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
+                    break;
+                  case 'FOB':
+                    decodedString += `<tr><td>Fuel on Board (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
+                    break;
+                  case 'FL':
+                    decodedString += `<tr><td>Flight Level (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
+                    break;
+                  case 'HDG':
+                    decodedString += `<tr><td>Heading (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
+                    break;
+                  case 'MCH':
+                    decodedString += `<tr><td>Aircraft Speed (${result.groups.field})</td><td>${result.groups.value} Mach</td></tr>`;
+                    break;
+                  case 'NWYP':
+                    decodedString += `<tr><td>Unknown (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
+                    break;
+                  case 'POS': {
+                    const posRegex = /^(?<latd>[NS])(?<lat>.+)(?<lngd>[EW])(?<lng>.+)/;
+                    const posResult = result.groups.value.match(posRegex);
+                    decodedString += `<tr><td>Position (${result.groups.field})</td><td>${(Number(posResult.groups.lat) / 100).toPrecision(5)} ${posResult.groups.latd}, ${(Number(posResult.groups.lng) / 100).toPrecision(5)} ${posResult.groups.lngd}</td></tr>`;
+                    break;
+                  }
+                  case 'SAT':
+                    decodedString += `<tr><td>Static Air Temperature (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
+                    break;
+                  case 'SWND':
+                    decodedString += `<tr><td>Unknown (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
+                    break;
+                  case 'TAS':
+                    decodedString += `<tr><td>True Airspeed (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
+                    break;
+                  default:
+                    decodedString += `<tr><td>Unknown (${result.groups.field})</td><td>${result.groups.value}</td></tr>`;
+                }
+              }
+            }
+          }
+          decodedString += '</table>';
+        }
       }
     }
 
