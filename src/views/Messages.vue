@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <div class="container">
-      <h3>Messages</h3>
       <MessagesNav />
       <MessagesList :messages="messages" />
     </div>
