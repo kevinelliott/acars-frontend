@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container">
-      <h3>Flights</h3>
+      <FlightsNav />
       <FlightsMap />
       <FlightsTable :flights="activeFlights" class="mb-4" />
     </div>
@@ -13,11 +13,13 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
 import FlightsMap from '@/components/flights/FlightsMap.vue';
+import FlightsNav from '@/components/flights/FlightsNav.vue';
 import FlightsTable from '@/components/flights/FlightsTable.vue';
 
 @Component({
   components: {
     FlightsMap,
+    FlightsNav,
     FlightsTable,
   },
 })
