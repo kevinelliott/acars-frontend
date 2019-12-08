@@ -35,12 +35,21 @@
         </tr>
       </table>
       <div class="mb-2">
-        <h5>Text</h5>
+        <h4>Text</h4>
         <div class="text-wrap text-break" v-html="convertNewlinesToBRs(message.text)" />
       </div>
       <div class="mb-2">
-        <h5>Decoded</h5>
+        <h4>Decoded</h4>
         <div v-html="decodeMessage(message)" />
+      </div>
+      <div class="mb-2">
+        <h4>Decoded (New Decoder)</h4>
+        <div v-if="decodedMessage.decoded">
+          <MessageDecodingTable :decodedMessage="decodedMessage" />
+        </div>
+        <div v-else class="text-muted">
+          Not currently decodeable.
+        </div>
       </div>
     </div>
   </div>
@@ -54,16 +63,20 @@ import VueAxios from 'vue-axios';
 
 import { MessageDecoder } from '@/utilities/decoders/acars/MessageDecoder';
 
+import MessageDecodingTable from '@/components/messages/MessageDecodingTable.vue';
 import MessagesNav from '@/components/MessagesNav.vue';
 
 Vue.use(VueAxios, axios);
 
 @Component({
   components: {
+    MessageDecodingTable,
     MessagesNav,
   },
 })
 export default class MessageDetail extends Vue {
+  decoded = { decoded: false };
+
   message = {};
 
   beforeMount() {
@@ -85,6 +98,14 @@ export default class MessageDetail extends Vue {
     return text ? text.split('\n').join('<br>') : '';
   }
 
+  decode(message) { // eslint-disable-line class-methods-use-this
+    return new MessageDecoder(this.$store).decode(message);
+  }
+
+  get decodedMessage() {
+    return this.decoded;
+  }
+
   decodeMessage(message) { // eslint-disable-line class-methods-use-this
     return new MessageDecoder(this.$store).decodeMessage(message);
   }
@@ -95,6 +116,8 @@ export default class MessageDetail extends Vue {
       console.log('Fetched message detail.');
       console.log(response.data);
       this.message = response.data;
+      this.decoded = this.decode(this.message);
+      console.log(this.decoded);
     });
   }
 }

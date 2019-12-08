@@ -43,7 +43,7 @@ Vue.use(VueAxios, axios);
 export default class AdminStatsErrors extends Vue {
   created() { // eslint-disable-line class-methods-use-this
     console.log('Fetching stats...');
-    Vue.axios.get(`${this.$store.state.apiServerBaseUrl}/admin/stats`).then((response) => {
+    Vue.axios.get(`${this.$store.state.apiServerBaseUrl}/admin/stats/errors`).then((response) => {
       console.log('Fetched stats.');
       this.saveStats(response.data);
       console.log(response.data);

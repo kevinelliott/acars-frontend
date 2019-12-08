@@ -1,10 +1,74 @@
 import { Store } from 'vuex';
 
+import { DecoderPluginInterface } from './DecoderPluginInterface'; // eslint-disable-line import/no-cycle
+
+import * as Plugins from './plugins/official';
+
 export class MessageDecoder {
   store : Store<any>;
 
+  plugins : Array<DecoderPluginInterface>;
+
   constructor(store: Store<any>) {
+    this.plugins = [];
     this.store = store;
+
+    this.registerPlugin(new Plugins.LabelColonComma(this));
+    this.registerPlugin(new Plugins.Label5Z(this));
+    this.registerPlugin(new Plugins.Label15(this));
+    this.registerPlugin(new Plugins.LabelH1_M1BPOS(this));
+    this.registerPlugin(new Plugins.Label80(this));
+    this.registerPlugin(new Plugins.LabelSQ(this));
+  }
+
+  registerPlugin(plugin: DecoderPluginInterface, store: Store<any> = this.store) : boolean {
+    const pluginInstance = plugin;
+    plugin.onRegister(this.store);
+    this.plugins.push(plugin);
+    return true;
+  }
+
+  decode(message: any) {
+    console.log('All plugins');
+    console.log(this.plugins);
+    const usablePlugins = this.plugins.filter((plugin) => {
+      const qualifiers : any = plugin.qualifiers();
+
+      if (qualifiers.labels.includes(message.label)) {
+        if (qualifiers.preambles && qualifiers.preambles.length > 0) {
+          const matching = qualifiers.preambles.filter((preamble: string) => { // eslint-disable-line arrow-body-style,max-len
+            console.log(message.text.substring(0, preamble.length));
+            console.log(preamble);
+            return message.text.substring(0, preamble.length) === preamble;
+          });
+          console.log(matching);
+          return matching.length >= 1;
+        } else { // eslint-disable-line no-else-return
+          return true;
+        }
+      }
+
+      return false;
+    });
+    console.log('Usable plugins');
+    console.log(usablePlugins);
+
+    let result;
+    if (usablePlugins.length > 0) {
+      const plugin: DecoderPluginInterface = usablePlugins[0];
+      result = plugin.decode(message);
+    } else {
+      result = {
+        decoded: false,
+        decodeLevel: 'none',
+        error: 'No known decoder plugin for this message',
+        remaining: {
+          text: message.text,
+        },
+      };
+    }
+
+    return result;
   }
 
   decodeMessage(message: any) : string {

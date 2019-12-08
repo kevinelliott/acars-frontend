@@ -10,6 +10,7 @@ import AdminStatsFlights from '@/views/admin/stats/AdminStatsFlights.vue';
 import AdminStatsFrequencies from '@/views/admin/stats/AdminStatsFrequencies.vue';
 import AdminStatsMessageLabels from '@/views/admin/stats/AdminStatsMessageLabels.vue';
 import AdminStatsStations from '@/views/admin/stats/AdminStatsStations.vue';
+import Flights from '@/views/Flights.vue';
 import Home from '@/views/Home.vue';
 import MessageDetail from '@/views/MessageDetail.vue';
 import Messages from '@/views/Messages.vue';
@@ -77,6 +78,11 @@ const routes = [
     path: '/admin/stats/stations',
     name: 'admin_stats_stations',
     component: AdminStatsStations,
+  },
+  {
+    path: '/flights',
+    name: 'flights',
+    component: Flights,
   },
   {
     path: '/messages',

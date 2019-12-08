@@ -9,6 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     acarsData,
+    activeFlights: [],
     apiServerBaseUrl: process.env.NODE_ENV === 'production' ? 'https://api.airframes.io' : 'http://localhost:3001',
     clients: {},
     isConnected: false,
@@ -54,6 +55,9 @@ export default new Vuex.Store({
     prependNewLiveMessages(state: any, newMessages: Array<any>) {
       Vue.set(state, 'messagesLive', newMessages.concat(state.messagesLive));
     },
+    setActiveFlights(state: any, flights: Array<any>) {
+      Vue.set(state, 'activeFlights', flights);
+    },
     setLastHeardFromAirframe(state: any, tail: any) {
       if (!state.isLiveMessagesPaused) {
         let { lastMessageFromAirframes } = state;
@@ -90,6 +94,9 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    socket_activeFlights({ commit, dispatch }, flights) {
+      commit('setActiveFlights', flights);
+    },
     socket_newMessages({ commit, dispatch }, messages) {
       // console.log('Store: Socket: newMessages');
       for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in
