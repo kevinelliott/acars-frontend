@@ -31,7 +31,7 @@ Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 
 // eslint-disable-next-line
-delete Icon.Default.prototype._getIconUrl;
+delete (Icon.Default.prototype as any)._getIconUrl;
 Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'), // eslint-disable-line global-require
   iconUrl: require('leaflet/dist/images/marker-icon.png'), // eslint-disable-line global-require
