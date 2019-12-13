@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 800px; width: 100%">
+  <div style="margin: auto; height: 100%; width: 100%">
     <l-map
       ref="flightsMap"
       style="height: 100%; width: 100%"

@@ -104,6 +104,7 @@
     </div>
     <div class="col-8">
       <MessagesLivePaused />
+      <LoadingDots v-if="filteredMessages.length == 0" />
       <MessagesListItemSlim
         v-for="message in filteredMessages"
         :key="`message-list-item-${message.id}`"
@@ -129,6 +130,7 @@ import Multiselect from 'vue-multiselect';
 import moment from 'moment-timezone';
 
 import ActiveAirframes from '@/components/ActiveAirframes.vue';
+import LoadingDots from '@/components/shared/LoadingDots.vue';
 import { MessageFilter } from '@/utilities/MessageFilter';
 import MessagesListItem from '@/components/MessagesListItem.vue';
 import MessagesListItemSlim from '@/components/MessagesListItemSlim.vue';
@@ -145,6 +147,7 @@ import MessagesLivePaused from '@/components/messages/MessagesLivePaused.vue';
   },
   components: {
     ActiveAirframes,
+    LoadingDots,
     MessagesListItem,
     MessagesListItemSlim,
     MessagesLivePaused,
