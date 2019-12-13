@@ -87,11 +87,11 @@ export class Label80 extends DecoderPlugin {
               case 'POS': {
                 const posRegex = /^(?<latd>[NS])(?<lat>.+)(?<lngd>[EW])(?<lng>.+)/;
                 const posResult = result.groups.value.match(posRegex);
-                const latitude = (Number(posResult.groups.lat) / 1000) * (posResult.groups.lngd == 'S' ? -1 : 1);
-                const longitude = (Number(posResult.groups.lng) / 1000) * (posResult.groups.lngd == 'W' ? -1 : 1);
+                const latitude = (Number(posResult.groups.lat) / 1000) * (posResult.groups.lngd === 'S' ? -1 : 1);
+                const longitude = (Number(posResult.groups.lng) / 1000) * (posResult.groups.lngd === 'W' ? -1 : 1);
                 decodeResult.raw.position = {
-                  latitude: latitude,
-                  longitude: longitude,
+                  latitude,
+                  longitude,
                 };
                 decodeResult.formatted.items.position = {
                   label: this.descriptions[result.groups.field],
