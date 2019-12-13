@@ -92,7 +92,7 @@ export class Label80 extends DecoderPlugin {
                 decodeResult.raw.position = {
                   latitude: latitude,
                   longitude: longitude,
-                }
+                };
                 decodeResult.formatted.items.position = {
                   label: this.descriptions[result.groups.field],
                   value: `${(Number(posResult.groups.lat) / 1000).toPrecision(5)} ${posResult.groups.latd}, ${(Number(posResult.groups.lng) / 1000).toPrecision(5)} ${posResult.groups.lngd}`,

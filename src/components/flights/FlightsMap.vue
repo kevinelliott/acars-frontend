@@ -17,10 +17,9 @@
         :duration="2000"
       >
         <l-icon
-          iconUrl="https://c7.uihere.com/icons/73/941/94/plane-ticket-transportation-vacation-icon-9da33228b803bd44baa206d8f5491157.png"
-          iconSize="[80, 80]"
-          iconAnchor="[40, 40]"
+          iconAnchor="[15, 15]"
           >
+          <img width="30" src="https://c7.uihere.com/icons/73/941/94/plane-ticket-transportation-vacation-icon-9da33228b803bd44baa206d8f5491157.png"/>
         </l-icon>
       </l-moving-marker>
       <v-locatecontrol />
