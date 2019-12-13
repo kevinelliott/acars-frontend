@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div class="bg-white" style="height: 300px;">
     <b-table
       bordered
       responsive="sm"
       small
       selectable="false"
+      sticky-header
+      head-variant="dark"
       :items="myProvider()"
       :fields="fields"
       :sort-by.sync="sortBy"

@@ -1,22 +1,30 @@
 <template>
-  <div style="height: 600px; width: 100%" class='mb-4'>
+  <div style="height: 800px; width: 100%">
     <l-map
       ref="flightsMap"
-      style="height: 95%; width: 100%"
+      style="height: 100%; width: 100%"
       :zoom='zoom'
+      :center="center"
       @update:zoom='zoomUpdated'
       @update:center='centerUpdated'
       @update:bounds='boundsUpdated'
     >
       <l-tile-layer :url="url"></l-tile-layer>
-      <l-marker :lat-lng="[47.413220, -1.219482]"></l-marker>
+      <l-moving-marker
+        v-for="flight in flightsWithCoordinates"
+        :key="`flight-marker-${flight.id}`"
+        :lat-lng="[flight.latitude, flight.longitude]"
+        :duration="2000"
+      >
+        <l-icon
+          iconUrl="https://c7.uihere.com/icons/73/941/94/plane-ticket-transportation-vacation-icon-9da33228b803bd44baa206d8f5491157.png"
+          iconSize="[80, 80]"
+          iconAnchor="[40, 40]"
+          >
+        </l-icon>
+      </l-moving-marker>
       <v-locatecontrol />
     </l-map>
-    <div class="info text-muted text-sm" style="height: 5%">
-      <span class='mr-2'>Center: {{ center }}</span>
-      <span class='mr-2'>Zoom: {{ zoom }}</span>
-      <span>Bounds: {{ bounds }}</span>
-    </div>
   </div>
 </template>
 
@@ -24,10 +32,14 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 // const Vue2LeafletLocatecontrol = require('vue2-leaflet-locatecontrol');
-import Vue2LeafletLocatecontrol from 'vue2-leaflet-locatecontrol';
+import Vue2LeafletLocatecontrol from 'vue2-leaflet-locatecontrol'; // eslint-disable-line
+import LMovingMarker from 'vue2-leaflet-movingmarker'; // eslint-disable-line
+import { LIcon } from 'vue2-leaflet';
 
 @Component({
   components: {
+    'l-icon': LIcon,
+    'l-moving-marker': LMovingMarker,
     'v-locatecontrol': Vue2LeafletLocatecontrol,
   },
 })
@@ -37,8 +49,8 @@ export default class FlightsMap extends Vue {
   data() { // eslint-disable-line class-methods-use-this
     return {
       url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-      zoom: 3,
-      center: [47.413220, -1.219482],
+      zoom: 5,
+      center: [39.8283, -98.5795],
       bounds: null,
     };
   }
@@ -58,6 +70,11 @@ export default class FlightsMap extends Vue {
 
   boundsUpdated(bounds: any) {
     this.$data.bounds = bounds;
+  }
+
+  get flightsWithCoordinates() {
+    const flights = this.flights.filter((flight: any) => flight.latitude && flight.latitude !== 0);
+    return flights;
   }
 }
 </script>

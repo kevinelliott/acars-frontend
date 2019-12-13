@@ -68,6 +68,9 @@ export class MessageDecoder {
       };
     }
 
+    console.log('Result');
+    console.log(result);
+
     return result;
   }
 

@@ -1,7 +1,7 @@
 <template>
-  <div id="nav" class="mt-0 pt-0 pb-3">
+  <div id="nav" class="mt-0 pt-3 pb-3 border-bottom">
     <h3>Flights</h3>
-    <router-link to="/flights">Active</router-link>
+    <router-link to="/flights">Live</router-link>
   </div>
 </template>
 

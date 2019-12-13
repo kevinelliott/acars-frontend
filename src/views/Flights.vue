@@ -1,9 +1,11 @@
 <template>
   <div class="home">
-    <div class="container">
+    <div>
       <FlightsNav />
-      <FlightsMap />
-      <FlightsTable :flights="activeFlights" class="mb-4" />
+      <FlightsMap :flights="activeFlights" />
+      <div class="fixed-bottom" style="bottom: 33px; height: 300px;">
+        <FlightsTable :flights="activeFlights" />
+      </div>
     </div>
   </div>
 </template>
