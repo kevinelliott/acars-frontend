@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home p-4">
     <div class="container">
       <h3>Stations</h3>
       <StationsTable :stations="stations" />

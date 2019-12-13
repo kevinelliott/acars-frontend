@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home p-4">
     <div class="container">
       <MessagesNav />
       <MessagesList :messages="messages" :enableActiveAirframes="true" :enableFilters="true" />

@@ -1,10 +1,10 @@
 <template>
-  <div style="margin: auto; height: 100%; width: 100%">
+  <div>
     <l-map
       ref="flightsMap"
-      style="height: 100%; width: 100%"
       :zoom='zoom'
       :center="center"
+      style="height: 100%;"
       @update:zoom='zoomUpdated'
       @update:center='centerUpdated'
       @update:bounds='boundsUpdated'

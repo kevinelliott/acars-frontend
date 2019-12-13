@@ -1,21 +1,31 @@
 <template>
-  <div class="about container text-center">
-    <div class="d-flex justify-content-center">
+  <div class="about text-center">
+    <div id="nav" class="mt-0 pt-3 pb-3 border-bottom">
+      <h3 class="m-0">About</h3>
+    </div>
+    <div class="p-4 d-flex justify-content-center">
       <div class="w-75">
-        <h1>About</h1>
         <div class="mb-4 text-justify">
-          This is an ACARS aggregation server. The data here is comprised of volunteer feeders.
+          This is an ACARS aggregation server architected, designed and built by
+          <a href="https://github.com/kevinelliott">Kevin Elliott</a>.
+          The data available here is collected from volunteer feeders, aggregated, and processed.
           In order to see the roadmap or submit a feature request, visit the
           <a href="https://trello.com/b/1vq5pHNq/acars-server-public-board" target="_blank">
-            Acars Server Public Trello Board
-          </a>.
+            Acars Server Public Trello Board</a>.
         </div>
         <br>
         <h1>Feeding</h1>
-        <div class="mb-4 text-justify">
+        <div class="mb-3 text-justify">
           The more data we receive, the more benefit to development and to other users there is.
-          Consider sending in your ACARS and VDL2 traffic.
+          Consider sending in your ACARS and VDL2 traffic. Development areas that strongly benefit
+          from collecting data from more feeders are:
         </div>
+        <ul class="mb-4 text-left">
+          <li>Message Decoders (making sense of the text in ACARS messages)</li>
+          <li>Scalability (optimizing aggregator, database, API, and UI based on high load)</li>
+          <li>Flight Positions (more data == more positions)</li>
+          <li>Flight Continuity (more feeders == receive all data from a flight)</li>
+        </ul>
         <h4>ACARS</h4>
         <div class="mb-3 text-justify">
           We currently support <a href="https://github.com/TLeconte/acarsdec" target="_blank">acarsdec</a>

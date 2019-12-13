@@ -1,51 +1,60 @@
 <template>
-  <div id="app">
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand>ACARS</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item to="/">Home</b-nav-item>
-          <b-nav-item to="/stations">Stations</b-nav-item>
-          <b-nav-item to="/stations/leaderboard">Leaderboard</b-nav-item>
-          <b-nav-item to="/airframes">Airframes</b-nav-item>
-          <b-nav-item to="/flights">Flights</b-nav-item>
-          <b-nav-item to="/messages/live">Messages</b-nav-item>
-          <b-nav-item to="/about">About</b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-    <keep-alive>
-      <router-view/>
-    </keep-alive>
-    <div id="status_bar"
-         class="fixed-bottom p-1 px-4 bg-light border-top d-flex justify-content-between">
-      <a
-        :href="`https://github.com/kevinelliott/acars-frontend/releases/tag/v${version.version()}`"
-        target="_blank"
-        class="font-weight-light text-muted">
-        {{ version.toString() }}
-      </a>
-      <span
-        class="font-weight-bold"
-        :class="{ 'text-success': $socket.connected, 'text-danger': !$socket.connected }">
-        {{ $socket.connected ? 'Connected' : 'Disconnected' }}
-      </span>
-      <span class="font-weight-light text-muted">
-        {{ $store.state.messagesLivePerSecond }} msgs/second
-        <span v-if="$store.state.isLiveMessagesPaused" class="ml-2">
-          <font-awesome-icon
-            icon="play-circle"
-            v-on:click="playLiveMessages()"
-            />
-        </span>
-        <span v-else class="ml-2">
-          <font-awesome-icon
-            icon="pause-circle"
-            v-on:click="pauseLiveMessages()"
-            />
-        </span>
-      </span>
+  <div id="app" class="height: 100%;">
+    <div class="d-flex vh-100 flex-column">
+      <div class="flex-row" style="height: 56px;">
+        <b-navbar toggleable="lg" type="dark" variant="info">
+          <b-navbar-brand>ACARS</b-navbar-brand>
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+          <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav>
+              <b-nav-item to="/">Home</b-nav-item>
+              <b-nav-item to="/stations">Stations</b-nav-item>
+              <b-nav-item to="/stations/leaderboard">Leaderboard</b-nav-item>
+              <b-nav-item to="/airframes">Airframes</b-nav-item>
+              <b-nav-item to="/flights">Flights</b-nav-item>
+              <b-nav-item to="/messages/live">Messages</b-nav-item>
+              <b-nav-item to="/about">About</b-nav-item>
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
+      </div>
+      <div
+        style="height: -webkit-calc(100% - 88px); height: calc(100% - 88px); overflow-y: scroll;">
+        <keep-alive>
+          <router-view/>
+        </keep-alive>
+      </div>
+      <div class="flex-row" style="height: 32px;">
+        <div id="status_bar"
+            class="p-1 px-4 bg-light border-top d-flex justify-content-between">
+          <a
+            :href="`https://github.com/kevinelliott/acars-frontend/releases/tag/v${version.version()}`"
+            target="_blank"
+            class="font-weight-light text-muted">
+            {{ version.toString() }}
+          </a>
+          <span
+            class="font-weight-bold"
+            :class="{ 'text-success': $socket.connected, 'text-danger': !$socket.connected }">
+            {{ $socket.connected ? 'Connected' : 'Disconnected' }}
+          </span>
+          <span class="font-weight-light text-muted">
+            {{ $store.state.messagesLivePerSecond }} msgs/second
+            <span v-if="$store.state.isLiveMessagesPaused" class="ml-2">
+              <font-awesome-icon
+                icon="play-circle"
+                v-on:click="playLiveMessages()"
+                />
+            </span>
+            <span v-else class="ml-2">
+              <font-awesome-icon
+                icon="pause-circle"
+                v-on:click="pauseLiveMessages()"
+                />
+            </span>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>

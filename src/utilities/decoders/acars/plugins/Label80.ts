@@ -14,7 +14,7 @@ export class Label80 extends DecoderPlugin {
     HDG: 'Heading',
     MCH: 'Aircraft Speed',
     NWYP: 'Next Waypoint',
-    POS: 'Position',
+    POS: 'Aircraft Position',
     SAT: 'Static Air Temperature',
     SWND: 'Unknown',
     TAS: 'True Airspeed',
@@ -89,7 +89,7 @@ export class Label80 extends DecoderPlugin {
                 const posResult = result.groups.value.match(posRegex);
                 const latitude = (Number(posResult.groups.lat) / 1000) * (posResult.groups.lngd === 'S' ? -1 : 1);
                 const longitude = (Number(posResult.groups.lng) / 1000) * (posResult.groups.lngd === 'W' ? -1 : 1);
-                decodeResult.raw.position = {
+                decodeResult.raw.aircraft_position = {
                   latitude,
                   longitude,
                 };

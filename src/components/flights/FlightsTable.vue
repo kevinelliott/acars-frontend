@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white" style="height: 300px;">
+  <div class="bg-white">
     <b-table
       bordered
       responsive="sm"
