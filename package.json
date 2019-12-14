@@ -1,6 +1,6 @@
 {
   "name": "acars-frontend",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -41,6 +41,8 @@
     "vuex": "^3.1.2"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.11.0",
+    "@typescript-eslint/parser": "^2.11.0",
     "@vue/cli-plugin-babel": "^4.1.1",
     "@vue/cli-plugin-eslint": "^4.1.1",
     "@vue/cli-plugin-router": "^4.1.1",
@@ -54,8 +56,6 @@
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-vue": "^6.0.1",
     "typescript": "~3.7.3",
-    "@typescript-eslint/eslint-plugin": "^2.11.0",
-    "@typescript-eslint/parser": "^2.11.0",
     "vue-template-compiler": "^2.6.11"
   }
 }
