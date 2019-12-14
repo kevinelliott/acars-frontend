@@ -62,10 +62,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
-Vue.use(VueMoment, {
-  moment,
-});
-
+Vue.use(VueMoment, { moment });
 Vue.use(BootstrapVue);
 
 new Vue({

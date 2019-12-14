@@ -61,7 +61,7 @@ import { Component, Watch } from 'vue-property-decorator';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
-import { MessageDecoder } from '@/utilities/decoders/acars/MessageDecoder';
+import { MessageDecoder } from '@airframes/acars-decoder/dist/MessageDecoder';
 
 import MessageDecodingTable from '@/components/messages/MessageDecodingTable.vue';
 import MessagesNav from '@/components/MessagesNav.vue';

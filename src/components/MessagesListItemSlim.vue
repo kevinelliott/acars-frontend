@@ -162,8 +162,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
+import { MessageDecoder } from '@airframes/acars-decoder/dist/MessageDecoder';
 import FlightDetailModal from '@/components/flights/FlightDetailModal.vue';
-import { MessageDecoder } from '@/utilities/decoders/acars/MessageDecoder';
 
 @Component({
   components: {
@@ -200,8 +200,8 @@ export default class MessagesListItem extends Vue {
     return text.split('\n').join('<br>');
   }
 
-  decodeMessage(message: any) : string {
-    const decoder = new MessageDecoder(this.$store);
+  decodeMessage(message: any) : string { // eslint-disable-line class-methods-use-this
+    const decoder = new MessageDecoder();
     return decoder.decodeMessage(message);
   }
 
