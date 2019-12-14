@@ -196,6 +196,7 @@ export default class MessagesList extends Vue {
       .includeByText(textToInclude)
       .excludeByLabels(labelsToExclude)
       .excludeByErrors(errorsToExclude)
+      .limit(500)
       .filter();
   }
 

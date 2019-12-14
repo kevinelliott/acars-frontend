@@ -46,6 +46,11 @@ export class MessageFilter {
   filter(): Array<any> {
     return this.messages;
   }
+
+  limit(count: number) : MessageFilter {
+    this.messages = this.messages.slice(0, count);
+    return this;
+  }
 }
 
 export default {
