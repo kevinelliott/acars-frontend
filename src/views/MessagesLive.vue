@@ -2,7 +2,35 @@
   <div class="home p-4">
     <div class="container">
       <MessagesNav />
-      <MessagesList :messages="messages" :enableActiveAirframes="true" :enableFilters="true" />
+      <div class="row" v-if="enableActiveAirframes || enableFilters">
+        <div class="col-4">
+          <MessageFilters
+            :knownAirframes="knownAirframes"
+            :knownStations="knownStations"
+            v-on:on-filters-updated="filtersUpdated"
+            />
+          <div>
+            Matching {{ filteredMessages.length }} of {{ messages.length }} Messages
+          </div>
+          <ActiveAirframes v-if="enableActiveAirframes" />
+        </div>
+        <div class="col-8">
+          <MessagesList
+            :messages="messages"
+            :enableActiveAirframes="false"
+            :enableFilters="true"
+            />
+        </div>
+      </div>
+      <div class="row" v-else>
+        <div class="col-12">
+          <MessagesList
+            :messages="messages"
+            :enableActiveAirframes="false"
+            :enableFilters="true"
+            />
+        </div>
+      </div>
     </div>
   </div>
 </template>

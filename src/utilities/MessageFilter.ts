@@ -6,18 +6,18 @@ export class MessageFilter {
   }
 
   excludeByErrors(errorsToExclude: Array<string>) : MessageFilter {
-    this.messages = this.messages.filter(message => !errorsToExclude.includes(message.error));
+    this.messages = this.messages.filter((message) => !errorsToExclude.includes(message.error));
     return this;
   }
 
   excludeByLabels(labelsToExclude: Array<string>) : MessageFilter {
-    this.messages = this.messages.filter(message => !labelsToExclude.includes(message.label));
+    this.messages = this.messages.filter((message) => !labelsToExclude.includes(message.label));
     return this;
   }
 
   includeByLabels(labelsToInclude: Array<string>) : MessageFilter {
     if (labelsToInclude.length > 0) {
-      this.messages = this.messages.filter(message => labelsToInclude.includes(message.label));
+      this.messages = this.messages.filter((message) => labelsToInclude.includes(message.label));
     }
     return this;
   }
@@ -38,7 +38,7 @@ export class MessageFilter {
 
   includeByText(textToInclude: string) : MessageFilter {
     if (textToInclude && textToInclude !== '') {
-      this.messages = this.messages.filter(message => message.text.includes(textToInclude));
+      this.messages = this.messages.filter((message) => message.text.includes(textToInclude));
     }
     return this;
   }

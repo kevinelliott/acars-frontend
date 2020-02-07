@@ -27,7 +27,7 @@
       <div class="mb-2 text-wrap text-break" style="width: 60%;">
         {{ message.text }}
       </div>
-      <template v-slot:modal-footer="{ ok, cancel, hide }">
+      <template v-slot:modal-footer="{ ok, cancel }">
         <div class="w-100">
           <b-button size="sm" variant="secondary" class="float-left" @click="refresh()">
             <font-awesome-icon icon="sync" v-if="!refreshing" />

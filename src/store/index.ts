@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import moment from 'moment-timezone';
+import LogRocket from 'logrocket';
 
 import acarsData from '../assets/acars-data.json';
 
@@ -100,7 +101,9 @@ export default new Vuex.Store({
     socket_newMessages({ commit, dispatch }, messages) {
       // console.log('Store: Socket: newMessages');
       for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in
-        commit('setLastHeardFromStation', message.station);
+        if (message.station) {
+          commit('setLastHeardFromStation', message.station);
+        }
       }
 
       for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in,max-len

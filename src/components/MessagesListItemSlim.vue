@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4 border border-grey" @click="showMessageModal">
-    <FlightDetailModal :message="message" :flight="message.flight" />
+    <FlightDetailModal v-if="message.flight" :message="message" :flight="message.flight" />
     <b-modal
       :id="`message-modal-${message.id}`"
       size="lg"
@@ -10,7 +10,7 @@
       <h5>ID</h5>
       <div class="mb-2">{{ message.id }}</div>
       <h5>Station</h5>
-      <div class="mb-2">{{ message.station.ident }}</div>
+      <div class="mb-2">{{ !!message.station ? message.station.ident : 'N/A' }}</div>
       <h5>Text</h5>
       <div class="mb-2 text-wrap text-break" v-html="convertNewlinesToBRs(message.text)" />
       <h5>Decoded</h5>
@@ -20,7 +20,7 @@
           Not decodable at this time.
         </span>
       </div>
-      <template v-slot:modal-footer="{ ok, cancel, hide }">
+      <template v-slot:modal-footer="{ ok, cancel }">
         <div class="w-100">
           <span @click="cancel()" class="float-left">
             <router-link
@@ -44,12 +44,15 @@
               <div class="p-1 float-left">
                 {{ message.timestamp }}
 
-                <span v-if="message.airframe.tail">
+                <span class="ml-1 text-muted">S:</span>
+                {{ !!message.sourceType ? message.sourceType.toUpperCase()  : 'UNKNOWN' }}
+
+                <span v-if="!!message.airframe && !!message.airframe.tail">
                   <span class="ml-1 text-muted">T:</span>
-                  {{ message.airframe ? message.airframe.tail : 'N/A' }}
+                  {{ message.airframe.tail }}
                 </span>
 
-                <span v-if="message.flight.flight">
+                <span v-if="!!message.flight && !!message.flight.flight">
                   <span class="ml-1 text-muted">F: </span>
                   <a
                     href="#"
@@ -61,11 +64,13 @@
                 </span>
               </div>
               <div class="p-1 float-right">
-                <span class="text-muted">ST:</span>
-                {{ message.station ? message.station.ident : 'N/A' }}
+                <span v-if="!!message.station && !!message.station.ident">
+                  <span class="text-muted">ST:</span>
+                  {{ !!message.station ? message.station.ident : 'N/A' }}
+                </span>
 
-                <span class="ml-1 text-muted">F: </span>
-                <span v-if="message.frequency">
+                <span v-if="!!message.frequency">
+                  <span class="ml-1 text-muted">F: </span>
                   <a :id="`message-${message.id}-frequency`" href="#">{{ message.frequency }}</a>
                   <b-popover
                     :target="`message-${message.id}-frequency`"
@@ -76,12 +81,9 @@
                     {{ frequencyName(message.frequency) }}
                   </b-popover>
                 </span>
-                <span v-else>
-                  N/A
-                </span>
 
-                <span class="ml-1 text-muted">M: </span>
-                <span v-if="message.mode">
+                <span v-if="!!message.mode">
+                  <span class="ml-1 text-muted">M: </span>
                   <a :id="`message-${message.id}-mode`" href="#">{{ message.mode }}</a>
                   <b-popover
                     :target="`message-${message.id}-mode`"
@@ -92,12 +94,9 @@
                     Mode {{ message.mode }}
                   </b-popover>
                 </span>
-                <span v-else>
-                  N/A
-                </span>
 
-                <span class="ml-1 text-muted">L: </span>
-                <span v-if="message.label">
+                <span v-if="!!message.label">
+                  <span class="ml-1 text-muted">L: </span>
                   <a
                     :title="labelName(message.label)"
                     :id="`message-${message.id}-label`"
@@ -111,22 +110,20 @@
                     {{ labelName(message.label) }}
                   </b-popover>
                 </span>
-                <span v-else>
-                  N/A
+
+                <span v-if="!!message.blockId">
+                  <span class="ml-1 text-muted">B:</span>
+                  {{ message.blockId }}
                 </span>
 
-                <span class="ml-1 text-muted">B:</span>
-                {{ message.blockId ? message.blockId : 'N/A' }}
-
-                <span class="ml-1 text-muted">M#:</span>
-                {{ message.messageNumber ? message.messageNumber : 'N/A' }}
+                <span v-if="!!message.messageNumber">
+                  <span class="ml-1 text-muted">M#:</span>
+                  {{ message.messageNumber }}
+                </span>
 
                 <span v-if="message.error >= 1" class="ml-1 text-danger">
                   <strong>E:</strong>
                   {{ message.error }}
-                </span>
-                <span v-else>
-                  <span class="text-muted">E:</span> 0
                 </span>
               </div>
             </small>
@@ -170,7 +167,7 @@ import FlightDetailModal from '@/components/flights/FlightDetailModal.vue';
     FlightDetailModal,
   },
 })
-export default class MessagesListItem extends Vue {
+export default class MessagesListItemSlim extends Vue {
   @Prop() private message!: any;
 
   frequencyName(frequency: number) : string {
@@ -197,7 +194,7 @@ export default class MessagesListItem extends Vue {
   }
 
   convertNewlinesToBRs(text: string) : string { // eslint-disable-line class-methods-use-this
-    return text.split('\n').join('<br>');
+    return text ? text.split('\n').join('<br>') : text;
   }
 
   decodeMessage(message: any) : string { // eslint-disable-line class-methods-use-this

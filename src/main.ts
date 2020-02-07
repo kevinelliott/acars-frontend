@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
+import LogRocket from 'logrocket';
 import VueMoment from 'vue-moment';
 import moment from 'moment-timezone';
 
@@ -25,6 +26,8 @@ import 'leaflet/dist/leaflet.css';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+
+LogRocket.init('6n9b7u/acars-dev');
 
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
@@ -62,14 +65,15 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
-Vue.use(VueMoment, {
+Vue.use(require('vue-moment'), {
   moment,
 });
 
 Vue.use(BootstrapVue);
 
+
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: (h) => h(App),
 }).$mount('#app');

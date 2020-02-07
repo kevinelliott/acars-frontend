@@ -93,6 +93,7 @@ const routes = [
     path: '/messages/historical',
     name: 'messages_historical',
     component: MessagesHistorical,
+    props: true,
   },
   {
     path: '/messages/live',
