@@ -100,6 +100,14 @@ export default class MessagesLive extends Vue {
         console.log(this.messages);
       }
     });
+
+    window.addEventListener('keydown', (e) => {
+      console.log(e.code);
+      console.log(e.key);
+      if (e.key === 'p' || e.key === ' ') {
+        this.toggleLiveMessages();
+      }
+    });
   }
 
   currentFilters() {
@@ -223,6 +231,14 @@ export default class MessagesLive extends Vue {
   playLiveMessages() {
     console.log('Playing live messages.');
     this.$store.commit('playLiveMessages');
+  }
+
+  toggleLiveMessages() {
+    if (this.$store.state.isLiveMessagesPaused) {
+      this.playLiveMessages();
+    } else {
+      this.pauseLiveMessages();
+    }
   }
 
   updateRoute() {
