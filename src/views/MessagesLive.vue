@@ -15,7 +15,7 @@
                   v-on:click="playLiveMessages()"
                   />
                 </div>
-                Play
+                Paused
               </span>
               <span v-else>
                 <div>
@@ -25,7 +25,7 @@
                     v-on:click="pauseLiveMessages()"
                     />
                 </div>
-                Pause
+                Updating
               </span>
             </div>
           </div>
