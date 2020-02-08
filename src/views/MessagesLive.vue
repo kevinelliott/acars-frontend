@@ -4,6 +4,31 @@
       <MessagesNav />
       <div class="row">
         <div class="col-4">
+          <div class="mb-4 p-4 border bg-light">
+            <h4 class="mb-4">Control</h4>
+            <div class="font-weight-light text-muted">
+              <span v-if="$store.state.isLiveMessagesPaused">
+                <div>
+                  <font-awesome-icon
+                  icon="play-circle"
+                  class="fa-2x"
+                  v-on:click="playLiveMessages()"
+                  />
+                </div>
+                Play
+              </span>
+              <span v-else>
+                <div>
+                  <font-awesome-icon
+                    icon="pause-circle"
+                    class="fa-2x"
+                    v-on:click="pauseLiveMessages()"
+                    />
+                </div>
+                Pause
+              </span>
+            </div>
+          </div>
           <MessageFilters
             :knownAirframes="knownAirframes"
             :knownStations="knownStations"
@@ -188,6 +213,16 @@ export default class MessagesLive extends Vue {
       }
       this.updateRoute();
     }
+  }
+
+  pauseLiveMessages() {
+    console.log('Pausing live messages.');
+    this.$store.commit('pauseLiveMessages');
+  }
+
+  playLiveMessages() {
+    console.log('Playing live messages.');
+    this.$store.commit('playLiveMessages');
   }
 
   updateRoute() {
