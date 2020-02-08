@@ -1,7 +1,10 @@
 <template>
   <div>
     <MessagesLivePaused />
-    <LoadingDots v-if="messages.length == 0" />
+    <MessageBox
+      v-if="messages.length == 0 && instructions"
+      :message="instructions" />
+    <LoadingDots v-if="messages.length == 0 && !instructions" />
     <MessagesListItemSlim
       v-for="message in messages"
       :key="`message-list-item-${message.id}`"
@@ -16,6 +19,7 @@ import moment from 'moment-timezone';
 
 import ActiveAirframes from '@/components/ActiveAirframes.vue';
 import LoadingDots from '@/components/shared/LoadingDots.vue';
+import MessageBox from '@/components/shared/MessageBox.vue';
 import MessagesListItemSlim from '@/components/MessagesListItemSlim.vue';
 import MessagesLivePaused from '@/components/messages/MessagesLivePaused.vue';
 
@@ -23,11 +27,14 @@ import MessagesLivePaused from '@/components/messages/MessagesLivePaused.vue';
   components: {
     ActiveAirframes,
     LoadingDots,
+    MessageBox,
     MessagesListItemSlim,
     MessagesLivePaused,
   },
 })
 export default class MessagesList extends Vue {
+  @Prop() private instructions!: String;
+
   @Prop() private messages!: Array<Object>;
 
   @Prop({ default: null }) private messagesCountMaximum!: Number;

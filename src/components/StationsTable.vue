@@ -1,14 +1,14 @@
 <template>
   <div>
     <b-table
-      bordered
-      responsive="sm"
-      small
-      selectable="false"
+      :selectable="false"
       :items="myProvider()"
       :fields="fields"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
+      bordered
+      responsive="sm"
+      small
       />
   </div>
 </template>
@@ -54,7 +54,7 @@ export default class StationsTable extends Vue {
       const mergedStation = {
         id: station.id,
         ident: station.ident,
-        ipAddress: this.ipMask(station.ipAddress),
+        ipAddress: this.ipMask(station.ipAddress || 'Unknown'),
         messagesCount: station.messagesCount,
         lastReportAt: station.lastReportAt,
       };

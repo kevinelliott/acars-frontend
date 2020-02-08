@@ -42,33 +42,21 @@
           <div class="p-1 text-dark text-left">
             <small>
               <div class="p-1 float-left">
-                {{ message.timestamp }}
-
-                <span class="ml-1 text-muted">S:</span>
-                {{ !!message.sourceType ? message.sourceType.toUpperCase()  : 'UNKNOWN' }}
-
                 <span v-if="!!message.airframe && !!message.airframe.tail">
-                  <span class="ml-1 text-muted">T:</span>
+                  <span class="ml-1 text-muted">Tail</span>
                   {{ message.airframe.tail }}
                 </span>
 
                 <span v-if="!!message.flight && !!message.flight.flight">
-                  <span class="ml-1 text-muted">F: </span>
+                  <span class="ml-1 text-muted">Flight </span>
                   <a
                     href="#"
                     @click="$bvModal.show(`flight-modal-from-message-${message.id}`)"
                     @click.stop
-                    >
-                      {{ message.flight.flight }}
-                  </a>
+                    >{{ message.flight.flight }}</a>
                 </span>
               </div>
               <div class="p-1 float-right">
-                <span v-if="!!message.station && !!message.station.ident">
-                  <span class="text-muted">ST:</span>
-                  {{ !!message.station ? message.station.ident : 'N/A' }}
-                </span>
-
                 <span v-if="!!message.frequency">
                   <span class="ml-1 text-muted">F: </span>
                   <a :id="`message-${message.id}-frequency`" href="#">{{ message.frequency }}</a>
@@ -149,6 +137,27 @@
                 </span>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-light text-muted">
+      <div class="row">
+        <div class="col-12">
+          <div class="p-1">
+            <small>
+              <div class="p-1 float-left">
+                <span :title="message.source">
+                  {{ message.sourceType.toUpperCase() }}
+                </span>
+                <span v-if="!!message.station && !!message.station.ident">
+                  from {{ message.station.ident }}
+                </span>
+              </div>
+              <div class="p-1 float-right">
+                {{ message.timestamp }}
+              </div>
+            </small>
           </div>
         </div>
       </div>

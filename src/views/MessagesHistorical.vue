@@ -9,13 +9,17 @@
             :knownStations="knownStations"
             :selectedAirframeIds.sync="currentFilters().airframeIdsToInclude"
             v-on:on-filters-updated="filtersUpdated"
+            :showButton="true"
             />
           <div>
             Matching {{ messages.length }} of {{ messages.length }} Messages
           </div>
         </div>
         <div class="col-8">
-          <MessagesList :messages="messages" />
+          <MessagesList
+            :instructions="instructions"
+            :messages="messages"
+            />
         </div>
       </div>
     </div>
@@ -90,6 +94,8 @@ export default class MessagesHistorical extends Vue {
     stationIdsToInclude: [],
     textToInclude: '',
   };
+
+  instructions = 'Begin searching the historical archives by selecting filters to the left and then click Update.';
 
   messages = [];
 

@@ -92,7 +92,10 @@
       </div>
     </div>
 
-    <div class="mb-4">
+    <div
+      v-if="showButton"
+      class="mb-4"
+      >
       <b-button @click="onFiltersUpdated()">
         Update
       </b-button>
@@ -125,6 +128,8 @@ export default class MessageFilters extends Vue {
   @Prop() private knownStations!: Array<any>;
 
   @PropSync('selectedAirframeIds') private airframeIds!: Array<any>;
+
+  @Prop() private showButton!: boolean;
 
   @Emit()
   onFiltersUpdated() {
