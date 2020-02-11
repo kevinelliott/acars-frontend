@@ -139,7 +139,18 @@
                   </div>
                 </span>
                 <span v-else class="text-muted">
-                  No text or data.
+                  <span v-if="message.latitude">
+                    <h5>New Position</h5>
+                    <div>
+                      <strong>Coordinates:</strong> {{ message.latitude }}, {{ message.longitude }}
+                    </div>
+                    <div>
+                      <strong>Altitude:</strong> {{ message.altitude }}
+                    </div>
+                  </span>
+                  <span v-else>
+                    No text or data.
+                  </span>
                 </span>
               </div>
             </div>
