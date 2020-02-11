@@ -7,7 +7,12 @@
         located at various locations around the world. The number of messages and last heard
         update at an interval of 5 seconds and reflect near realtime status of these stations.
       </p>
-      <StationsTable :stations="stations" />
+      <div v-if="stations && stations.length > 0">
+        <StationsTable :stations="stations" />
+      </div>
+      <div v-else>
+        Initial stations data is pending...
+      </div>
     </div>
   </div>
 </template>
