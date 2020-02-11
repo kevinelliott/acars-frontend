@@ -2,6 +2,11 @@
   <div class="home p-4">
     <div class="container">
       <h3>Stations</h3>
+      <p>
+        The following is a list of feeder stations delivering messages heard by SDR equipment
+        located at various locations around the world. The number of messages and last heard
+        update at an interval of 5 seconds and reflect near realtime status of these stations.
+      </p>
       <StationsTable :stations="stations" />
     </div>
   </div>
