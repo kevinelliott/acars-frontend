@@ -140,12 +140,12 @@
                 </span>
                 <span v-else class="text-muted">
                   <span v-if="message.latitude">
-                    <h5>New Position</h5>
+                    <div>Position Report</div>
                     <div>
-                      <strong>Coordinates:</strong> {{ message.latitude }}, {{ message.longitude }}
+                      Coordinates: {{ message.latitude }}, {{ message.longitude }}
                     </div>
                     <div>
-                      <strong>Altitude:</strong> {{ message.altitude }}
+                      Altitude: {{ message.altitude }}
                     </div>
                   </span>
                   <span v-else>
