@@ -141,6 +141,7 @@ export default class MessagesHistorical extends Vue {
   }
 
   fetchMessages() {
+    this.messages = [];
     Vue.axios({
       url: `${this.$store.state.apiServerBaseUrl}/messages`,
       method: 'GET',
