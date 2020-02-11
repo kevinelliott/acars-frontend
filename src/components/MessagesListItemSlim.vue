@@ -11,8 +11,14 @@
       <div class="mb-2">{{ message.id }}</div>
       <h5>Station</h5>
       <div class="mb-2">{{ !!message.station ? message.station.ident : 'N/A' }}</div>
-      <h5>Text</h5>
-      <div class="mb-2 text-wrap text-break" v-html="convertNewlinesToBRs(message.text)" />
+      <div class="mb-2" v-if="message.text">
+        <h5>Text</h5>
+        <div class="text-wrap text-break" v-html="convertNewlinesToBRs(message.text)" />
+      </div>
+      <div class="mb-2" v-if="message.data">
+        <h5>Data</h5>
+        <div class="text-wrap text-break" v-html="convertNewlinesToBRs(message.data)" />
+      </div>
       <h5>Decoded</h5>
       <div class="text-wrap">
         <span v-if="decodeMessage(message)" v-html="decodeMessage(message)" />
@@ -125,8 +131,8 @@
           <div class="d-flex flex-row">
             <div class="text-break text-left">
               <div class="p-3 bg-white">
-                <span v-if="message.text">
-                  <div v-html="convertNewlinesToBRs(message.text)"></div>
+                <span v-if="message.text || message.data">
+                  <div v-html="convertNewlinesToBRs(message.text || message.data)"></div>
                   <div v-if="decodeMessage(message)">
                     <div class="mt-1 text-muted"><small>DECODED</small></div>
                     <div v-html="decodeMessage(message)"></div>
