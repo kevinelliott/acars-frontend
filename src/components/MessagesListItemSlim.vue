@@ -139,7 +139,7 @@
                   </div>
                 </span>
                 <span v-else class="text-muted">
-                  No text.
+                  No text or data.
                 </span>
               </div>
             </div>
