@@ -54,7 +54,7 @@ export default new Vuex.Store({
       Vue.set(state, 'isLiveMessagesPaused', false);
     },
     prependNewLiveMessages(state: any, newMessages: Array<any>) {
-      Vue.set(state, 'messagesLive', newMessages.concat(state.messagesLive));
+      Vue.set(state, 'messagesLive', newMessages.concat(state.messagesLive).slice(0, 500));
     },
     setActiveFlights(state: any, flights: Array<any>) {
       Vue.set(state, 'activeFlights', flights);
