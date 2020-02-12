@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@airframes/acars-decoder@^1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@airframes/acars-decoder/-/acars-decoder-1.0.9.tgz#c81ea47f8d50c7504f147118e99db6036675dd3c"
-  integrity sha512-/sM88iPco54JE1zpx1jZ52Oy0UEctD1FVRrmU6tnJChtfNa9mOcQooIVRpLWHY/TguvvzzIOG4I21yq8RBh3+g==
+"@airframes/acars-decoder@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@airframes/acars-decoder/-/acars-decoder-1.0.10.tgz#788a126dd5f67ffb308fa97ac613a8ee167f8c2f"
+  integrity sha512-y58O1dsu0w0lzAS/y8Ib5kF7tTFkzEZoiZuCJdS3sxJ8XlYbpwfGSlNet/gRY0Q9IgnJQLR1E5sB2KleMIXezQ==
 
 "@auth0/auth0-spa-js@^1.6.3":
   version "1.6.3"
