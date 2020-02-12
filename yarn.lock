@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@airframes/acars-decoder@^1.0.11":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@airframes/acars-decoder/-/acars-decoder-1.0.11.tgz#0d53bca62d0ff868dc0919fb9aef83f919f6ae49"
-  integrity sha512-oMLrTBJqNGvzOPwc3PMI63nZjcCCZs4nM+k/10DbVPUX4B/vPxgw6l4tRMAWdLuyRi2vnTOECd2yV37XEWv4DA==
+"@airframes/acars-decoder@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@airframes/acars-decoder/-/acars-decoder-1.0.12.tgz#9cc7bd3211c7a3cacd74b721f6ca3b12c27a64b3"
+  integrity sha512-5wFpeZNXrwPjcokH1RkcxKK/RO2n0NIeX4q5DJaxD7Rzf4WigqEqzf2mPLKV9ia5v+nx4wusVXkTtTfiUtyoIQ==
 
-"@auth0/auth0-spa-js@^1.6.3":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.6.3.tgz#ca5a8a222be1edcff8107665fbe6e819b4d8d392"
-  integrity sha512-jbK6qrcy3N8bAltP/sEdv9vo0eML9LneAESB05K/MPCwZVUJN9hu+y42DxfI7kH6dnVNyUbJohgpimv+eNonlQ==
+"@auth0/auth0-spa-js@^1.6.4":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.6.4.tgz#52c2a9f796dcaffacf9614a5043d77cbaca9ee1f"
+  integrity sha512-zKUfUxOHL/YwSedP1BkKKRRrB4AJ7whMKBVlf6M7dTvVzeCrRzTWEXUF+HB4/iG4skVRyr+U35qQzMYoFWCxhw==
   dependencies:
     browser-tabs-lock "^1.2.1"
     core-js "^3.2.1"
