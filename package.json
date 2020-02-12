@@ -9,7 +9,7 @@
     "postversion": "auto-changelog -p --template keepachangelog && git add CHANGELOG.md && git log v$npm_package_version -1 --date=short --pretty=tformat:'{ \"commit\": \"%H\", \"author\": \"%an\", \"author_email\": \"%ae\", \"date\": \"%ai\", \"message\": \"%f\", \"tag\": \"%S\" }' > version.json && git add version.json && git commit -m 'Updated CHANGELOG and version.json'"
   },
   "dependencies": {
-    "@airframes/acars-decoder": "^1.0.10",
+    "@airframes/acars-decoder": "^1.0.11",
     "@auth0/auth0-spa-js": "^1.6.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
