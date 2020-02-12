@@ -92,13 +92,15 @@
       </div>
     </div>
 
-    <div
-      v-if="showButton"
-      class="mb-4"
-      >
-      <b-button @click="onFiltersUpdated()">
-        Update
-      </b-button>
+    <div v-if="showButton">
+      <span v-if="isSearching">
+        <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
+      </span>
+      <span v-else>
+        <b-button @click="onFiltersUpdated()">
+          Search
+        </b-button>
+      </span>
     </div>
   </div>
 </template>
@@ -123,6 +125,8 @@ import Multiselect from 'vue-multiselect';
 })
 
 export default class MessageFilters extends Vue {
+  @Prop({ default: false }) private isSearching!: boolean;
+
   @Prop() private knownAirframes!: Array<any>;
 
   @Prop() private knownStations!: Array<any>;

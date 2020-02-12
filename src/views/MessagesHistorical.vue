@@ -10,6 +10,7 @@
             :selectedAirframeIds.sync="currentFilters().airframeIdsToInclude"
             v-on:on-filters-updated="filtersUpdated"
             :showButton="true"
+            :isSearching="isSearching"
             />
           <div>
             Matching {{ messages.length }} of {{ messages.length }} Messages
@@ -19,6 +20,7 @@
           <MessagesList
             :instructions="instructions"
             :messages="messages"
+            :isSearching="isSearching"
             />
         </div>
       </div>
@@ -97,6 +99,8 @@ export default class MessagesHistorical extends Vue {
 
   instructions = 'Begin searching the historical archives by selecting filters to the left and then click Update.';
 
+  isSearching = false;
+
   messages = [];
 
   queries: any = {
@@ -141,6 +145,7 @@ export default class MessagesHistorical extends Vue {
   }
 
   fetchMessages() {
+    this.isSearching = true;
     this.messages = [];
     Vue.axios({
       url: `${this.$store.state.apiServerBaseUrl}/messages`,
@@ -153,6 +158,7 @@ export default class MessagesHistorical extends Vue {
       console.log('Fetched messages.');
       this.saveMessages(response.data);
       console.log(response.data);
+      this.isSearching = false;
     });
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4 border border-grey" @click="showMessageModal">
+  <div class="mb-4 border" @click="showMessageModal">
     <FlightDetailModal v-if="message.flight" :message="message" :flight="message.flight" />
     <b-modal
       :id="`message-modal-${message.id}`"
