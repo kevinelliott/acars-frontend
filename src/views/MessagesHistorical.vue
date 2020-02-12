@@ -11,6 +11,7 @@
             :selectedStationIds.sync="currentFilters().stationIdsToInclude"
             v-on:on-filters-updated="filtersUpdated"
             :showButton="true"
+            :isLoadingFilterData="isLoadingFilterData"
             :isSearching="isSearching"
             />
         </div>
@@ -101,6 +102,8 @@ export default class MessagesHistorical extends Vue {
 
   instructions = 'Begin searching the historical archives by selecting filters to the left and then click Update.';
 
+  isLoadingFilterData = true;
+
   isSearching = false;
 
   messages = [];
@@ -117,18 +120,18 @@ export default class MessagesHistorical extends Vue {
   mounted() {
     console.log('Query params', this.$route.query);
 
-    this.$router.replace({
-      query: {
-        ...this.queries,
-      },
-    }).catch((e: any) => {}); // eslint-disable-line max-len
+    // this.$router.replace({
+    //   query: {
+    //     ...this.queries,
+    //   },
+    // }).catch((e: any) => {}); // eslint-disable-line max-len
 
     this.queries = { ...this.$route.query };
     console.log('Queries', this.queries);
 
     if (this.queries.airframe_ids) {
       const selectedIds = this.queries.airframe_ids.split(',').map((id: string) => Number(id));
-      console.log('Selected IDs', selectedIds);
+      console.log('Selected Airframe IDs', selectedIds);
       this.filters.airframeIdsToInclude = selectedIds;
     }
 
@@ -148,7 +151,7 @@ export default class MessagesHistorical extends Vue {
     }).then((response) => {
       console.log('Fetched airframes.');
       this.airframes = response.data;
-      console.log(response.data);
+      this.isLoadingFilterData = false;
     });
   }
 
@@ -166,7 +169,6 @@ export default class MessagesHistorical extends Vue {
     }).then((response) => {
       console.log('Fetched messages.');
       this.saveMessages(response.data);
-      console.log(response.data);
       this.isSearching = false;
     });
   }

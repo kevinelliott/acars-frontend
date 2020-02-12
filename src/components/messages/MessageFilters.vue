@@ -14,6 +14,7 @@
         label="ident"
         track-by="ident"
         :preselect-first="false"
+        :disabled="isLoadingFilterData"
         />
     </div>
 
@@ -30,6 +31,7 @@
         label="tail"
         track-by="tail"
         :preselect-first="false"
+        :disabled="isLoadingFilterData"
         />
     </div>
 
@@ -46,6 +48,7 @@
         label="name"
         track-by="name"
         :preselect-first="true"
+        :disabled="isLoadingFilterData"
         />
     </div>
 
@@ -62,6 +65,7 @@
         label="displayName"
         track-by="displayName"
         :preselect-first="false"
+        :disabled="isLoadingFilterData"
         />
     </div>
 
@@ -78,6 +82,7 @@
         label="displayName"
         track-by="displayName"
         :preselect-first="false"
+        :disabled="isLoadingFilterData"
         />
     </div>
 
@@ -88,6 +93,7 @@
           class="form-control"
           placeholder="Search message text"
           @change="textSearchChanged($event)"
+          :disabled="isLoadingFilterData"
           />
       </div>
     </div>
@@ -97,7 +103,10 @@
         <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
       </span>
       <span v-else>
-        <b-button @click="onFiltersUpdated()">
+        <b-button
+          @click="onFiltersUpdated()"
+          :disabled="isLoadingFilterData"
+          >
           Search
         </b-button>
       </span>
@@ -125,7 +134,9 @@ import Multiselect from 'vue-multiselect';
 })
 
 export default class MessageFilters extends Vue {
-  @Prop({ default: false }) private isSearching!: boolean;
+  @Prop({ default: false }) private isLoadingFilterData!: boolean;
+
+  @Prop({ default: true }) private isSearching!: boolean;
 
   @Prop() private knownAirframes!: Array<any>;
 
