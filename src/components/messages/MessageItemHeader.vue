@@ -5,8 +5,11 @@
         <div class="p-1">
           <small>
             <div class="p-1 float-left">
-              <span :title="message.source">
+              <span v-if="message.sourceType" :title="message.source">
                 {{ message.sourceType.toUpperCase() }}
+              </span>
+              <span v-else>
+                UNKNOWN
               </span>
               <span v-if="!!message.station && !!message.station.ident">
                 from {{ message.station.ident }}
