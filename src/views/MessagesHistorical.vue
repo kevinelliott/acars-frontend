@@ -139,6 +139,10 @@ export default class MessagesHistorical extends Vue {
     }
 
     this.fetchAirframes();
+
+    if (this.queries.action === 'execute') {
+      this.fetchMessages();
+    }
   }
 
   fetchAirframes() {

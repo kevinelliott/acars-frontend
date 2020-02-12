@@ -98,6 +98,19 @@
       </div>
     </div>
 
+    <hr class="mb-4" />
+
+    <b-button
+      block
+      size="sm"
+      variant="outline-secondary"
+      class="mb-2"
+      @click="onCopySearchURL()"
+      >
+      <font-awesome-icon icon="copy" />
+      Copy Search URL
+    </b-button>
+
     <div v-if="showButton">
       <span v-if="isSearching">
         <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
@@ -106,6 +119,8 @@
         <b-button
           @click="onFiltersUpdated()"
           :disabled="!filterDataIsReady()"
+          block
+          variant="info"
           >
           Search
         </b-button>
@@ -175,6 +190,30 @@ export default class MessageFilters extends Vue {
   @Watch('knownStations')
   onStationsChanged(val: any, oldVal: any) {
     this.filterIncludeStations = val.filter((station: any) => this.stationIds.includes(station.id)); // eslint-disable-line max-len
+  }
+
+  copyMessage(val: string) { // eslint-disable-line class-methods-use-this
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
+  onCopySearchURL() {
+    console.log('Copy Search URL clicked.');
+    let newLocation = document.location.toString();
+    if (!newLocation.includes('action=execute')) {
+      newLocation += '&action=execute';
+    }
+
+    this.copyMessage(newLocation);
   }
 
   optionsForFilterExcludeErrors = [

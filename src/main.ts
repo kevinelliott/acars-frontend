@@ -9,6 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faCopy,
   faHeart,
   faPlayCircle,
   faPauseCircle,
@@ -56,6 +57,7 @@ if (process.env.NODE_ENV === 'production') {
 const socket = io(remoteUrl, { secure: false });
 Vue.use(VueSocketIOExt, socket, { store });
 
+library.add(faCopy);
 library.add(faHeart);
 library.add(faPauseCircle);
 library.add(faPlayCircle);
