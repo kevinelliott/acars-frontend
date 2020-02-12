@@ -9,6 +9,7 @@
             :knownStations="knownStations"
             :selectedAirframeIds.sync="currentFilters().airframeIdsToInclude"
             :selectedLabels.sync="currentFilters().labelsToInclude"
+            :selectedExcludeLabels.sync="currentFilters().labelsToExclude"
             :selectedStationIds.sync="currentFilters().stationIdsToInclude"
             :selectedText.sync="currentFilters().textToInclude"
             v-on:on-filters-updated="filtersUpdated"
@@ -144,6 +145,11 @@ export default class MessagesHistorical extends Vue {
       this.filters.labelsToInclude = selectedLabels;
     }
 
+    if (this.queries.exclude_labels) {
+      const selectedLabels = this.queries.labels.split(',');
+      this.filters.labelsToExclude = selectedLabels;
+    }
+
     if (this.queries.station_ids) {
       const selectedIds = this.queries.station_ids.split(',').map((id: string) => Number(id));
       this.filters.stationIdsToInclude = selectedIds;
@@ -179,6 +185,7 @@ export default class MessagesHistorical extends Vue {
       params: {
         airframe_ids: this.filters.airframeIdsToInclude.join(','),
         exclude_errors: this.filters.errorsToExclude.join(','),
+        exclude_labels: this.filters.labelsToExclude.join(','),
         labels: this.filters.labelsToInclude.join(','),
         station_ids: this.filters.stationIdsToInclude.join(','),
         text: this.filters.textToInclude,
