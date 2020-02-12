@@ -1,130 +1,142 @@
 <template>
-  <div class="mb-4 p-4 bg-light border">
-    <h4 class="mb-4">Filters</h4>
-    <div class="mb-4">
-      <label>Stations</label>
-      <multiselect
-        v-model="filterIncludeStations"
-        :options="$props.knownStations"
-        :multiple="true"
-        :close-on-select="false"
-        :clear-on-select="false"
-        :preserve-search="true"
-        placeholder="Select Stations to Include"
-        label="ident"
-        track-by="ident"
-        :preselect-first="false"
-        :disabled="!filterDataIsReady()"
-        />
-    </div>
-
-    <div class="mb-4">
-      <label>Airframes</label>
-      <multiselect
-        v-model="filterIncludeAirframes"
-        :options="$props.knownAirframes"
-        :multiple="true"
-        :close-on-select="false"
-        :clear-on-select="false"
-        :preserve-search="true"
-        placeholder="Select Airframes to Include"
-        label="tail"
-        track-by="tail"
-        :preselect-first="false"
-        :disabled="!filterDataIsReady()"
-        />
-    </div>
-
-    <div class="mb-4">
-      <label>Errors to Exclude</label>
-      <multiselect
-        v-model="filterExcludeErrors"
-        :options="optionsForFilterExcludeErrors"
-        :multiple="true"
-        :close-on-select="false"
-        :clear-on-select="false"
-        :preserve-search="true"
-        placeholder="Select Errors to Exclude"
-        label="name"
-        track-by="name"
-        :preselect-first="true"
-        :disabled="!filterDataIsReady()"
-        />
-    </div>
-
-    <div class="mb-4">
-      <label>Labels to Include</label>
-      <multiselect
-        v-model="filterIncludeLabels"
-        :options="optionsForFilterLabels()"
-        :multiple="true"
-        :close-on-select="false"
-        :clear-on-select="false"
-        :preserve-search="true"
-        placeholder="Select Labels to Exclude"
-        label="displayName"
-        track-by="displayName"
-        :preselect-first="false"
-        :disabled="!filterDataIsReady()"
-        />
-    </div>
-
-    <div class="mb-4">
-      <label>Labels to Exclude</label>
-      <multiselect
-        v-model="filterExcludeLabels"
-        :options="optionsForFilterLabels()"
-        :multiple="true"
-        :close-on-select="false"
-        :clear-on-select="false"
-        :preserve-search="true"
-        placeholder="Select Labels to Exclude"
-        label="displayName"
-        track-by="displayName"
-        :preselect-first="false"
-        :disabled="!filterDataIsReady()"
-        />
-    </div>
-
-    <div class="mb-4">
-      <label>Text Search</label>
-      <div>
-        <input
-          class="form-control"
-          placeholder="Search message text"
-          @change="textSearchChanged($event)"
+  <div class="m-0 p-0">
+    <div class="p-4 bg-light border">
+      <div
+        v-if="!filterDataIsReady()"
+        class="ml-3 mr-3 filter-overlay d-flex align-items-center justify-content-center"
+        >
+        <b-spinner
+          type="grow"
+          size="lg"
+          style="width: 4rem; height: 4rem;"
+          />
+      </div>
+      <h4 class="mb-4">Filters</h4>
+      <div class="mb-4">
+        <label>Stations</label>
+        <multiselect
+          v-model="filterIncludeStations"
+          :options="$props.knownStations"
+          :multiple="true"
+          :close-on-select="false"
+          :clear-on-select="false"
+          :preserve-search="true"
+          placeholder="Select Stations to Include"
+          label="ident"
+          track-by="ident"
+          :preselect-first="false"
           :disabled="!filterDataIsReady()"
           />
       </div>
-    </div>
 
-    <hr class="mb-4" />
-
-    <b-button
-      block
-      size="sm"
-      variant="outline-secondary"
-      class="mb-2"
-      @click="onCopySearchURL()"
-      >
-      <font-awesome-icon icon="copy" />
-      Copy Search URL
-    </b-button>
-
-    <div v-if="showButton">
-      <span v-if="isSearching">
-        <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
-      </span>
-      <span v-else>
-        <b-button
-          @click="onFiltersUpdated()"
+      <div class="mb-4">
+        <label>Airframes</label>
+        <multiselect
+          v-model="filterIncludeAirframes"
+          :options="$props.knownAirframes"
+          :multiple="true"
+          :close-on-select="false"
+          :clear-on-select="false"
+          :preserve-search="true"
+          placeholder="Select Airframes to Include"
+          label="tail"
+          track-by="tail"
+          :preselect-first="false"
           :disabled="!filterDataIsReady()"
-          block
-          variant="info"
-          >
-          Search
-        </b-button>
-      </span>
+          />
+      </div>
+
+      <div class="mb-4">
+        <label>Errors to Exclude</label>
+        <multiselect
+          v-model="filterExcludeErrors"
+          :options="optionsForFilterExcludeErrors"
+          :multiple="true"
+          :close-on-select="false"
+          :clear-on-select="false"
+          :preserve-search="true"
+          placeholder="Select Errors to Exclude"
+          label="name"
+          track-by="name"
+          :preselect-first="true"
+          :disabled="!filterDataIsReady()"
+          />
+      </div>
+
+      <div class="mb-4">
+        <label>Labels to Include</label>
+        <multiselect
+          v-model="filterIncludeLabels"
+          :options="optionsForFilterLabels()"
+          :multiple="true"
+          :close-on-select="false"
+          :clear-on-select="false"
+          :preserve-search="true"
+          placeholder="Select Labels to Exclude"
+          label="displayName"
+          track-by="displayName"
+          :preselect-first="false"
+          :disabled="!filterDataIsReady()"
+          />
+      </div>
+
+      <div class="mb-4">
+        <label>Labels to Exclude</label>
+        <multiselect
+          v-model="filterExcludeLabels"
+          :options="optionsForFilterLabels()"
+          :multiple="true"
+          :close-on-select="false"
+          :clear-on-select="false"
+          :preserve-search="true"
+          placeholder="Select Labels to Exclude"
+          label="displayName"
+          track-by="displayName"
+          :preselect-first="false"
+          :disabled="!filterDataIsReady()"
+          />
+      </div>
+
+      <div class="mb-4">
+        <label>Text Search</label>
+        <div>
+          <input
+            class="form-control"
+            placeholder="Search message text"
+            @change="textSearchChanged($event)"
+            :disabled="!filterDataIsReady()"
+            />
+        </div>
+      </div>
+
+      <hr class="mb-4" />
+
+      <b-button
+        block
+        size="sm"
+        variant="outline-secondary"
+        class="mb-2"
+        @click="onCopySearchURL()"
+        >
+        <font-awesome-icon icon="copy" />
+        Copy Search URL
+      </b-button>
+
+      <div v-if="showButton">
+        <span v-if="isSearching">
+          <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
+        </span>
+        <span v-else>
+          <b-button
+            @click="onFiltersUpdated()"
+            :disabled="!filterDataIsReady()"
+            block
+            variant="info"
+            >
+            Search
+          </b-button>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -261,3 +273,17 @@ export default class MessageFilters extends Vue {
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
+<style scoped>
+.filter-overlay {
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 2;
+  cursor: pointer;
+}
+</style>
