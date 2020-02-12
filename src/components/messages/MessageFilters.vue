@@ -7,7 +7,6 @@
         >
         <b-spinner
           type="grow"
-          size="lg"
           style="width: 4rem; height: 4rem;"
           />
       </div>
