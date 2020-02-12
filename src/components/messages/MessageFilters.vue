@@ -133,6 +133,8 @@ export default class MessageFilters extends Vue {
 
   @PropSync('selectedAirframeIds') private airframeIds!: Array<any>;
 
+  @PropSync('selectedStationIds') private stationIds!: Array<any>;
+
   @Prop() private showButton!: boolean;
 
   @Emit()
@@ -159,6 +161,11 @@ export default class MessageFilters extends Vue {
   @Watch('knownAirframes')
   onAirframesChanged(val: any, oldVal: any) {
     this.filterIncludeAirframes = val.filter((airframe: any) => this.airframeIds.includes(airframe.id)); // eslint-disable-line max-len
+  }
+
+  @Watch('knownStations')
+  onStationsChanged(val: any, oldVal: any) {
+    this.filterIncludeStations = val.filter((station: any) => this.stationIds.includes(station.id)); // eslint-disable-line max-len
   }
 
   optionsForFilterExcludeErrors = [

@@ -127,6 +127,12 @@ export default class MessagesHistorical extends Vue {
       this.filters.airframeIdsToInclude = selectedIds;
     }
 
+    if (this.queries.station_ids) {
+      const selectedIds = this.queries.station_ids.split(',').map((id: string) => Number(id));
+      console.log('Selected Station IDs', selectedIds);
+      this.filters.stationIdsToInclude = selectedIds;
+    }
+
     this.fetchAirframes();
   }
 
@@ -149,6 +155,7 @@ export default class MessagesHistorical extends Vue {
       method: 'GET',
       params: {
         airframe_ids: this.filters.airframeIdsToInclude.join(','),
+        station_ids: this.filters.stationIdsToInclude.join(','),
         text: this.filters.textToInclude,
       },
     }).then((response) => {

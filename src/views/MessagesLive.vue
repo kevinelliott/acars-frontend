@@ -33,10 +33,11 @@
             :knownAirframes="knownAirframes"
             :knownStations="knownStations"
             :selectedAirframeIds.sync="currentFilters().airframeIdsToInclude"
+            :selectedStationIds.sync="currentFilters().stationIdsToInclude"
             v-on:on-filters-updated="filtersUpdated"
             />
           <div class="mb-4">
-            Matching {{ filteredMessages().length }} of {{ messages.length }} Messages
+            Showing {{ filteredMessages().length }} Messages
           </div>
           <ActiveAirframes />
         </div>
@@ -87,6 +88,7 @@ export default class MessagesLive extends Vue {
   queries: any = {
     exclude_errors: '3',
     exclude_labels: '_d,Q0',
+    text: '',
   };
 
   created() {
