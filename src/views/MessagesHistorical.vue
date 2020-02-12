@@ -12,9 +12,6 @@
             :showButton="true"
             :isSearching="isSearching"
             />
-          <div>
-            Matching {{ messages.length }} of {{ messages.length }} Messages
-          </div>
         </div>
         <div class="col-8">
           <MessagesList
