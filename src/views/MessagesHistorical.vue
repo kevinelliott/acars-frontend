@@ -50,13 +50,13 @@ import MessagesNav from '@/components/MessagesNav.vue';
 export default class MessagesHistorical extends Vue {
   @Watch('filters')
   onFiltersChanged(val: any, oldVal: any) {
+    console.log('Filters have changed', this.filters);
     if (val.airframeIdsToInclude.length > 0) {
       this.queries.airframe_ids = val.airframeIdsToInclude.join(',');
     } else {
       delete this.queries.airframe_ids;
     }
 
-    console.log('Stations filter changed', this.filters);
     if (val.stationIdsToInclude.length > 0) {
       this.queries.station_ids = val.stationIdsToInclude.join(',');
     } else {

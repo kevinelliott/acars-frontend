@@ -25,6 +25,7 @@
           track-by="ident"
           :preselect-first="false"
           :disabled="!filterDataIsReady()"
+          @input="onFiltersUpdated"
           />
       </div>
 
@@ -42,6 +43,7 @@
           track-by="tail"
           :preselect-first="false"
           :disabled="!filterDataIsReady()"
+          @input="onFiltersUpdated"
           />
       </div>
 
@@ -76,6 +78,7 @@
           track-by="displayName"
           :preselect-first="false"
           :disabled="!filterDataIsReady()"
+          @input="onFiltersUpdated"
           />
       </div>
 
@@ -93,6 +96,7 @@
           track-by="displayName"
           :preselect-first="false"
           :disabled="!filterDataIsReady()"
+          @input="onFiltersUpdated"
           />
       </div>
 
@@ -103,6 +107,7 @@
             class="form-control"
             placeholder="Search message text"
             @change="textSearchChanged($event)"
+            v-on:keyup.enter="textSearchEnter"
             v-model="filterIncludeTextSearch"
             :disabled="!filterDataIsReady()"
             />
@@ -275,6 +280,11 @@ export default class MessageFilters extends Vue {
     if (event && event.target) {
       this.filterIncludeTextSearch = event.target.value;
     }
+  }
+
+  textSearchEnter(event: any) {
+    this.filterIncludeTextSearch = event.target.value;
+    this.onFiltersUpdated();
   }
 }
 </script>
