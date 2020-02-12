@@ -8,6 +8,7 @@
             :knownAirframes="knownAirframes"
             :knownStations="knownStations"
             :selectedAirframeIds.sync="currentFilters().airframeIdsToInclude"
+            :selectedStationIds.sync="currentFilters().stationIdsToInclude"
             v-on:on-filters-updated="filtersUpdated"
             :showButton="true"
             :isSearching="isSearching"
