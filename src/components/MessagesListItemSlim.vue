@@ -48,7 +48,7 @@
         <div class="col-12">
           <div class="d-flex flex-row">
             <div class="w-100 text-break text-left">
-              <div class="p-3 bg-white inner-shadow">
+              <div class="p-3 bg-inner inner-shadow">
                 <span v-if="message.text || message.data">
                   <div v-html="convertNewlinesToBRs(message.text || message.data)"></div>
                   <div v-if="decodeMessage(message)">
@@ -119,6 +119,9 @@ export default class MessagesListItemSlim extends Vue {
 
 <style scoped>
 .inner-shadow {
-  box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,0.1);
+  box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+.bg-inner {
+  background-color: rgba(100,100,100,0.05);
 }
 </style>
