@@ -11,7 +11,6 @@
             :selectedStationIds.sync="currentFilters().stationIdsToInclude"
             v-on:on-filters-updated="filtersUpdated"
             :showButton="true"
-            :isLoadingFilterData="isLoadingFilterData"
             :isSearching="isSearching"
             />
         </div>
@@ -102,8 +101,6 @@ export default class MessagesHistorical extends Vue {
 
   instructions = 'Begin searching the historical archives by selecting filters to the left and then click Update.';
 
-  isLoadingFilterData = true;
-
   isSearching = false;
 
   messages = [];
@@ -151,7 +148,6 @@ export default class MessagesHistorical extends Vue {
     }).then((response) => {
       console.log('Fetched airframes.');
       this.airframes = response.data;
-      this.isLoadingFilterData = false;
     });
   }
 

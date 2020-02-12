@@ -14,7 +14,7 @@
         label="ident"
         track-by="ident"
         :preselect-first="false"
-        :disabled="isLoadingFilterData"
+        :disabled="!filterDataIsReady()"
         />
     </div>
 
@@ -31,7 +31,7 @@
         label="tail"
         track-by="tail"
         :preselect-first="false"
-        :disabled="isLoadingFilterData"
+        :disabled="!filterDataIsReady()"
         />
     </div>
 
@@ -48,7 +48,7 @@
         label="name"
         track-by="name"
         :preselect-first="true"
-        :disabled="isLoadingFilterData"
+        :disabled="!filterDataIsReady()"
         />
     </div>
 
@@ -65,7 +65,7 @@
         label="displayName"
         track-by="displayName"
         :preselect-first="false"
-        :disabled="isLoadingFilterData"
+        :disabled="!filterDataIsReady()"
         />
     </div>
 
@@ -82,7 +82,7 @@
         label="displayName"
         track-by="displayName"
         :preselect-first="false"
-        :disabled="isLoadingFilterData"
+        :disabled="!filterDataIsReady()"
         />
     </div>
 
@@ -93,7 +93,7 @@
           class="form-control"
           placeholder="Search message text"
           @change="textSearchChanged($event)"
-          :disabled="isLoadingFilterData"
+          :disabled="!filterDataIsReady()"
           />
       </div>
     </div>
@@ -105,7 +105,7 @@
       <span v-else>
         <b-button
           @click="onFiltersUpdated()"
-          :disabled="isLoadingFilterData"
+          :disabled="!filterDataIsReady()"
           >
           Search
         </b-button>
@@ -134,8 +134,6 @@ import Multiselect from 'vue-multiselect';
 })
 
 export default class MessageFilters extends Vue {
-  @Prop({ default: false }) private isLoadingFilterData!: boolean;
-
   @Prop({ default: true }) private isSearching!: boolean;
 
   @Prop() private knownAirframes!: Array<any>;
@@ -199,6 +197,10 @@ export default class MessageFilters extends Vue {
   filterExcludeErrors : Array<any> = [{ error: 3, name: 'Level 3' }]
 
   filterExcludeLabels : Array<any> = this.optionsForFilterLabels().filter((option: any) => this.defaultFilterLabels.includes(option.label)); // eslint-disable-line max-len
+
+  filterDataIsReady() : boolean {
+    return (this.knownAirframes.length > 0) && (this.knownStations.length > 0);
+  }
 
   optionsForFilterLabels() : Array<any> {
     const labelsObj = this.$store.state.acarsData.labels;
