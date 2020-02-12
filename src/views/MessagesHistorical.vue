@@ -140,13 +140,13 @@ export default class MessagesHistorical extends Vue {
       this.filters.airframeIdsToInclude = selectedIds;
     }
 
-    if (this.queries.labels) {
+    if (this.queries.labels && this.queries.labels !== '') {
       const selectedLabels = this.queries.labels.split(',');
       this.filters.labelsToInclude = selectedLabels;
     }
 
     if (this.queries.exclude_labels) {
-      const selectedLabels = this.queries.labels.split(',');
+      const selectedLabels = this.queries.exclude_labels.split(',');
       this.filters.labelsToExclude = selectedLabels;
     }
 
