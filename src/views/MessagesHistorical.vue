@@ -168,6 +168,7 @@ export default class MessagesHistorical extends Vue {
       method: 'GET',
       params: {
         airframe_ids: this.filters.airframeIdsToInclude.join(','),
+        exclude_errors: this.filters.errorsToExclude.join(','),
         station_ids: this.filters.stationIdsToInclude.join(','),
         text: this.filters.textToInclude,
       },
