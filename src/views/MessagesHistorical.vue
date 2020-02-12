@@ -9,6 +9,7 @@
             :knownStations="knownStations"
             :selectedAirframeIds.sync="currentFilters().airframeIdsToInclude"
             :selectedStationIds.sync="currentFilters().stationIdsToInclude"
+            :selectedText.sync="currentFilters().textToInclude"
             v-on:on-filters-updated="filtersUpdated"
             :showButton="true"
             :isSearching="isSearching"
@@ -80,7 +81,7 @@ export default class MessagesHistorical extends Vue {
       delete this.queries.station_ids;
     }
 
-    if (val.textToInclude) {
+    if (val.textToInclude && val.textToInclude !== '') {
       this.queries.text = val.textToInclude;
     } else {
       delete this.queries.text;
@@ -136,6 +137,10 @@ export default class MessagesHistorical extends Vue {
       const selectedIds = this.queries.station_ids.split(',').map((id: string) => Number(id));
       console.log('Selected Station IDs', selectedIds);
       this.filters.stationIdsToInclude = selectedIds;
+    }
+
+    if (this.queries.text && this.queries.text !== '') {
+      this.filters.textToInclude = this.queries.text;
     }
 
     this.fetchAirframes();

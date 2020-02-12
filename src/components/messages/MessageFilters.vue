@@ -103,6 +103,7 @@
             class="form-control"
             placeholder="Search message text"
             @change="textSearchChanged($event)"
+            v-model="filterIncludeTextSearch"
             :disabled="!filterDataIsReady()"
             />
         </div>
@@ -170,6 +171,8 @@ export default class MessageFilters extends Vue {
 
   @PropSync('selectedStationIds') private stationIds!: Array<any>;
 
+  @PropSync('selectedText') private text!: Array<any>;
+
   @Prop() private showButton!: boolean;
 
   @Emit()
@@ -201,6 +204,11 @@ export default class MessageFilters extends Vue {
   @Watch('knownStations')
   onStationsChanged(val: any, oldVal: any) {
     this.filterIncludeStations = val.filter((station: any) => this.stationIds.includes(station.id)); // eslint-disable-line max-len
+  }
+
+  @Watch('text')
+  onTextChanged(val: any, oldVal: any) {
+    this.filterIncludeTextSearch = val;
   }
 
   copyMessage(val: string) { // eslint-disable-line class-methods-use-this
