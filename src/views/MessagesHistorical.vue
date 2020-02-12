@@ -80,7 +80,7 @@ export default class MessagesHistorical extends Vue {
     if (val.labelsToInclude.length > 0) {
       this.queries.labels = val.labelsToInclude.join(',');
     } else {
-      delete this.queries.exclude_labels;
+      delete this.queries.labels;
     }
 
     if (val.stationIdsToInclude.length > 0) {
