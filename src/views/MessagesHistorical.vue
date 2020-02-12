@@ -49,39 +49,43 @@ import MessagesNav from '@/components/MessagesNav.vue';
 export default class MessagesHistorical extends Vue {
   @Watch('filters')
   onFiltersChanged(val: any, oldVal: any) {
-    if (val.airframeIdsToInclude !== oldVal.airframeIdsToInclude) {
-      console.log('Airframes filter changed', this.filters);
-      if (val.airframeIdsToInclude.length > 0) {
-        this.queries.airframe_ids = val.airframeIdsToInclude.join(',');
-      } else {
-        delete this.queries.airframe_ids;
-      }
-
-      if (val.errorsToExclude.length > 0) {
-        this.queries.exclude_errors = val.errorsToExclude.join(',');
-      } else {
-        delete this.queries.exclude_errors;
-      }
-
-      if (val.labelsToExclude.length > 0) {
-        this.queries.exclude_labels = val.labelsToExclude.join(',');
-      } else {
-        delete this.queries.exclude_labels;
-      }
-
-      if (val.stationIdsToInclude.length > 0) {
-        this.queries.station_ids = val.stationIdsToInclude.join(',');
-      } else {
-        delete this.queries.station_ids;
-      }
-
-      if (val.textToInclude) {
-        this.queries.text = val.textToInclude;
-      } else {
-        delete this.queries.text;
-      }
-      this.updateRoute();
+    if (val.airframeIdsToInclude.length > 0) {
+      this.queries.airframe_ids = val.airframeIdsToInclude.join(',');
+    } else {
+      delete this.queries.airframe_ids;
     }
+
+    console.log('Stations filter changed', this.filters);
+    if (val.stationIdsToInclude.length > 0) {
+      this.queries.station_ids = val.stationIdsToInclude.join(',');
+    } else {
+      delete this.queries.station_ids;
+    }
+
+    if (val.errorsToExclude.length > 0) {
+      this.queries.exclude_errors = val.errorsToExclude.join(',');
+    } else {
+      delete this.queries.exclude_errors;
+    }
+
+    if (val.labelsToExclude.length > 0) {
+      this.queries.exclude_labels = val.labelsToExclude.join(',');
+    } else {
+      delete this.queries.exclude_labels;
+    }
+
+    if (val.stationIdsToInclude.length > 0) {
+      this.queries.station_ids = val.stationIdsToInclude.join(',');
+    } else {
+      delete this.queries.station_ids;
+    }
+
+    if (val.textToInclude) {
+      this.queries.text = val.textToInclude;
+    } else {
+      delete this.queries.text;
+    }
+    this.updateRoute();
   }
 
   airframes: any = [];
