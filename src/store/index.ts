@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import moment from 'moment-timezone';
-import LogRocket from 'logrocket';
 
 import acarsData from '../assets/acars-data.json';
 

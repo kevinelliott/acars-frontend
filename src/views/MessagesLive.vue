@@ -99,13 +99,13 @@ export default class MessagesLive extends Vue {
       ) {
         console.log('Updating messages...');
         this.messages = state.messagesLive;
-        console.log(this.messages);
+        // console.log(this.messages);
       }
     });
 
     window.addEventListener('keydown', (e) => {
-      console.log(e.code);
-      console.log(e.key);
+      // console.log(e.code);
+      // console.log(e.key);
       if (e.key === 'p' || e.key === ' ') {
         this.toggleLiveMessages();
       }
@@ -117,7 +117,6 @@ export default class MessagesLive extends Vue {
   }
 
   filteredMessages() {
-    console.log('filtered messages');
     // const airframeIdsToInclude = this.filterIncludeAirframes.map((airframe: any) => airframe.id);
     // const errorsToExclude = this.filterExcludeErrors.map((value: any) => value.error);
     // const labelsToExclude = this.filterExcludeLabels.map((value: any) => value.label);
@@ -134,14 +133,16 @@ export default class MessagesLive extends Vue {
       .excludeByErrors(this.filters.errorsToExclude)
       .limit(500)
       .filter();
-    console.log(filtered);
+
+    console.log('Filtered messages.');
+    // console.log(filtered);
 
     return filtered;
   }
 
   filtersUpdated(filters: any) {
     this.filters = filters;
-    console.log('Updated filters', filters);
+    console.log('Updated filters.', filters);
   }
 
   get knownAirframes() {
@@ -172,18 +173,18 @@ export default class MessagesLive extends Vue {
   mounted() {
     console.log('Query params', this.$route.query);
 
-    this.$router.replace({
-      query: {
-        ...this.queries,
-      },
-    }).catch((e: any) => {}); // eslint-disable-line max-len
+    // this.$router.replace({
+    //   query: {
+    //     ...this.queries,
+    //   },
+    // }).catch((e: any) => {}); // eslint-disable-line max-len
 
     this.queries = { ...this.$route.query };
     console.log('Queries', this.queries);
 
     if (this.queries.airframe_ids) {
       const selectedIds = this.queries.airframe_ids.split(',').map((id: string) => Number(id));
-      console.log('Selected IDs', selectedIds);
+      console.log('Selected Airframe IDs', selectedIds);
       this.filters.airframeIdsToInclude = selectedIds;
     }
   }
@@ -191,7 +192,7 @@ export default class MessagesLive extends Vue {
   @Watch('filters')
   onFiltersChanged(val: any, oldVal: any) {
     if (val.airframeIdsToInclude !== oldVal.airframeIdsToInclude) {
-      console.log('Airframes filter changed', this.filters);
+      console.log('Airframes filter changed.', this.filters);
       if (val.airframeIdsToInclude.length > 0) {
         this.queries.airframe_ids = val.airframeIdsToInclude.join(',');
       } else {
