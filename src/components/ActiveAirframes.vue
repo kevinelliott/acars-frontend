@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-4 bg-white border">
     <h4 class="mb-1">Active Airframes</h4>
     <div class="mb-3 text-muted">Heard within last 5 minutes</div>
     <table class="table table-sm">

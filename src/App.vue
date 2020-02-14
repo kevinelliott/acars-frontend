@@ -19,14 +19,16 @@
         </b-navbar>
       </div>
       <div
-        style="height: -webkit-calc(100% - 88px); height: calc(100% - 88px); overflow-y: scroll;">
+        class="bg-light"
+        style="height: -webkit-calc(100% - 88px); height: calc(100% - 88px); overflow-y: scroll;"
+        >
         <keep-alive>
           <router-view/>
         </keep-alive>
       </div>
       <div class="flex-row" style="height: 32px;">
         <div id="status_bar"
-            class="p-1 px-4 bg-light border-top d-flex justify-content-between">
+            class="p-1 px-4 bg-white border-top d-flex justify-content-between">
           <a
             :href="`https://github.com/kevinelliott/acars-frontend/releases/tag/v${version.version()}`"
             target="_blank"

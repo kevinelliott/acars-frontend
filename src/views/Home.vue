@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="p-4 bg-light">
+    <div class="p-4 bg-white">
       <div class="container">
         <div class="d-flex justify-content-center">
           <div class="w-75">

@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-light text-muted">
+  <div class="bg-white text-muted">
     <div class="row">
       <div class="col-12">
         <div class="p-1">
           <small>
-            <div class="p-1 float-left">
+            <div class="p-2 float-left">
               <span v-if="message.sourceType" :title="message.source">
                 {{ message.sourceType.toUpperCase() }}
               </span>
@@ -15,7 +15,7 @@
                 from {{ message.station.ident }}
               </span>
             </div>
-            <div class="p-1 float-right">
+            <div class="p-2 float-right">
               {{ message.timestamp }}
             </div>
           </small>

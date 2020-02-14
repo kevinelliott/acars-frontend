@@ -10,8 +10,10 @@ import AdminStatsFlights from '@/views/admin/stats/AdminStatsFlights.vue';
 import AdminStatsFrequencies from '@/views/admin/stats/AdminStatsFrequencies.vue';
 import AdminStatsMessageLabels from '@/views/admin/stats/AdminStatsMessageLabels.vue';
 import AdminStatsStations from '@/views/admin/stats/AdminStatsStations.vue';
+import Airframes from '@/views/Airframes.vue';
 import Flights from '@/views/Flights.vue';
 import Home from '@/views/Home.vue';
+import Leaderboard from '@/views/Leaderboard.vue';
 import MessageDetail from '@/views/MessageDetail.vue';
 import Messages from '@/views/Messages.vue';
 import MessagesHistorical from '@/views/MessagesHistorical.vue';
@@ -80,9 +82,19 @@ const routes = [
     component: AdminStatsStations,
   },
   {
+    path: '/airframes',
+    name: 'airframes',
+    component: Airframes,
+  },
+  {
     path: '/flights',
     name: 'flights',
     component: Flights,
+  },
+  {
+    path: '/stations/leaderboard',
+    name: 'leaderboard',
+    component: Leaderboard,
   },
   {
     path: '/messages',

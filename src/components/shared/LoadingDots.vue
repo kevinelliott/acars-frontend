@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 border border-muted">
+  <div class="p-4 bg-white border border-muted">
     <b-spinner type="grow" label="Spinning"></b-spinner>
     <b-spinner type="grow" label="Spinning"></b-spinner>
     <b-spinner type="grow" label="Spinning"></b-spinner>

@@ -4,9 +4,9 @@
       <div class="col-12">
         <div class="p-1 text-dark text-left">
           <small>
-            <div class="p-1 float-left">
+            <div class="p-2 float-left">
               <span v-if="!!message.airframe && !!message.airframe.tail">
-                <span class="ml-1 text-muted">Tail</span>
+                <span class="text-muted">Tail</span>
                 {{ message.airframe.tail }}
               </span>
 
@@ -19,7 +19,7 @@
                   >{{ message.flight.flight }}</a>
               </span>
             </div>
-            <div class="p-1 float-right">
+            <div class="p-2 float-right">
               <span v-if="!!message.frequency">
                 <span class="ml-1 text-muted">F: </span>
                 <a :id="`message-${message.id}-frequency`" href="#">{{ message.frequency }}</a>

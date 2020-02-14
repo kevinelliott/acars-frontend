@@ -1,7 +1,7 @@
 <template>
-  <div class="home p-4">
-    <div class="container">
-      <MessagesNav />
+  <div class="home">
+    <MessagesNav />
+    <div class="p-4 bg-light">
       <div class="row">
         <div class="col-4">
           <MessageFilters
@@ -108,7 +108,7 @@ export default class MessagesHistorical extends Vue {
     textToInclude: '',
   };
 
-  instructions = 'Begin searching the historical archives by selecting filters to the left and then click Update.';
+  instructions = 'Begin searching the historical archives by selecting filters to the left and then click Search.';
 
   isSearching = false;
 

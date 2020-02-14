@@ -119,9 +119,9 @@ export default class MessagesListItemSlim extends Vue {
 
 <style scoped>
 .inner-shadow {
-  box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.1);
+  box-shadow: inset 0px 0px 10px 0px rgba(116, 116, 116, 0.1);
 }
 .bg-inner {
-  background-color: rgba(100,100,100,0.05);
+  background-color: rgba(230, 230, 230, 0.20);
 }
 </style>

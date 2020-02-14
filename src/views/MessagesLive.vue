@@ -1,10 +1,10 @@
 <template>
-  <div class="home p-4">
-    <div class="container">
-      <MessagesNav />
+  <div class="home">
+    <MessagesNav />
+    <div class="p-4 bg-light">
       <div class="row">
         <div class="col-4">
-          <div class="mb-4 p-4 border bg-light">
+          <div class="mb-4 p-4 border bg-white">
             <h4 class="mb-4">Control</h4>
             <div class="font-weight-light text-muted">
               <span v-if="$store.state.isLiveMessagesPaused">
@@ -33,10 +33,15 @@
             :knownAirframes="knownAirframes"
             :knownStations="knownStations"
             :selectedAirframeIds.sync="currentFilters().airframeIdsToInclude"
+            :selectedLabels.sync="currentFilters().labelsToInclude"
+            :selectedExcludeLabels.sync="currentFilters().labelsToExclude"
             :selectedStationIds.sync="currentFilters().stationIdsToInclude"
+            :selectedText.sync="currentFilters().textToInclude"
             v-on:on-filters-updated="filtersUpdated"
+            :showButton="false"
+            :isSearching="isSearching"
             />
-          <div class="mb-4">
+          <div class="mt-4 mb-4 p-2 bg-white border">
             Showing {{ filteredMessages().length }} Messages
           </div>
           <ActiveAirframes />
@@ -83,6 +88,10 @@ export default class MessagesLive extends Vue {
     textToInclude: '',
   };
 
+  instructions = 'Begin searching the historical archives by selecting filters to the left and then click Update.';
+
+  isSearching = false;
+
   messages = [];
 
   queries: any = {
@@ -90,6 +99,10 @@ export default class MessagesLive extends Vue {
     exclude_labels: '_d,Q0',
     text: '',
   };
+
+  currentFilters() {
+    return this.filters;
+  }
 
   created() {
     this.$store.subscribe((mutation, state) => {
@@ -110,10 +123,6 @@ export default class MessagesLive extends Vue {
         this.toggleLiveMessages();
       }
     });
-  }
-
-  currentFilters() {
-    return this.filters;
   }
 
   filteredMessages() {
@@ -184,46 +193,86 @@ export default class MessagesLive extends Vue {
 
     if (this.queries.airframe_ids) {
       const selectedIds = this.queries.airframe_ids.split(',').map((id: string) => Number(id));
-      console.log('Selected Airframe IDs', selectedIds);
       this.filters.airframeIdsToInclude = selectedIds;
     }
+
+    if (this.queries.labels && this.queries.labels !== '') {
+      const selectedLabels = this.queries.labels.split(',');
+      this.filters.labelsToInclude = selectedLabels;
+    }
+
+    if (this.queries.exclude_labels) {
+      const selectedLabels = this.queries.exclude_labels.split(',');
+      this.filters.labelsToExclude = selectedLabels;
+    }
+
+    if (this.queries.station_ids) {
+      const selectedIds = this.queries.station_ids.split(',').map((id: string) => Number(id));
+      this.filters.stationIdsToInclude = selectedIds;
+    }
+
+    if (this.queries.text && this.queries.text !== '') {
+      this.filters.textToInclude = this.queries.text;
+    }
+
+    this.fetchAirframes();
+  }
+
+  fetchAirframes() {
+    Vue.axios({
+      url: `${this.$store.state.apiServerBaseUrl}/airframes`,
+      method: 'GET',
+    }).then((response) => {
+      console.log('Fetched airframes.');
+      this.airframes = response.data;
+    });
   }
 
   @Watch('filters')
   onFiltersChanged(val: any, oldVal: any) {
-    if (val.airframeIdsToInclude !== oldVal.airframeIdsToInclude) {
-      console.log('Airframes filter changed.', this.filters);
-      if (val.airframeIdsToInclude.length > 0) {
-        this.queries.airframe_ids = val.airframeIdsToInclude.join(',');
-      } else {
-        delete this.queries.airframe_ids;
-      }
-
-      if (val.errorsToExclude.length > 0) {
-        this.queries.exclude_errors = val.errorsToExclude.join(',');
-      } else {
-        delete this.queries.exclude_errors;
-      }
-
-      if (val.labelsToExclude.length > 0) {
-        this.queries.exclude_labels = val.labelsToExclude.join(',');
-      } else {
-        delete this.queries.exclude_labels;
-      }
-
-      if (val.stationIdsToInclude.length > 0) {
-        this.queries.station_ids = val.stationIdsToInclude.join(',');
-      } else {
-        delete this.queries.station_ids;
-      }
-
-      if (val.textToInclude) {
-        this.queries.text = val.textToInclude;
-      } else {
-        delete this.queries.text;
-      }
-      this.updateRoute();
+    console.log('Filters have changed', this.filters);
+    if (val.airframeIdsToInclude.length > 0) {
+      this.queries.airframe_ids = val.airframeIdsToInclude.join(',');
+    } else {
+      delete this.queries.airframe_ids;
     }
+
+    if (val.stationIdsToInclude.length > 0) {
+      this.queries.station_ids = val.stationIdsToInclude.join(',');
+    } else {
+      delete this.queries.station_ids;
+    }
+
+    if (val.errorsToExclude.length > 0) {
+      this.queries.exclude_errors = val.errorsToExclude.join(',');
+    } else {
+      delete this.queries.exclude_errors;
+    }
+
+    if (val.labelsToExclude.length > 0) {
+      this.queries.exclude_labels = val.labelsToExclude.join(',');
+    } else {
+      delete this.queries.exclude_labels;
+    }
+
+    if (val.labelsToInclude.length > 0) {
+      this.queries.labels = val.labelsToInclude.join(',');
+    } else {
+      delete this.queries.labels;
+    }
+
+    if (val.stationIdsToInclude.length > 0) {
+      this.queries.station_ids = val.stationIdsToInclude.join(',');
+    } else {
+      delete this.queries.station_ids;
+    }
+
+    if (val.textToInclude && val.textToInclude !== '') {
+      this.queries.text = val.textToInclude;
+    } else {
+      delete this.queries.text;
+    }
+    this.updateRoute();
   }
 
   pauseLiveMessages() {

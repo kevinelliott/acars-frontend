@@ -1,6 +1,6 @@
 <template>
   <div class="m-0 p-0">
-    <div class="p-4 bg-light border">
+    <div class="p-4 bg-white border">
       <div
         v-if="!filterDataIsReady()"
         class="ml-3 mr-3 filter-overlay d-flex align-items-center justify-content-center"
