@@ -26,10 +26,26 @@
         from collecting data from more feeders are:
       </div>
       <ul class="mb-4 text-left">
-        <li>Message Decoders (making sense of the text in ACARS messages)</li>
-        <li>Scalability (optimizing aggregator, database, API, and UI based on high load)</li>
-        <li>Flight Positions (more data == more positions)</li>
-        <li>Flight Continuity (more feeders == receive all data from a flight from A to B)</li>
+        <li>
+          Message Decoders
+          <span class="text-muted">(making sense of the text in ACARS messages)</span>
+        </li>
+        <li>
+          Scalability
+          <span class="text-muted">
+            (optimizing aggregator, database, API, and UI based on high load)
+          </span>
+        </li>
+        <li>
+          Flight Positions
+          <span class="text-muted">(more data == more positions)</span>
+        </li>
+        <li>
+          Flight Continuity
+          <span class="text-muted">
+            (more feeders == receive all data from a flight from A to B)
+          </span>
+        </li>
       </ul>
       <h2 class="mb-4">Current Ingests</h2>
       <table class="mb-0 table table-sm">
