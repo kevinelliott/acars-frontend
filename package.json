@@ -1,6 +1,6 @@
 {
   "name": "acars-frontend",
-  "version": "0.5.18",
+  "version": "0.6.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
