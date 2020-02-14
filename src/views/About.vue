@@ -183,9 +183,12 @@
         <h4>Need Help?</h4>
       </div>
       <div class="text-justify">
-        If you need help getting set up, join the very active <strong>ADSBExchange</strong> Discord
-        server. On the <strong>#project-acars</strong> channel there are other volunteer feeders who
-        can share their configurations and help you squash any issues you may have.
+        If you need help getting set up, join the very active
+        <strong><a href="https://discord.gg/S6z64Gw">ADSBExchange</a></strong> Discord
+        server. On the
+        <strong><a href="https://discord.gg/3PEBAhY">#project-acars</a></strong> channel there are
+        other volunteer feeders who can share their configurations and help you squash any issues
+        you may have.
       </div>
     </div>
   </div>
