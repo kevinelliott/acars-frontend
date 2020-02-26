@@ -18,6 +18,7 @@ import MessageDetail from '@/views/MessageDetail.vue';
 import Messages from '@/views/Messages.vue';
 import MessagesHistorical from '@/views/MessagesHistorical.vue';
 import MessagesLive from '@/views/MessagesLive.vue';
+import MyIp from '@/views/MyIp.vue';
 import Stations from '@/views/Stations.vue';
 
 Vue.use(VueRouter);
@@ -111,6 +112,11 @@ const routes = [
     path: '/messages/:id',
     name: 'message_detail',
     component: MessageDetail,
+  },
+  {
+    path: '/myip',
+    name: 'myip',
+    component: MyIp,
   },
   {
     path: '/stations',
