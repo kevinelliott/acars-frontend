@@ -92,11 +92,6 @@ const routes = [
     component: Flights,
   },
   {
-    path: '/stations/leaderboard',
-    name: 'leaderboard',
-    component: Leaderboard,
-  },
-  {
     path: '/messages',
     name: 'messages',
     component: Messages,
@@ -121,6 +116,16 @@ const routes = [
     path: '/stations',
     name: 'stations',
     component: Stations,
+  },
+  {
+    path: '/stations/leaderboard',
+    name: 'leaderboard',
+    component: Leaderboard,
+  },
+  {
+    path: '/stations/leaderboard/:date',
+    name: 'leaderboard_date',
+    component: Leaderboard,
   },
 ];
 
