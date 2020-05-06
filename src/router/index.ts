@@ -40,7 +40,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
     meta: {
-      title: 'About | Airframes',
+      title: 'About Airframes',
     },
   },
   {
@@ -53,7 +53,7 @@ const routes = [
     name: 'admin_stats',
     component: AdminStats,
     meta: {
-      title: 'Stats | Airframes Admin',
+      title: 'Admin Stats',
     },
   },
   {
@@ -96,7 +96,7 @@ const routes = [
     name: 'airframes',
     component: Airframes,
     meta: {
-      title: 'Known Airframes | Airframes',
+      title: 'Known Airframes',
     },
   },
   {
@@ -104,7 +104,7 @@ const routes = [
     name: 'flights',
     component: Flights,
     meta: {
-      title: 'Active Flights | Airframes',
+      title: 'Active Flights',
     },
   },
   {
@@ -112,7 +112,7 @@ const routes = [
     name: 'messages',
     component: Messages,
     meta: {
-      title: 'Messages | Airframes',
+      title: 'Messages',
     },
   },
   {
@@ -121,7 +121,7 @@ const routes = [
     component: MessagesHistorical,
     props: true,
     meta: {
-      title: 'Historical Messages | Airframes',
+      title: 'Historical Messages',
     },
   },
   {
@@ -129,7 +129,7 @@ const routes = [
     name: 'messages_live',
     component: MessagesLive,
     meta: {
-      title: 'Live Messages | Airframes',
+      title: 'Live Messages',
     },
   },
   {
@@ -137,7 +137,7 @@ const routes = [
     name: 'message_detail',
     component: MessageDetail,
     meta: {
-      title: 'Message Detail | Airframes',
+      title: 'Message Detail',
     },
   },
   {
@@ -145,7 +145,7 @@ const routes = [
     name: 'myip',
     component: MyIp,
     meta: {
-      title: 'About My IP | Airframes',
+      title: 'About My IP',
     },
   },
   {
@@ -153,7 +153,7 @@ const routes = [
     name: 'stations',
     component: Stations,
     meta: {
-      title: 'Feeder Stations | Airframes',
+      title: 'Feeder Stations',
     },
   },
   {
@@ -161,7 +161,7 @@ const routes = [
     name: 'leaderboard',
     component: Leaderboard,
     meta: {
-      title: 'Leaderboard | Airframes',
+      title: 'Leaderboard',
     },
   },
   {
@@ -169,7 +169,7 @@ const routes = [
     name: 'leaderboard_date',
     component: Leaderboard,
     meta: {
-      title: 'Leaderboard for Date | Airframes',
+      title: 'Leaderboard for Date',
     },
   },
 ];
