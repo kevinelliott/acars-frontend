@@ -28,6 +28,9 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
+    meta: {
+      title: 'Airframes - Community sourced realtime aircraft data via ACARS, VDL, SATCOM and ADS-C',
+    },
   },
   {
     path: '/about',
@@ -36,6 +39,9 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    meta: {
+      title: 'About | Airframes',
+    },
   },
   {
     path: '/admin/sockets',
@@ -46,6 +52,9 @@ const routes = [
     path: '/admin/stats',
     name: 'admin_stats',
     component: AdminStats,
+    meta: {
+      title: 'Stats | Airframes Admin',
+    },
   },
   {
     path: '/admin/stats/airlines',
@@ -86,52 +95,82 @@ const routes = [
     path: '/airframes',
     name: 'airframes',
     component: Airframes,
+    meta: {
+      title: 'Known Airframes | Airframes',
+    },
   },
   {
     path: '/flights',
     name: 'flights',
     component: Flights,
+    meta: {
+      title: 'Active Flights | Airframes',
+    },
   },
   {
     path: '/messages',
     name: 'messages',
     component: Messages,
+    meta: {
+      title: 'Messages | Airframes',
+    },
   },
   {
     path: '/messages/historical',
     name: 'messages_historical',
     component: MessagesHistorical,
     props: true,
+    meta: {
+      title: 'Historical Messages | Airframes',
+    },
   },
   {
     path: '/messages/live',
     name: 'messages_live',
     component: MessagesLive,
+    meta: {
+      title: 'Live Messages | Airframes',
+    },
   },
   {
     path: '/messages/:id',
     name: 'message_detail',
     component: MessageDetail,
+    meta: {
+      title: 'Message Detail | Airframes',
+    },
   },
   {
     path: '/myip',
     name: 'myip',
     component: MyIp,
+    meta: {
+      title: 'About My IP | Airframes',
+    },
   },
   {
     path: '/stations',
     name: 'stations',
     component: Stations,
+    meta: {
+      title: 'Feeder Stations | Airframes',
+    },
   },
   {
     path: '/stations/leaderboard',
     name: 'leaderboard',
     component: Leaderboard,
+    meta: {
+      title: 'Leaderboard | Airframes',
+    },
   },
   {
     path: '/stations/leaderboard/:date',
     name: 'leaderboard_date',
     component: Leaderboard,
+    meta: {
+      title: 'Leaderboard for Date | Airframes',
+    },
   },
 ];
 
@@ -139,6 +178,19 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+// This callback runs before every route change, including on page load.
+router.beforeEach((to, from, next) => {
+  // This goes through the matched routes from last to first, finding the closest route with a title
+  // eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's
+  // will be chosen.
+  const nearestWithTitle = to.matched.slice().reverse().find((r) => r.meta && r.meta.title);
+
+  // If a route with a title was found, set the document (page) title to that value.
+  if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
+
+  next();
 });
 
 export default router;

@@ -24,6 +24,8 @@ import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+import VueGtag from 'vue-gtag';
+
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -73,6 +75,11 @@ Vue.use(require('vue-moment'), {
 
 Vue.use(BootstrapVue);
 
+Vue.use(VueGtag, {
+  config: { id: 'G-004ZF59XP6' },
+  appName: 'Airframes Web App',
+  pageTrackerScreenviewEnaled: true,
+}, router);
 
 new Vue({
   router,
