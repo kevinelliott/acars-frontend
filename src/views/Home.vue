@@ -4,6 +4,7 @@
       <div class="container">
         <div class="d-flex justify-content-center">
           <div class="w-75">
+            <img src="/plane.png" width="200" class="mb-2">
             <h1 class="mt-3 mb-4">Welcome!</h1>
             <p class="text-left">
               This is an aircraft-related aggregation service that receives ACARS data from
