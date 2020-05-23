@@ -6,7 +6,7 @@
     <div class="mb-4 p-4 border-bottom">
       <div class="container text-left">
         <h3 class="mb-0">
-          3 - KE-KMHR1
+          {{ station.id }} - {{ station.ident }}
           <div class="pull-right">
             <button class="mr-2 btn btn-primary">Edit</button>
             <button class="btn btn-danger">Destroy</button>
@@ -22,47 +22,51 @@
             <table class="table table-hover mb-0 bg-white">
               <tr>
                 <td>UUID</td>
-                <td>66A8B7A3-15B8-4C73-8A49-5B7E7C8E857F</td>
+                <td>{{ station.uuid }}</td>
+              </tr>
+              <tr>
+                <td>Type</td>
+                <td>{{ station.sourceType.toUpperCase() }}</td>
               </tr>
               <tr>
                 <td>Owner</td>
-                <td>Kevin Elliott</td>
+                <td>{{ $store.state.auth.user.name }}</td>
               </tr>
               <tr>
                 <td>Location</td>
-                <td>CM98kq</td>
+                <td>{{ station.latitude || 'Unknown' }}, {{ station.longitude || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>Nearest Airport</td>
-                <td>Mather</td>
+                <td class="text-muted">Coming Soon</td>
               </tr>
               <tr>
                 <td>Platform</td>
-                <td>Raspberry Pi 3+</td>
+                <td class="text-muted">Coming Soon</td>
               </tr>
               <tr>
                 <td>Operating System</td>
-                <td>Raspbian Buster</td>
+                <td class="text-muted">Coming Soon</td>
               </tr>
               <tr>
                 <td>SDR</td>
-                <td>RTL-SDR v3</td>
+                <td class="text-muted">Coming Soon</td>
               </tr>
               <tr>
                 <td>Filters</td>
-                <td>FM Bandstop</td>
+                <td class="text-muted">Coming Soon</td>
               </tr>
               <tr>
                 <td>Antenna</td>
-                <td>DPD Outdoor Airband</td>
+                <td class="text-muted">Coming Soon</td>
               </tr>
               <tr>
                 <td>Ingest</td>
-                <td>ACARS @ feed.acars.io:5550</td>
+                <td class="text-muted">Coming Soon</td>
               </tr>
               <tr>
                 <td>Feeder Client</td>
-                <td>acarsdec</td>
+                <td>{{ station.sourceApplication }}</td>
               </tr>
             </table>
           </div>
@@ -84,7 +88,7 @@
 
 <script>
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
 
 import Map from '@/components/shared/Map.vue';
 
@@ -94,5 +98,28 @@ import Map from '@/components/shared/Map.vue';
   },
 })
 export default class UserStation extends Vue {
+  id = 0;
+
+  station = {
+    id: 'N/A',
+    ident: 'N/A',
+  };
+
+  @Watch('$route')
+  onPropertyChanged(newValue, oldValue) {
+    if (newValue.params.id && newValue.params.id !== oldValue.params.id) {
+      this.refresh();
+    }
+  }
+
+  mounted() {
+    this.refresh();
+  }
+
+  refresh() {
+    console.log(this.$route.params);
+    this.id = Number(this.$route.params.id);
+    this.station = this.$store.state.auth.user.stations.find((station) => station.id === this.id);
+  }
 }
 </script>
