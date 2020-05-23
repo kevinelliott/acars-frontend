@@ -5,7 +5,7 @@
     </div>
     <div class="border-bottom">
       <div class="container p-4">
-        Known stations for your IP address.
+        Known stations for this IP address.
       </div>
     </div>
     <div class="container p-2 mt-4">
