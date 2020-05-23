@@ -1,7 +1,12 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001/auth/';
-// const API_URL = 'https://api.airframes.io/auth/';
+let remoteUrl;
+if (process.env.NODE_ENV === 'production') {
+  remoteUrl = `https://${appHost}:${appPort}`;
+} else {
+  remoteUrl = 'http://localhost:3001';
+}
+const API_URL = `${remoteUrl}/auth/`;
 
 class AuthService {
   login(user: any) { // eslint-disable-line class-methods-use-this
