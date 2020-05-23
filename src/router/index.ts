@@ -14,11 +14,13 @@ import Airframes from '@/views/Airframes.vue';
 import Flights from '@/views/Flights.vue';
 import Home from '@/views/Home.vue';
 import Leaderboard from '@/views/Leaderboard.vue';
+import Login from '@/views/auth/Login.vue';
 import MessageDetail from '@/views/MessageDetail.vue';
 import Messages from '@/views/Messages.vue';
 import MessagesHistorical from '@/views/MessagesHistorical.vue';
 import MessagesLive from '@/views/MessagesLive.vue';
 import MyIp from '@/views/MyIp.vue';
+import Register from '@/views/auth/Register.vue';
 import Stations from '@/views/Stations.vue';
 
 Vue.use(VueRouter);
@@ -42,6 +44,18 @@ const routes = [
     meta: {
       title: 'About Airframes',
     },
+  },
+  {
+    path: '/auth/login',
+    name: 'auth_login',
+    component: Login,
+    meta: { title: 'Login to Airframes', layout: 'no-navigation' },
+  },
+  {
+    path: '/auth/register',
+    name: 'auth_register',
+    component: Register,
+    meta: { title: 'Create an Airframes Account', layout: 'no-navigation' },
   },
   {
     path: '/admin/sockets',
