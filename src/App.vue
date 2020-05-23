@@ -15,7 +15,17 @@
               <b-nav-item to="/messages/live">Messages</b-nav-item>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto" v-if="$store.state.auth.status.loggedIn">
-              <button @click="handleLogout" class="btn btn-sm btn-danger">Logout</button>
+              <b-nav-item-dropdown
+                id="user-menu-dropdown"
+                :text="$store.state.auth.user.username"
+                right
+              >
+                <b-dropdown-item>Dashboard</b-dropdown-item>
+                <b-dropdown-divider></b-dropdown-divider>
+                <b-dropdown-item @click="handleLogout">
+                  Logout
+                </b-dropdown-item>
+              </b-nav-item-dropdown>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto" v-else>
               <b-nav-item to="/about">About</b-nav-item>
