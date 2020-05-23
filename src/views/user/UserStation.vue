@@ -1,15 +1,21 @@
 <template>
   <div class="about text-center">
     <div id="nav" class="mt-0 pt-3 pb-3 bg-white border-bottom">
-      <h3 class="m-0">Ground Station</h3>
+      <h3 class="m-0">Your Dashboard</h3>
+      <router-link :to="`/user/station/${station.id}`">Ground Station Detail</router-link>
     </div>
     <div class="mb-4 p-4 border-bottom">
       <div class="container text-left">
         <h3 class="mb-0">
           {{ station.id }} - {{ station.ident }}
           <div class="pull-right">
-            <button class="mr-2 btn btn-primary">Edit</button>
-            <button class="btn btn-danger">Destroy</button>
+            <b-button
+              :to="`/user/station/${id}/edit`"
+              variant="warning"
+              class="mr-2">
+              Edit
+            </b-button>
+            <b-button variant="danger">Destroy</b-button>
           </div>
         </h3>
       </div>
@@ -38,19 +44,19 @@
               </tr>
               <tr>
                 <td>Nearest Airport</td>
-                <td class="text-muted">Coming Soon</td>
+                <td>{{ station.nearest_airport || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>Platform</td>
-                <td class="text-muted">Coming Soon</td>
+                <td>{{ station.platform || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>Operating System</td>
-                <td class="text-muted">Coming Soon</td>
+                <td>{{ station.operating_system || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>SDR</td>
-                <td class="text-muted">Coming Soon</td>
+                <td>{{ station.sdr || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>Filters</td>
@@ -58,7 +64,7 @@
               </tr>
               <tr>
                 <td>Antenna</td>
-                <td class="text-muted">Coming Soon</td>
+                <td>{{ station.antenna || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>Ingest</td>
@@ -66,12 +72,13 @@
               </tr>
               <tr>
                 <td>Feeder Client</td>
-                <td>{{ station.sourceApplication }}</td>
+                <td>{{ station.sourceApplication || 'Unknown' }}</td>
               </tr>
             </table>
           </div>
           <div class="col-6">
             <Map
+              :coordinates="stationCoordinates()"
               style="height: 100%;"
               />
           </div>
@@ -81,6 +88,7 @@
     <div class="mb-4 p-4 border-bottom">
       <div class="container text-left">
         <h4 class="mb-4">Recent Messages</h4>
+        <h5 class="text-muted">Coming soon...</h5>
       </div>
     </div>
   </div>
@@ -120,6 +128,12 @@ export default class UserStation extends Vue {
     console.log(this.$route.params);
     this.id = Number(this.$route.params.id);
     this.station = this.$store.state.auth.user.stations.find((station) => station.id === this.id);
+  }
+
+  stationCoordinates() {
+    const coords = { latitude: this.station.latitude, longitude: this.station.longitude };
+    console.log(coords);
+    return coords;
   }
 }
 </script>

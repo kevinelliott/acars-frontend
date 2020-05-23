@@ -4,13 +4,14 @@ import moment from 'moment-timezone';
 
 import acarsData from '../assets/acars-data.json';
 import auth from './auth.module';
-
+import userStation from './user_station.module';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     auth,
+    userStation,
   },
   state: {
     acarsData,
