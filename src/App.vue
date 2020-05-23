@@ -14,8 +14,12 @@
               <b-nav-item to="/flights">Flights</b-nav-item>
               <b-nav-item to="/messages/live">Messages</b-nav-item>
             </b-navbar-nav>
-            <b-navbar-nav class="ml-auto">
+            <b-navbar-nav class="ml-auto" v-if="$store.state.auth.status.loggedIn">
+              <button @click="handleLogout" class="btn btn-sm btn-danger">Logout</button>
+            </b-navbar-nav>
+            <b-navbar-nav class="ml-auto" v-else>
               <b-nav-item to="/about">About</b-nav-item>
+              <b-nav-item to="/auth/login">Login</b-nav-item>
             </b-navbar-nav>
           </b-collapse>
         </b-navbar>
@@ -76,6 +80,11 @@ export default class App extends Vue {
   messagesLivePerSecondInterval = 0;
 
   version = new Version();
+
+  handleLogout() {
+    this.$store.dispatch('auth/logout');
+    this.$router.push('/auth/login');
+  }
 
   mounted() {
     this.$gtag.event('main_page_mounted');

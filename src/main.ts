@@ -2,6 +2,9 @@ import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import LogRocket from 'logrocket';
 import VueMoment from 'vue-moment';
+import Toasted from 'vue-toasted';
+import VeeValidate from 'vee-validate';
+import VueGtag from 'vue-gtag';
 import moment from 'moment-timezone';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -23,8 +26,6 @@ import io from 'socket.io-client';
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-
-import VueGtag from 'vue-gtag';
 
 import App from './App.vue';
 import router from './router';
@@ -74,7 +75,8 @@ Vue.use(require('vue-moment'), {
 });
 
 Vue.use(BootstrapVue);
-
+Vue.use(Toasted, { position: 'bottom-right', duration: 3000, theme: 'bubble' });
+Vue.use(VeeValidate);
 Vue.use(VueGtag, {
   config: { id: 'G-004ZF59XP6' },
   appName: 'Airframes Web App',

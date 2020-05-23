@@ -3,10 +3,15 @@ import Vuex from 'vuex';
 import moment from 'moment-timezone';
 
 import acarsData from '../assets/acars-data.json';
+import auth from './auth.module';
+
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  modules: {
+    auth,
+  },
   state: {
     acarsData,
     activeFlights: [],
@@ -120,7 +125,5 @@ export default new Vuex.Store({
       // console.log('Store: Socket: stations');
       commit('setStations', stations.sort((a: any, b: any) => (b.messagesCount - a.messagesCount)));
     },
-  },
-  modules: {
   },
 });
