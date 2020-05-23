@@ -44,27 +44,27 @@
               </tr>
               <tr>
                 <td>Nearest Airport</td>
-                <td>{{ station.nearest_airport || 'Unknown' }}</td>
+                <td>{{ station.nearestAirportIcao || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>Platform</td>
-                <td>{{ station.platform || 'Unknown' }}</td>
+                <td>{{ station.systemPlatform || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>Operating System</td>
-                <td>{{ station.operating_system || 'Unknown' }}</td>
+                <td>{{ station.systemOS || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>SDR</td>
-                <td>{{ station.sdr || 'Unknown' }}</td>
+                <td>{{ station.equipmentSdr || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>Filters</td>
-                <td class="text-muted">Coming Soon</td>
+                <td>{{ station.equipmentFilters || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>Antenna</td>
-                <td>{{ station.antenna || 'Unknown' }}</td>
+                <td>{{ station.equipmentAntenna || 'Unknown' }}</td>
               </tr>
               <tr>
                 <td>Ingest</td>
