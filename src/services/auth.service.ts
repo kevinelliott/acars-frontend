@@ -2,6 +2,8 @@ import axios from 'axios';
 
 let remoteUrl;
 if (process.env.NODE_ENV === 'production') {
+  const appHost = process.env.BACKEND_HOST ? process.env.BACKEND_HOST : 'api.airframes.io';
+  const appPort = process.env.BACKEND_PORT ? process.env.BACKEND_PORT : '443';
   remoteUrl = `https://${appHost}:${appPort}`;
 } else {
   remoteUrl = 'http://localhost:3001';
