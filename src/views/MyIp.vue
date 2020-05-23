@@ -8,37 +8,40 @@
         Known stations for your IP address.
       </div>
     </div>
-    <div class="container p-4">
-      <h5>
+    <div class="container p-2 mt-4">
+      <h5 class="mb-2">
         Internet IP Address
       </h5>
-      <div class="mb-4">
-        {{ myData.ipAddress }}
-      </div>
-      <h5>
-        Your Stations
+      <h3>
+        {{ ipAddress }}
+      </h3>
+    </div>
+    <div class="container p-2 mb-2">
+      <h5 class="mb-2">
+        Detected from your IP Address
       </h5>
-      <div v-for="station in myData.stations"
+      <div v-for="station in unassociatedStations"
            :key="`your-station-${station.id}`"
+           class="mb-2"
            >
-        <table class="table">
-          <tr class="border">
-            <td class="w-25">
-              {{ station.id }}<br>
-              <small class="text-muted">ID</small>
-            </td>
-            <td class="text-left">
-              {{ station.ident }}<br>
-              <small class="text-muted">IDENT</small>
-            </td>
-            <td class="w-50 align-middle alert" :class="stationStatusClass(station)">
-              {{ stationStatusName(station) }}<br>
-              <small class="text-muted">
-                Last Received: {{ station.lastReportAt | moment("from", "now") }}
-              </small>
-            </td>
-          </tr>
-        </table>
+        <MyIpStation
+          :station="station"
+          :associated="isAssociated(station)"
+          />
+      </div>
+    </div>
+    <div class="container p-2" v-if="loggedIn()">
+      <h5 class="mb-2">
+        Your Assigned Ground Stations
+      </h5>
+      <div v-for="station in associatedStations()"
+          :key="`your-station-${station.id}`"
+           class="mb-2"
+           >
+        <MyIpStation
+          :station="station"
+          :associated="true"
+          />
       </div>
     </div>
   </div>
@@ -48,53 +51,46 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
+import MyIpStation from './MyIpStation.vue';
+
 @Component({
   components: {
+    MyIpStation,
   },
 })
 export default class MyIp extends Vue {
-  myData = [];
+  ipAddress = '';
+
+  unassociatedStations = [];
+
+  associatedStations() { // eslint-disable-line class-methods-use-this
+    return this.$store.state.auth.user ? this.$store.state.auth.user.stations : [];
+  }
 
   created() {
     this.refresh();
   }
 
-  dateDiffInMinutesFromNow(date) { // eslint-disable-line class-methods-use-this
-    const now = new Date();
-    let diff = (now.getTime() - date.getTime()) / 1000;
-    diff /= 60;
-    console.log(diff);
-    return Math.abs(Math.round(diff));
+  isAssociated(station) { // eslint-disable-line class-methods-use-this
+    // const matching = this.associatedStations().find(
+    // (associatedStation)
+    // => associatedStation.id === station.id // eslint-disable-line comma-dangle
+    // );
+    // return matching;
+    return station.userId;
+  }
+
+  loggedIn() {
+    return this.$store.state.auth.status.loggedIn;
   }
 
   refresh() {
     console.log('Fetching myip details...');
     Vue.axios.get(`${this.$store.state.apiServerBaseUrl}/user/myip`).then((response) => {
       console.log('Fetched current myip details.');
-      console.log(response.data);
-
-      this.myData = response.data;
+      this.ipAddress = response.data.ipAddress;
+      this.unassociatedStations = response.data.stations;
     });
-  }
-
-  stationStatusClass(station) {
-    return {
-      'alert-success': this.dateDiffInMinutesFromNow(new Date(station.lastReportAt)) <= 60,
-      'alert-warning': this.dateDiffInMinutesFromNow(new Date(station.lastReportAt)) > 60
-        && this.dateDiffInMinutesFromNow(new Date(station.lastReportAt)) <= 1440,
-      'alert-danger': this.dateDiffInMinutesFromNow(new Date(station.lastReportAt)) > 1440,
-    };
-  }
-
-  stationStatusName(station) {
-    if (this.dateDiffInMinutesFromNow(new Date(station.lastReportAt)) <= 60) {
-      return 'Healthy';
-    }
-    if (this.dateDiffInMinutesFromNow(new Date(station.lastReportAt)) > 60
-        && this.dateDiffInMinutesFromNow(new Date(station.lastReportAt)) <= 1440) {
-      return 'Potential Issue';
-    }
-    return 'Not Working';
   }
 }
 </script>

@@ -162,7 +162,7 @@ const routes = [
     name: 'myip',
     component: MyIp,
     meta: {
-      title: 'About My IP',
+      title: 'My IP',
     },
   },
   {

@@ -3,6 +3,9 @@
 export default {
   namespaced: true,
   actions: {
+    claim({ commit }: { commit: any }, station: any) {
+
+    },
     save({ commit }: { commit: any }, station: any) {
     },
   },
