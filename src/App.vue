@@ -21,6 +21,7 @@
                 right
               >
                 <b-dropdown-item to="/user/dashboard">Dashboard</b-dropdown-item>
+                <b-dropdown-item to="/myip">My IP</b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item @click="handleLogout">
                   Logout
