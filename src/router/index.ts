@@ -11,6 +11,7 @@ import AdminStatsFrequencies from '@/views/admin/stats/AdminStatsFrequencies.vue
 import AdminStatsMessageLabels from '@/views/admin/stats/AdminStatsMessageLabels.vue';
 import AdminStatsStations from '@/views/admin/stats/AdminStatsStations.vue';
 import Airframes from '@/views/Airframes.vue';
+import EditUserStation from '@/views/user/EditUserStation.vue';
 import Flights from '@/views/Flights.vue';
 import Home from '@/views/Home.vue';
 import Leaderboard from '@/views/Leaderboard.vue';
@@ -202,6 +203,14 @@ const routes = [
     component: UserStation,
     meta: {
       title: 'Station',
+    },
+  },
+  {
+    path: '/user/station/:id/edit',
+    name: 'edit_user_station',
+    component: EditUserStation,
+    meta: {
+      title: 'Edit Station',
     },
   },
 ];

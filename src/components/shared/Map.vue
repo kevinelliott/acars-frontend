@@ -9,6 +9,8 @@
       @update:center='centerUpdated'
       @update:bounds='boundsUpdated'
     >
+      <l-marker :lat-lng="[this.coordinates.latitude, this.coordinates.longitude]">
+      </l-marker>
       <l-tile-layer :url="url"></l-tile-layer>
     </l-map>
   </div>
@@ -20,21 +22,25 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 // const Vue2LeafletLocatecontrol = require('vue2-leaflet-locatecontrol');
 import Vue2LeafletLocatecontrol from 'vue2-leaflet-locatecontrol'; // eslint-disable-line
 import LMovingMarker from 'vue2-leaflet-movingmarker'; // eslint-disable-line
-import { LIcon } from 'vue2-leaflet';
+import { LIcon, LMarker } from 'vue2-leaflet';
 
 @Component({
   components: {
     'l-icon': LIcon,
+    'l-marker': LMarker,
     'l-moving-marker': LMovingMarker,
     'v-locatecontrol': Vue2LeafletLocatecontrol,
   },
 })
 export default class Map extends Vue {
+  @Prop() private coordinates: any;
+
   data() { // eslint-disable-line class-methods-use-this
     return {
       url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-      zoom: 5,
-      center: [39.8283, -98.5795],
+      zoom: this.coordinates && this.coordinates.latitude ? 9 : 3,
+      center: this.coordinates && this.coordinates.latitude && this.coordinates.longitude
+        ? [this.coordinates.latitude, this.coordinates.longitude] : [39.8283, -98.5795],
       bounds: null,
     };
   }
