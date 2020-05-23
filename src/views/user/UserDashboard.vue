@@ -63,7 +63,7 @@
               </td>
               <td class="text-center">
                 <span class="mr-1 p-1 badge" :class="statusBadgeClass(station.status)" >
-                  {{ station.status.charAt(0).toUpperCase() + station.status.slice(1) }}
+                  {{ humanize(station.status) }}
                 </span>
               </td>
               <td>
@@ -99,6 +99,14 @@ export default class UserDashboard extends Vue {
     if (status === 'active') return 'badge-success';
     if (status === 'inactive') return 'badge-danger';
     return 'badge-info';
+  }
+
+  humanize(str) { // eslint-disable-line class-methods-use-this
+    const frags = str.split('-');
+    for (let i = 0; i < frags.length; i += 1) {
+      frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+    }
+    return frags.join(' ');
   }
 }
 </script>
