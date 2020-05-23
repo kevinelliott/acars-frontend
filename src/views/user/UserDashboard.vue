@@ -38,6 +38,7 @@
           <tbody>
             <tr v-for="station in $store.state.auth.user.stations"
               :key="`station-table-row-${station.id}`"
+              @click="handleStationClick(station)"
             >
               <td>
                 <span class="badge badge-primary text-white pl-2 pr-2">
@@ -99,6 +100,10 @@ export default class UserDashboard extends Vue {
     if (status === 'active') return 'badge-success';
     if (status === 'inactive') return 'badge-danger';
     return 'badge-info';
+  }
+
+  handleStationClick(station) {
+    this.$router.push(`/user/station/${station.id}`);
   }
 
   humanize(str) { // eslint-disable-line class-methods-use-this
