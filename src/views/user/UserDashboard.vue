@@ -1,0 +1,96 @@
+<template>
+  <div class="about text-center">
+    <div id="nav" class="mt-0 pt-3 pb-3 bg-white border-bottom">
+      <h3 class="m-0">Your Dashboard</h3>
+    </div>
+    <div class="mb-4 p-4 border-bottom">
+      <div class="container text-left">
+        <h3 class="mb-4">
+          <img
+            src="https://www.gravatar.com/avatar/ac1c51f25718910e4a6d19ee44b5d465/?s=50&d=mm"
+            class="rounded-circle"
+            width="40"
+          >
+          <span class="ml-2">
+            {{ $store.state.auth.user.name }}
+            <small class="text-muted">(admin)</small>
+          </span>
+          <div class="pull-right">
+            <button class="mr-2 btn btn-primary">Settings</button>
+            <button class="btn btn-primary">API Key</button>
+          </div>
+        </h3>
+        <h4 class="mb-4">Ground Stations</h4>
+        <table class="table table-hover mb-4 bg-white">
+          <tr>
+            <th>ID</th>
+            <th>Ident</th>
+            <th>Type</th>
+            <th>Nearest Airport</th>
+            <th>Heard Messages</th>
+            <th>Status</th>
+            <th>Last Report</th>
+            <th>Info</th>
+          </tr>
+          <tbody>
+            <tr v-for="station in $store.state.auth.user.stations"
+              :key="`station-table-row-${station.id}`"
+            >
+              <td>
+                <span class="badge badge-primary text-white pl-2 pr-2">
+                  {{ station.id }}
+                </span>
+              </td>
+              <td>
+                {{ station.ident }}
+              </td>
+              <td>
+                <span v-if="station.sourceType">
+                  {{ station.sourceType.toUpperCase() }}
+                </span>
+                <span v-else class="text-muted">
+                  UNKNOWN
+                </span>
+              </td>
+              <td class="text-muted">Coming Soon</td>
+              <td class="text-center">
+                <span class="badge badge-pill badge-info">
+                  {{ station.stationMessageCount.messagesCount }}
+                </span>
+              </td>
+              <td class="text-center">
+                <span class="mr-1 p-1 badge badge-success" >
+                  {{ station.status }}
+                </span>
+              </td>
+              <td>
+                {{ station.lastReportAt | moment("from", "now") }}
+              </td>
+              <td class="text-muted">
+                <span class="mr-1 p-1 badge badge-secondary">
+                  Coming Soon
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-outline-secondary">
+          Add Ground Station
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+import moment from 'moment-timezone';
+
+@Component({
+  components: {
+  },
+})
+export default class UserDashboard extends Vue {
+}
+</script>

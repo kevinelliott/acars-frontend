@@ -77,7 +77,7 @@ export default class Airframes extends Vue {
   created() {
     if (this.loggedIn()) {
       Vue.toasted.show('Already logged in.', { type: 'info' });
-      this.$router.push('/');
+      this.$router.push('/user/dashboard');
     }
   }
 
@@ -114,7 +114,7 @@ export default class Airframes extends Vue {
           () => {
             this.loading = false;
             Vue.toasted.show('Logged in.');
-            this.$router.push('/');
+            this.$router.push('/user/dashboard');
           },
           (error) => {
             this.loading = false;
