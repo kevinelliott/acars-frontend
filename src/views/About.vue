@@ -115,6 +115,19 @@
       </table>
     </div>
     <div class="mb-4 container p-4 bg-white text-left">
+      <div class="text-left">
+        <h4>Need Help?</h4>
+      </div>
+      <div class="text-justify">
+        If you need help getting set up, join the very active
+        <strong><a href="https://discord.gg/S6z64Gw">ADSBExchange</a></strong> Discord
+        server. On the
+        <strong><a href="https://discord.gg/3PEBAhY">#project-acars</a></strong> channel there are
+        other volunteer feeders who can share their configurations and help you squash any issues
+        you may have.
+      </div>
+    </div>
+    <div class="mb-4 container p-4 bg-white text-left">
       <h4>ACARS</h4>
       <div class="mb-3 text-justify">
         We currently support <a href="https://github.com/TLeconte/acarsdec" target="_blank">acarsdec</a>
@@ -176,19 +189,6 @@
         Be sure to use the correct values for gain, output (your local terminal), and the
         frequencies to scan. They may be very different from the ones I provide in the example
         above.
-      </div>
-    </div>
-    <div class="mb-4 container p-4 bg-white text-left">
-      <div class="text-left">
-        <h4>Need Help?</h4>
-      </div>
-      <div class="text-justify">
-        If you need help getting set up, join the very active
-        <strong><a href="https://discord.gg/S6z64Gw">ADSBExchange</a></strong> Discord
-        server. On the
-        <strong><a href="https://discord.gg/3PEBAhY">#project-acars</a></strong> channel there are
-        other volunteer feeders who can share their configurations and help you squash any issues
-        you may have.
       </div>
     </div>
   </div>
