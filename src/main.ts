@@ -47,8 +47,8 @@ Icon.Default.mergeOptions({
 
 const appHost = process.env.BACKEND_HOST ? process.env.BACKEND_HOST : 'api.airframes.io';
 const appPort = process.env.BACKEND_PORT ? process.env.BACKEND_PORT : '443';
-let remoteUrl;
 
+let remoteUrl;
 if (process.env.NODE_ENV === 'production') {
   console.log('Running in Production mode.');
   remoteUrl = `https://${appHost}:${appPort}`;
