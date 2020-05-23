@@ -13,7 +13,7 @@
           >
           <span class="ml-2">
             {{ $store.state.auth.user.name }}
-            <small class="text-muted">(admin)</small>
+            <small class="text-muted">({{ $store.state.auth.user.role }})</small>
           </span>
           <div class="pull-right">
             <button class="mr-2 btn btn-primary">Settings</button>
@@ -59,8 +59,8 @@
                 </span>
               </td>
               <td class="text-center">
-                <span class="mr-1 p-1 badge badge-success" >
-                  {{ station.status }}
+                <span class="mr-1 p-1 badge" :class="statusBadgeClass(station.status)" >
+                  {{ station.status.charAt(0).toUpperCase() + station.status.slice(1) }}
                 </span>
               </td>
               <td>
@@ -92,5 +92,10 @@ import moment from 'moment-timezone';
   },
 })
 export default class UserDashboard extends Vue {
+  statusBadgeClass(status) { // eslint-disable-line class-methods-use-this
+    if (status === 'active') return 'badge-success';
+    if (status === 'inactive') return 'badge-danger';
+    return 'badge-info';
+  }
 }
 </script>
