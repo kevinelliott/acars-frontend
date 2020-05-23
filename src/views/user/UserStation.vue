@@ -112,7 +112,7 @@ export default class UserStation extends Vue {
     }
   }
 
-  mounted() {
+  beforeMount() {
     this.refresh();
   }
 
