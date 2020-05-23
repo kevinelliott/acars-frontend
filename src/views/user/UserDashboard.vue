@@ -7,7 +7,7 @@
       <div class="container text-left">
         <h3 class="mb-4">
           <img
-            src="https://www.gravatar.com/avatar/ac1c51f25718910e4a6d19ee44b5d465/?s=50&d=mm"
+            :src="$store.state.auth.user.gravatarUrl"
             class="rounded-circle"
             width="40"
           >
