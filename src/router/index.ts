@@ -22,6 +22,8 @@ import MessagesLive from '@/views/MessagesLive.vue';
 import MyIp from '@/views/MyIp.vue';
 import Register from '@/views/auth/Register.vue';
 import Stations from '@/views/Stations.vue';
+import UserDashboard from '@/views/user/UserDashboard.vue';
+import UserStation from '@/views/user/UserStation.vue';
 
 Vue.use(VueRouter);
 
@@ -184,6 +186,22 @@ const routes = [
     component: Leaderboard,
     meta: {
       title: 'Leaderboard for Date',
+    },
+  },
+  {
+    path: '/user/dashboard',
+    name: 'user_dashboard',
+    component: UserDashboard,
+    meta: {
+      title: 'Your Dashboard',
+    },
+  },
+  {
+    path: '/user/station/:id',
+    name: 'user_station',
+    component: UserStation,
+    meta: {
+      title: 'Station',
     },
   },
 ];
