@@ -20,7 +20,7 @@
                 :text="$store.state.auth.user.username"
                 right
               >
-                <b-dropdown-item>Dashboard</b-dropdown-item>
+                <b-dropdown-item to="/user/dashboard">Dashboard</b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item @click="handleLogout">
                   Logout

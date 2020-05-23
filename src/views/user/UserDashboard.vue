@@ -11,7 +11,10 @@
             class="rounded-circle"
             width="40"
           >
-          <span class="ml-2">Kevin Elliott</span>
+          <span class="ml-2">
+            {{ $store.state.auth.user.name }}
+            <small class="text-muted">(admin)</small>
+          </span>
           <div class="pull-right">
             <button class="mr-2 btn btn-primary">Settings</button>
             <button class="btn btn-primary">API Key</button>
@@ -22,38 +25,51 @@
           <tr>
             <th>ID</th>
             <th>Ident</th>
-            <th>Location</th>
+            <th>Type</th>
             <th>Nearest Airport</th>
             <th>Heard Messages</th>
+            <th>Status</th>
+            <th>Last Report</th>
             <th>Info</th>
           </tr>
           <tbody>
-            <tr>
+            <tr v-for="station in $store.state.auth.user.stations"
+              :key="`station-table-row-${station.id}`"
+            >
               <td>
-                <span class="badge badge-primary text-white pl-2 pr-2">3</span>
+                <span class="badge badge-primary text-white pl-2 pr-2">
+                  {{ station.id }}
+                </span>
               </td>
-              <td>KE-KMHR1</td>
-              <td>CM98kq @ 1004m</td>
-              <td>KMHR - Mather Airport</td>
-              <td><span class="badge badge-pill badge-info">2201630</span></td>
               <td>
-                <span class="mr-1 p-1 badge badge-secondary">Raspberry Pi 3+</span>
-                <span class="mr-1 p-1 badge badge-secondary">RTL-SDR v3</span>
-                <span class="p-1 badge badge-secondary">DPD Airband Antenna</span>
+                {{ station.ident }}
               </td>
-            </tr>
-            <tr>
               <td>
-                <span class="badge badge-primary text-white pl-2 pr-2">74</span>
+                <span v-if="station.sourceType">
+                  {{ station.sourceType.toUpperCase() }}
+                </span>
+                <span v-else class="text-muted">
+                  UNKNOWN
+                </span>
               </td>
-              <td>KE-KMHR2</td>
-              <td>CM98kq @ 1004m</td>
-              <td>KMHR - Mather Airport</td>
-              <td><span class="badge badge-pill badge-info">2201630</span></td>
+              <td class="text-muted">Coming Soon</td>
+              <td class="text-center">
+                <span class="badge badge-pill badge-info">
+                  {{ station.stationMessageCount.messagesCount }}
+                </span>
+              </td>
+              <td class="text-center">
+                <span class="mr-1 p-1 badge badge-success" >
+                  {{ station.status }}
+                </span>
+              </td>
               <td>
-                <span class="mr-1 p-1 badge badge-secondary">Raspberry Pi 4</span>
-                <span class="mr-1 p-1 badge badge-secondary">RTL-SDR v3</span>
-                <span class="p-1 badge badge-secondary">DPD Airband Antenna</span>
+                {{ station.lastReportAt | moment("from", "now") }}
+              </td>
+              <td class="text-muted">
+                <span class="mr-1 p-1 badge badge-secondary">
+                  Coming Soon
+                </span>
               </td>
             </tr>
           </tbody>
@@ -69,6 +85,7 @@
 <script>
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import moment from 'moment-timezone';
 
 @Component({
   components: {
