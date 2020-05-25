@@ -89,7 +89,7 @@
                       name="name"
                       placeholder="Raspberry Pi 3+"
                       class="form-control"
-                      :value="station.platform"
+                      :value="station.systemPlatform"
                       >
                   </b-form-group>
                 </div>
@@ -103,7 +103,7 @@
                       name="name"
                       placeholder="Raspbian Buster"
                       class="form-control"
-                      :value="station.operating_system"
+                      :value="station.systemOS"
                       >
                   </b-form-group>
                 </div>
@@ -158,21 +158,37 @@
                 <div class="col-4">
                   <b-form-group
                     label="Latitude">
-                    <input type="text" name="latitude" placeholder="38.21312" class="form-control">
+                    <input
+                      type="text"
+                      name="latitude"
+                      placeholder="38.21312"
+                      :value="station.latitude"
+                      class="form-control"
+                      >
                   </b-form-group>
                 </div>
                 <div class="col-4">
                   <b-form-group
                     label="Longitude">
                     <input
-                      type="text" name="longitude" placeholder="-121.99112"
-                      class="form-control">
+                      type="text"
+                      name="longitude"
+                      placeholder="-121.99112"
+                      :value="station.longitude"
+                      class="form-control"
+                      >
                   </b-form-group>
                 </div>
                 <div class="col-4">
                   <b-form-group
-                    label="Altitude (ASL)">
-                    <input type="text" name="altitude" placeholder="50" class="form-control">
+                    label="Altitude (feet ASL)">
+                    <input
+                      type="text"
+                      name="altitude"
+                      placeholder="50"
+                      :value="station.altitude"
+                      class="form-control"
+                      >
                   </b-form-group>
                 </div>
               </div>
@@ -184,7 +200,10 @@
                     <input
                       type="text"
                       name="name"
-                      placeholder="KMHR / Mather, Sacramento, CA" class="form-control">
+                      placeholder="KMHR"
+                      :value="station.nearestAirportIcao"
+                      class="form-control"
+                      >
                   </b-form-group>
                 </div>
               </div>
@@ -200,7 +219,12 @@
                   <b-form-group
                     label="SDR">
                     <input
-                      type="text" name="sdr" placeholder="Raspberry Pi 3+" class="form-control">
+                      type="text"
+                      name="sdr"
+                      placeholder="RTL-SDR v3"
+                      :value="station.equipmentSDR"
+                      class="form-control"
+                      >
                   </b-form-group>
                 </div>
               </div>
@@ -209,7 +233,12 @@
                   <b-form-group
                     label="Filter">
                     <input
-                      type="text" name="sdr" placeholder="FM Bandstop" class="form-control">
+                      type="text"
+                      name="sdr"
+                      placeholder="FM Bandstop"
+                      :value="station.equipmentFilter"
+                      class="form-control"
+                      >
                   </b-form-group>
                 </div>
               </div>
@@ -218,65 +247,18 @@
                   <b-form-group
                     label="Antenna">
                     <input
-                      type="text" name="sdr" placeholder="DPD Airband Outdoor" class="form-control">
+                      type="text"
+                      name="sdr"
+                      placeholder="DPD Airband Outdoor"
+                      :value="station.equipmentAntenna"
+                      class="form-control"
+                      >
                   </b-form-group>
                 </div>
               </div>
             </b-card>
           </div>
         </div>
-
-        <h4 class="mb-4">Specifications</h4>
-        <table class="table table-hover mb-0 bg-white">
-          <tr>
-            <td>UUID</td>
-            <td>{{ station.uuid }}</td>
-          </tr>
-          <tr>
-            <td>Type</td>
-            <td>{{ station.sourceType.toUpperCase() }}</td>
-          </tr>
-          <tr>
-            <td>Owner</td>
-            <td>{{ $store.state.auth.user.name }}</td>
-          </tr>
-          <tr>
-            <td>Location</td>
-            <td>{{ station.latitude || 'Unknown' }}, {{ station.longitude || 'Unknown' }}</td>
-          </tr>
-          <tr>
-            <td>Nearest Airport</td>
-            <td class="text-muted">Coming Soon</td>
-          </tr>
-          <tr>
-            <td>Platform</td>
-            <td class="text-muted">Coming Soon</td>
-          </tr>
-          <tr>
-            <td>Operating System</td>
-            <td class="text-muted">Coming Soon</td>
-          </tr>
-          <tr>
-            <td>SDR</td>
-            <td class="text-muted">Coming Soon</td>
-          </tr>
-          <tr>
-            <td>Filters</td>
-            <td class="text-muted">Coming Soon</td>
-          </tr>
-          <tr>
-            <td>Antenna</td>
-            <td class="text-muted">Coming Soon</td>
-          </tr>
-          <tr>
-            <td>Ingest</td>
-            <td class="text-muted">Coming Soon</td>
-          </tr>
-          <tr>
-            <td>Feeder Client</td>
-            <td>{{ station.sourceApplication }}</td>
-          </tr>
-        </table>
       </div>
     </div>
   </div>
