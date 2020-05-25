@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 
 import acarsData from '../assets/acars-data.json';
 import auth from './auth.module';
-import userStation from './user_station.module';
+import userStation from './userStation.module';
 
 Vue.use(Vuex);
 

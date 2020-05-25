@@ -61,5 +61,8 @@ export default {
     registerFailure(state: any) {
       state.status.loggedIn = false;
     },
+    updateUserStations(state: any, stations: any) {
+      state.user.stations = stations;
+    },
   },
 };
