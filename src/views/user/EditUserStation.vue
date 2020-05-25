@@ -222,7 +222,7 @@
                       type="text"
                       name="sdr"
                       placeholder="RTL-SDR v3"
-                      :value="station.equipmentSDR"
+                      :value="station.equipmentSdr"
                       class="form-control"
                       >
                   </b-form-group>
@@ -236,7 +236,7 @@
                       type="text"
                       name="sdr"
                       placeholder="FM Bandstop"
-                      :value="station.equipmentFilter"
+                      :value="station.equipmentFilters"
                       class="form-control"
                       >
                   </b-form-group>
