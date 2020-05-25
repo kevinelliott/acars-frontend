@@ -56,7 +56,14 @@
                   UNKNOWN
                 </span>
               </td>
-              <td class="text-muted">Coming Soon</td>
+              <td>
+                <span v-if="station.nearestAirportIcao">
+                  {{ station.nearestAirportIcao.toUpperCase() }}
+                </span>
+                <span v-else class="text-muted">
+                  UNKNOWN
+                </span>
+              </td>
               <td class="text-center">
                 <span class="badge badge-pill badge-info">
                   {{ station.stationMessageCount.messagesCount }}
