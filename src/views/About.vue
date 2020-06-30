@@ -169,7 +169,7 @@
       </div>
       <div class="mb-2 font-weight-bold text-muted">Example Usage</div>
       <div class="alert alert-info">
-        vdlm2dec -v -J -G -E -U -g 200 <strong>-i XX-YYYYZ -j feed.acars.io:5550</strong>
+        vdlm2dec -v -J -G -E -U -g 200 <strong>-i XX-YYYYZ -j feed.acars.io:5555</strong>
         -r 0 136.650 136.800 136.975
       </div>
       <div class="mb-2 text-justify">
