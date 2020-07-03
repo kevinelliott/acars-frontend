@@ -11,6 +11,18 @@ if (process.env.NODE_ENV === 'production') {
 const API_URL = `${remoteUrl}/auth/`;
 
 class AuthService {
+  confirm(token: any) { // eslint-disable-line class-methods-use-this
+    console.log(token);
+    return axios
+      .post(`${API_URL}confirm`, {
+        token,
+      })
+      .then((response) => {
+        console.log(response);
+        return response.data;
+      });
+  }
+
   login(user: any) { // eslint-disable-line class-methods-use-this
     console.log(user);
     return axios

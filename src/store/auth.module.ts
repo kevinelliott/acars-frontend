@@ -10,6 +10,18 @@ export default {
   namespaced: true,
   state: initialState,
   actions: {
+    confirm({ commit }: { commit: any }, token: any) {
+      return AuthService.confirm(token).then(
+        (result) => {
+          commit('confirmSuccess', result);
+          return Promise.resolve(result);
+        },
+        (error) => {
+          commit('confirmFailure');
+          return Promise.reject(error);
+        },
+      );
+    },
     login({ commit }: { commit: any }, user: any) {
       return AuthService.login(user).then(
         (result) => {
@@ -40,6 +52,12 @@ export default {
     },
   },
   mutations: {
+    confirmSuccess(state: any, result: any) {
+      state.status.confirmed = true;
+    },
+    confirmFailure(state: any) {
+      state.status.confirmed = false;
+    },
     loginSuccess(state: any, result: any) {
       state.status.loggedIn = true;
       state.user = result.user;

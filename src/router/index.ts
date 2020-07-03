@@ -11,6 +11,7 @@ import AdminStatsFrequencies from '@/views/admin/stats/AdminStatsFrequencies.vue
 import AdminStatsMessageLabels from '@/views/admin/stats/AdminStatsMessageLabels.vue';
 import AdminStatsStations from '@/views/admin/stats/AdminStatsStations.vue';
 import Airframes from '@/views/Airframes.vue';
+import ConfirmUser from '@/views/auth/ConfirmUser.vue';
 import EditUserStation from '@/views/user/EditUserStation.vue';
 import Flights from '@/views/Flights.vue';
 import Home from '@/views/Home.vue';
@@ -46,6 +47,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
     meta: {
       title: 'About Airframes',
+    },
+  },
+  {
+    path: '/auth/confirm/:token',
+    name: 'auth_confirm',
+    component: ConfirmUser,
+    meta: {
+      title: 'User Confirmation',
     },
   },
   {
