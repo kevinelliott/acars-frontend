@@ -9,7 +9,7 @@
       <div class="text-muted">IDENT</div>
     </div>
     <div class="col-2 p-4">
-      <h5 class="mb-0">{{ station.sourceType.toUpperCase() }}</h5>
+      <h5 class="mb-0">{{ station.sourceType ? station.sourceType.toUpperCase() : 'unknown' }}</h5>
       <div class="text-muted">TYPE</div>
     </div>
     <div class="col-2 p-4">
