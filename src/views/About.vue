@@ -138,7 +138,7 @@
       </div>
       <div class="mb-2 font-weight-bold text-muted">Example Usage</div>
       <div class="alert alert-info">
-        acarsdec -v -o 4 -g 40 <strong>-i XX-YYYYZ -j feed.acars.io:5550</strong>
+        acarsdec -v -o 4 -g 280 <strong>-i XX-YYYYZ -j feed.acars.io:5550</strong>
         -r 0 131.550 131.525 131.725 131.825 130.025 130.425 130.450 131.125
       </div>
       <div class="mb-2 text-justify">
@@ -154,14 +154,148 @@
         <code>-ACARS</code> or <code>-VDL2</code>) to further clarify your station identification,
         as long as you are using the acarsdec fork by Taner mentioned above.
       </div>
-      <div class="text-justify">
+      <div class="mb-4 text-justify">
         Be sure to use the correct values for gain, output (your local terminal), and the
         frequencies to scan. They may be very different from the ones I provide in the example
         above.
       </div>
+
+      <div class="mb-2 font-weight-bold text-muted">
+        Frequencies
+      </div>
+      <div class="mb-2">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>Frequency</th>
+              <th>Locations</th>
+              <th>Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>129.125</td>
+              <td>USA, Canada</td>
+              <td>Essentially none</td>
+            </tr>
+            <tr>
+              <td>130.025</td>
+              <td>USA, Canada</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>130.425</td>
+              <td>USA</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>130.450</td>
+              <td>USA, Canada</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>130.825</td>
+              <td>Europe</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>130.850</td>
+              <td>Europe</td>
+              <td>Unknown, need to test</td>
+            </tr>
+            <tr>
+              <td>131.125</td>
+              <td>USA, Canada</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>131.425</td>
+              <td></td>
+              <td>Very Low</td>
+            </tr>
+            <tr>
+              <td>131.450</td>
+              <td>Japan</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>131.475</td>
+              <td>Canada</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>131.525</td>
+              <td>Europe</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>131.550</td>
+              <td>Worldwide</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>131.725</td>
+              <td>Europe</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>131.825</td>
+              <td></td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>131.850</td>
+              <td>Europe</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>136.700</td>
+              <td>USA</td>
+              <td>Unknown, need to test</td>
+            </tr>
+            <tr>
+              <td>136.750</td>
+              <td>USA, Europe</td>
+              <td>Unknown, need to test</td>
+            </tr>
+            <tr>
+              <td>136.800</td>
+              <td>USA</td>
+              <td>Unknown, need to test</td>
+            </tr>
+            <tr>
+              <td>136.850</td>
+              <td>USA, Canada</td>
+              <td>Unknown, need to test</td>
+            </tr>
+            <tr>
+              <td>136.900</td>
+              <td>Europe</td>
+              <td>Unknown, need to test</td>
+            </tr>
+            <tr>
+              <td>136.925</td>
+              <td>Europe</td>
+              <td>Unknown, need to test</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mb-2">
+        We have collected these frequencies for ACARS from around the Internet from a variety
+        of documents, augmented by high quantities of real incoming data. Activity levels are
+        measured from a worldwide aggreagate and have not yet been measured according to where
+        the stations are receiving the data. We will update this information regularly as new
+        data continues to come in.
+      </div>
+      <div>
+        Please help us by testing and identifying new or existing channels with untested
+        activity and letting us know if you receive traffic.
+      </div>
     </div>
+
     <div class="mb-4 container p-4 bg-white text-left">
-      <h4>VDL</h4>
+      <h4>VDL (VHF Data Link)</h4>
       <div class="mb-3 text-justify">
         We currently support <a href="https://github.com/TLeconte/vdlm2dec" target="_blank">vdlm2dec</a>
         by <a href="https://github.com/TLeconte" target="_blank">Thierry Leconte</a>. Follow the
@@ -189,6 +323,498 @@
         Be sure to use the correct values for gain, output (your local terminal), and the
         frequencies to scan. They may be very different from the ones I provide in the example
         above.
+      </div>
+      <div class="mb-2 font-weight-bold text-muted">
+        Frequencies
+      </div>
+      <div class="mb-2">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>Frequency</th>
+              <th>Locations</th>
+              <th>Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>136.650</td>
+              <td></td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>136.725</td>
+              <td></td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>136.775</td>
+              <td></td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>136.800</td>
+              <td></td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>136.825</td>
+              <td></td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>136.875</td>
+              <td></td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>136.925</td>
+              <td></td>
+              <td>Essentially none</td>
+            </tr>
+            <tr>
+              <td>136.975</td>
+              <td>Europe</td>
+              <td>Very High</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mb-2">
+        Like ACARS, we have collected these frequencies for VDL from around the Internet from a
+        variety of documents, augmented by high quantities of real incoming data. Activity levels
+        are measured from a worldwide aggreagate and have not yet been measured according to where
+        the stations are receiving the data. We will update this information regularly as new
+        data continues to come in.
+      </div>
+      <div>
+        Please help us by testing and identifying new or existing channels with untested
+        activity and letting us know if you receive traffic.
+      </div>
+    </div>
+
+    <div class="mb-4 container p-4 bg-white text-left">
+      <h4>HFDL (High Frequency Data Link)</h4>
+      <div class="mb-3 text-justify">
+        We do not currently have an HFDL client that we support. We are evaluating the options
+        and will update this section when we have a more definitive solution to receiving and
+        processing ACARS from HF. If you are currently receiving HFDL, please be in touch
+        with us on the #project-acars channel on the ADSBExchange Discord server.
+      </div>
+      <div class="mb-2 font-weight-bold text-muted">
+        Frequencies
+      </div>
+      <div class="mb-2 text-nowrap">
+        <table class="table table-sm table-responsive">
+          <thead>
+            <tr>
+              <th>Ground Station ID</th>
+              <th>Location</th>
+              <th colspan="19">Frequencies (MHz)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GS01</td>
+              <td>San Francisco, California</td>
+              <td>21.934</td>
+              <td>17.919</td>
+              <td>12.276</td>
+              <td>11.327</td>
+              <td>10.081</td>
+              <td>8.927</td>
+              <td>6.559</td>
+              <td>5.508</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS02</td>
+              <td>Molokai, Hawaii</td>
+              <td>21.937</td>
+              <td>17.919</td>
+              <td>13.324</td>
+              <td>13.312</td>
+              <td>13.276</td>
+              <td>11.348</td>
+              <td>11.312</td>
+              <td>10.027</td>
+              <td>8.936</td>
+              <td>8.912</td>
+              <td>6.565</td>
+              <td>5.514</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS03</td>
+              <td>Reykjavik, Iceland</td>
+              <td>17.985</td>
+              <td>15.025</td>
+              <td>11.184</td>
+              <td>8.977</td>
+              <td>6.712</td>
+              <td>5.720</td>
+              <td>3.900</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS04</td>
+              <td>Riverhead, New York</td>
+              <td>21.931</td>
+              <td>17.919</td>
+              <td>13.276</td>
+              <td>11.387</td>
+              <td>8.912</td>
+              <td>6.661</td>
+              <td>5.652</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS05</td>
+              <td>Auckland, New Zealand</td>
+              <td>17.916</td>
+              <td>13.351</td>
+              <td>10.084</td>
+              <td>8.921</td>
+              <td>6.535</td>
+              <td>5.583</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS06</td>
+              <td>Hat Yai, Thailand</td>
+              <td>21.949</td>
+              <td>17.928</td>
+              <td>13.270</td>
+              <td>10.066</td>
+              <td>8.825</td>
+              <td>6.535</td>
+              <td>5.655</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS07</td>
+              <td>Shannon, Ireland</td>
+              <td>11.384</td>
+              <td>10.081</td>
+              <td>8.942</td>
+              <td>8.843</td>
+              <td>6.532</td>
+              <td>5.547</td>
+              <td>3.455</td>
+              <td>2.998</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS08</td>
+              <td>Johannesburg, South Africa</td>
+              <td>21.949</td>
+              <td>17.922</td>
+              <td>13.321</td>
+              <td>11.321</td>
+              <td>8.834</td>
+              <td>5.529</td>
+              <td>4.681</td>
+              <td>3.016</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS09</td>
+              <td>Barrow, Alaska</td>
+              <td>21.937</td>
+              <td>21.928</td>
+              <td>17.934</td>
+              <td>17.919</td>
+              <td>11.354</td>
+              <td>10.093</td>
+              <td>10.027</td>
+              <td>8.936</td>
+              <td>8.927</td>
+              <td>6.646</td>
+              <td>5.544</td>
+              <td>5.538</td>
+              <td>5.529</td>
+              <td>4.687</td>
+              <td>4.654</td>
+              <td>3.497</td>
+              <td>3.007</td>
+              <td>2.992</td>
+              <td>2.944</td>
+            </tr>
+            <tr>
+              <td>GS10</td>
+              <td>Muan, South Korea</td>
+              <td>21.931</td>
+              <td>17.958</td>
+              <td>13.342</td>
+              <td>10.060</td>
+              <td>8.939</td>
+              <td>6.619</td>
+              <td>5.502</td>
+              <td>2.941</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS11</td>
+              <td>Albrook, Panama</td>
+              <td>17.901</td>
+              <td>13.264</td>
+              <td>10.063</td>
+              <td>8.894</td>
+              <td>6.589</td>
+              <td>5.589</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS12</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS13</td>
+              <td>Santa Cruz, Bolivia</td>
+              <td>21.997</td>
+              <td>17.916</td>
+              <td>13.315</td>
+              <td>11.318</td>
+              <td>8.957</td>
+              <td>6.628</td>
+              <td>4.660</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS14</td>
+              <td>Krasnoyarsk, Russia</td>
+              <td>21.990</td>
+              <td>17.912</td>
+              <td>13.321</td>
+              <td>10.087</td>
+              <td>8.886</td>
+              <td>6.596</td>
+              <td>5.622</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS15</td>
+              <td>Al Muharraq, Bahrain</td>
+              <td>21.982</td>
+              <td>17.967</td>
+              <td>13.354</td>
+              <td>10.075</td>
+              <td>8.885</td>
+              <td>5.544</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS16</td>
+              <td>Agana, Guam</td>
+              <td>21.928</td>
+              <td>17.919</td>
+              <td>13.312</td>
+              <td>11.306</td>
+              <td>8.927</td>
+              <td>6.652</td>
+              <td>5.451</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>GS17</td>
+              <td>Telde, Gran Canaria, Spain</td>
+              <td>21.955</td>
+              <td>17.928</td>
+              <td>13.303</td>
+              <td>11.348</td>
+              <td>8.948</td>
+              <td>6.529</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mb-2">
+        These frequencies for HFDL have been collected from posts on the Internet and we are
+        not yet sure how active they are. Some of them have been reported to be recently active
+        but until we have conclusive data we will not identify the channels which are most
+        active.
+      </div>
+      <div>
+        If you have an HF rig/SDR, please help us by testing and identifying new or existing
+        channels with untested activity and letting us know if you receive traffic or see
+        transmissions visually in the waterfall.
       </div>
     </div>
   </div>
