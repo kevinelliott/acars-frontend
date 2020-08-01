@@ -339,17 +339,22 @@
           <tbody>
             <tr>
               <td>136.650</td>
-              <td></td>
+              <td>USA</td>
               <td>High</td>
             </tr>
             <tr>
+              <td>136.700</td>
+              <td>USA</td>
+              <td>Unknown, need to test</td>
+            </tr>
+            <tr>
               <td>136.725</td>
-              <td></td>
+              <td>Europe</td>
               <td>Low</td>
             </tr>
             <tr>
               <td>136.775</td>
-              <td></td>
+              <td>Europe</td>
               <td>Medium</td>
             </tr>
             <tr>
@@ -359,12 +364,12 @@
             </tr>
             <tr>
               <td>136.825</td>
-              <td></td>
+              <td>Europe</td>
               <td>Low</td>
             </tr>
             <tr>
               <td>136.875</td>
-              <td></td>
+              <td>Europe</td>
               <td>Medium</td>
             </tr>
             <tr>
@@ -374,7 +379,7 @@
             </tr>
             <tr>
               <td>136.975</td>
-              <td>Europe</td>
+              <td>Worldwide</td>
               <td>Very High</td>
             </tr>
           </tbody>
