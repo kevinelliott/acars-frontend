@@ -33,7 +33,10 @@ export default class StationsTable extends Vue {
     { key: 'ipAddress', label: 'IP Address', sortable: true },
     { key: 'sourceType', label: 'Ingest', sortable: true },
     { key: 'messagesCount', label: '# of Messages', sortable: true },
-    { key: 'status', sortable: true },
+    {
+      key: 'status',
+      sortable: true,
+    },
     {
       key: 'lastReportAt',
       label: 'Last Heard',
@@ -46,6 +49,48 @@ export default class StationsTable extends Vue {
 
   hostUtils = new HostUtils();
 
+  statusString(status: String) { // eslint-disable-line class-methods-use-this
+    let statusString = 'Unknown';
+
+    switch (status) {
+      case 'active':
+        statusString = 'Active';
+        break;
+      case 'inactive':
+        statusString = 'Inactive';
+        break;
+      case 'pending-reception':
+        statusString = 'Pending Reception';
+        break;
+      default:
+        statusString = 'Unknown';
+        break;
+    }
+
+    return statusString;
+  }
+
+  statusColorClass(status: String) { // eslint-disable-line class-methods-use-this
+    let colorClass = '';
+
+    switch (status) {
+      case 'active':
+        colorClass = 'success';
+        break;
+      case 'inactive':
+        colorClass = 'danger';
+        break;
+      case 'pending-reception':
+        colorClass = 'warning';
+        break;
+      default:
+        colorClass = '';
+        break;
+    }
+
+    return colorClass;
+  }
+
   myProvider(ctx: any) {
     const items = [];
     for (const station of this.stations) { // eslint-disable-line no-restricted-syntax
@@ -57,8 +102,9 @@ export default class StationsTable extends Vue {
         sourceApplication: station.sourceApplication,
         sourceProtocol: station.sourceProtocol,
         sourceType: station.sourceType,
-        status: station.status,
+        status: this.statusString(station.status),
         lastReportAt: station.lastReportAt,
+        _cellVariants: { status: this.statusColorClass(station.status) },
       };
       items.push(mergedStation);
     }
