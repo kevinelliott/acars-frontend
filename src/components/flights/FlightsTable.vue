@@ -4,7 +4,7 @@
       bordered
       responsive="sm"
       small
-      selectable="false"
+      :selectable="false"
       sticky-header
       head-variant="dark"
       :items="myProvider()"
@@ -35,6 +35,7 @@ export default class FlightsTable extends Vue {
     { key: 'destinationAirport', label: 'Destination Airport', sortable: true },
     { key: 'coordinates', sortable: true },
     { key: 'altitude', sortable: true },
+    { key: 'track', sortable: true },
     { key: 'status', sortable: true },
     { key: 'messagesCount', label: '# of Messages', sortable: true },
     {
@@ -58,6 +59,7 @@ export default class FlightsTable extends Vue {
         destinationAirport: flight.destinationAirport,
         coordinates: flight.latitude ? `${flight.latitude}, ${flight.longitude}` : '',
         altitude: flight.altitude,
+        track: flight.track,
         status: flight.status,
         lastHeard: flight.updatedAt,
       };

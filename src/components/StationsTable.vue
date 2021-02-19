@@ -31,7 +31,9 @@ export default class StationsTable extends Vue {
     { key: 'id', label: 'ID', sortable: true },
     { key: 'ident', sortable: true },
     { key: 'ipAddress', label: 'IP Address', sortable: true },
+    { key: 'sourceType', label: 'Ingest', sortable: true },
     { key: 'messagesCount', label: '# of Messages', sortable: true },
+    { key: 'status', sortable: true },
     {
       key: 'lastReportAt',
       label: 'Last Heard',

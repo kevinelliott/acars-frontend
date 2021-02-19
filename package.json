@@ -44,6 +44,7 @@
     "vue-toasted": "^1.1.28",
     "vue2-leaflet": "^2.4.2",
     "vue2-leaflet-locatecontrol": "^1.0.1",
+    "vue2-leaflet-moving-rotated-marker": "^0.0.3",
     "vue2-leaflet-movingmarker": "^0.0.1",
     "vuex": "^3.1.2"
   },
