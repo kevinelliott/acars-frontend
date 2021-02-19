@@ -46,18 +46,18 @@ export default class StationsTable extends Vue {
 
   hostUtils = new HostUtils();
 
-  ipMask(ipAddress: string) : string {
-    return this.hostUtils.ipMask(ipAddress);
-  }
-
   myProvider(ctx: any) {
     const items = [];
     for (const station of this.stations) { // eslint-disable-line no-restricted-syntax
       const mergedStation = {
         id: station.id,
         ident: station.ident,
-        ipAddress: this.ipMask(station.ipAddress || 'Unknown'),
+        ipAddress: station.ipAddress || 'Unknown',
         messagesCount: station.messagesCount,
+        sourceApplication: station.sourceApplication,
+        sourceProtocol: station.sourceProtocol,
+        sourceType: station.sourceType,
+        status: station.status,
         lastReportAt: station.lastReportAt,
       };
       items.push(mergedStation);
