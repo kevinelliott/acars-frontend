@@ -5504,6 +5504,11 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
+leaflet-moving-rotated-marker@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/leaflet-moving-rotated-marker/-/leaflet-moving-rotated-marker-0.0.1.tgz#af1bb314fe8d36c0887ab880cea027df71fd52b4"
+  integrity sha512-tkbVu6kEPA5qAwR6uKR2b3a+CtFl3Ofn2xsDb0R7C1ZrvUco6hVjhuDib+ajiHzJErx+cU6IKArclMt1OSMG7Q==
+
 leaflet.locatecontrol@^0.66.2:
   version "0.66.2"
   resolved "https://registry.yarnpkg.com/leaflet.locatecontrol/-/leaflet.locatecontrol-0.66.2.tgz#a99023b53a7b71d694b02efe4e8aeab7b1789202"
@@ -5519,7 +5524,7 @@ leaflet@1.3.1:
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.3.1.tgz#86f336d2fb0e2d0ff446677049a5dc34cf0ea60e"
   integrity sha512-adQOIzh+bfdridLM1xIgJ9VnJbAUY3wqs/ueF+ITla+PLQ1z47USdBKUf+iD9FuUA8RtlT6j6hZBfZoA6mW+XQ==
 
-leaflet@^1.3.1, leaflet@^1.6.0:
+leaflet@^1.3.1, leaflet@^1.4.0, leaflet@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.6.0.tgz#aecbb044b949ec29469eeb31c77a88e2f448f308"
   integrity sha512-CPkhyqWUKZKFJ6K8umN5/D2wrJ2+/8UIpXppY7QDnUZW5bZL5+SEI2J7GBpwh4LIupOKqbNSQXgqmrEJopHVNQ==
@@ -9221,6 +9226,15 @@ vue2-leaflet-locatecontrol@^1.0.1:
   dependencies:
     leaflet.locatecontrol "^0.66.2"
 
+vue2-leaflet-moving-rotated-marker@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/vue2-leaflet-moving-rotated-marker/-/vue2-leaflet-moving-rotated-marker-0.0.3.tgz#6cbe86374dd18430dd867564b5fe3499207627e3"
+  integrity sha512-eCmSDg2bZ9Xn92oNexonHCCnQ1trK88qVuri5oFP6aML119dxj4P0SzCEzQDy/Uq8kMNLXTmjK62TRA87ZCZVQ==
+  dependencies:
+    leaflet "^1.4.0"
+    leaflet-moving-rotated-marker "^0.0.1"
+    vue2-leaflet "^2.1.1"
+
 vue2-leaflet-movingmarker@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/vue2-leaflet-movingmarker/-/vue2-leaflet-movingmarker-0.0.1.tgz#4494dcde2c334abf3377405e676ec68e8426cdff"
@@ -9237,6 +9251,11 @@ vue2-leaflet@^1.0.2:
   dependencies:
     "@types/leaflet" "^1.2.11"
     leaflet "1.3.1"
+
+vue2-leaflet@^2.1.1:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/vue2-leaflet/-/vue2-leaflet-2.5.2.tgz#b89c056fe741c7ce7cb9df5aca90809092e5eb8d"
+  integrity sha512-9eN0TxqCkyXbaI7waO3u+n0OAezkxjb811tstG6gRLAZy/ocXlNLC3JqTWE0FwBUlqBbMpyzsIk6LrEhs8oVBQ==
 
 vue2-leaflet@^2.4.2:
   version "2.4.2"

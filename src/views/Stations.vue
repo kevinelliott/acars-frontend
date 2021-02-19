@@ -7,7 +7,7 @@
       <div class="container p-4">
         The following is a list of feeder stations delivering messages heard by SDR equipment
         located at various locations around the world. The number of messages and last heard
-        update at an interval of 5 seconds and reflect near realtime status of these stations.
+        <strong>update every 5 seconds</strong> and reflect near realtime status of these stations.
       </div>
     </div>
     <div class="container p-4">
@@ -15,7 +15,7 @@
         <StationsTable :stations="stations" class="bg-white" />
       </div>
       <div v-else>
-        Initial stations data is pending...
+        Getting stations list...
       </div>
     </div>
   </div>
