@@ -107,7 +107,7 @@ export default class MessageDetail extends Vue {
   }
 
   decodeMessage(message) { // eslint-disable-line class-methods-use-this
-    return new MessageDecoder(this.$store).decodeMessage(message);
+    return new MessageDecoder(this.$store).decode(message);
   }
 
   refresh() {
