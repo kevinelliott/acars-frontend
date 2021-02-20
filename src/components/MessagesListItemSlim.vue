@@ -104,7 +104,7 @@ export default class MessagesListItemSlim extends Vue {
 
   decodeMessage(message: any) : string { // eslint-disable-line class-methods-use-this
     const decoder = new MessageDecoder();
-    return decoder.decodeMessage(message);
+    return decoder.decode(message);
   }
 
   showFlightModal() {
