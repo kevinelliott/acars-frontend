@@ -49,6 +49,33 @@ export default class StationsTable extends Vue {
 
   hostUtils = new HostUtils();
 
+  sourceTypeString(sourceType: String) { // eslint-disable-line class-methods-use-this
+    let sourceTypeString;
+
+    switch (sourceType) {
+      case 'acars':
+        sourceTypeString = 'ACARS';
+        break;
+      case 'ads-b':
+        sourceTypeString = 'ADS-B';
+        break;
+      case 'ads-c':
+        sourceTypeString = 'SATCOM ADS-C';
+        break;
+      case 'hfdl':
+        sourceTypeString = 'HFDL';
+        break;
+      case 'vdl':
+        sourceTypeString = 'VDL';
+        break;
+      default:
+        sourceTypeString = 'Unknown';
+        break;
+    }
+
+    return sourceTypeString;
+  }
+
   statusString(status: String) { // eslint-disable-line class-methods-use-this
     let statusString = 'Unknown';
 
@@ -101,7 +128,7 @@ export default class StationsTable extends Vue {
         messagesCount: station.messagesCount,
         sourceApplication: station.sourceApplication,
         sourceProtocol: station.sourceProtocol,
-        sourceType: station.sourceType,
+        sourceType: this.sourceTypeString(station.sourceType),
         status: this.statusString(station.status),
         lastReportAt: station.lastReportAt,
         _cellVariants: { status: this.statusColorClass(station.status) },
