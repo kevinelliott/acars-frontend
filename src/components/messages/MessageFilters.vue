@@ -33,8 +33,8 @@
         <label>Airframes</label>
         <multiselect
           v-model="filterIncludeAirframes"
-          :options="$props.knownAirframes"
           :multiple="true"
+          :options="knownAirframes"
           :close-on-select="false"
           :clear-on-select="false"
           :preserve-search="true"
@@ -43,7 +43,10 @@
           track-by="tail"
           :preselect-first="false"
           :disabled="!filterDataIsReady()"
+          :searchable="true"
+          :internal-search="false"
           @input="onFiltersUpdated"
+          @search-change="asyncFindAirframes"
           />
       </div>
 
@@ -73,7 +76,7 @@
           :close-on-select="false"
           :clear-on-select="false"
           :preserve-search="true"
-          placeholder="Select Labels to Exclude"
+          placeholder="Select Labels to Include"
           label="displayName"
           track-by="displayName"
           :preselect-first="false"
@@ -166,7 +169,7 @@ import Multiselect from 'vue-multiselect';
 })
 
 export default class MessageFilters extends Vue {
-  @Prop({ default: true }) private isSearching!: boolean;
+  @Prop({ default: false }) private isSearching!: boolean;
 
   @Prop() private knownAirframes!: Array<any>;
 
@@ -271,8 +274,20 @@ export default class MessageFilters extends Vue {
 
   filterExcludeLabels : Array<any> = this.optionsForFilterLabels().filter((option: any) => this.defaultFilterLabels.includes(option.label)); // eslint-disable-line max-len
 
-  filterDataIsReady() : boolean {
-    return (this.knownAirframes.length > 0) && (this.knownStations.length > 0);
+  asyncFindAirframes(query : any) {
+    console.log(query);
+    Vue.axios({
+      url: `${this.$store.state.apiServerBaseUrl}/airframes?search=${query}`,
+      method: 'GET',
+    }).then((response) => {
+      console.log('Fetched airframes.');
+      this.knownAirframes = response.data;
+    });
+  }
+
+  filterDataIsReady() : boolean { // eslint-disable-line class-methods-use-this
+    // return (this.knownAirframes.length > 0) && (this.knownStations.length > 0);
+    return true;
   }
 
   optionsForFilterLabels() : Array<any> {

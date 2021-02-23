@@ -159,7 +159,7 @@ export default class MessagesHistorical extends Vue {
       this.filters.textToInclude = this.queries.text;
     }
 
-    this.fetchAirframes();
+    // this.fetchAirframes();
 
     if (this.queries.action === 'execute') {
       this.fetchMessages();

@@ -7,7 +7,7 @@
     <MessageBox
       v-if="isSearching"
       :message="searchingText" />
-    <LoadingDots v-if="messages.length == 0 && !instructions" />
+    <LoadingDots v-if="messages.length == 0 && !instructions" loadingText="Loading" />
     <MessagesListItemSlim
       v-for="message in messages"
       :key="`message-list-item-${message.id}`"
