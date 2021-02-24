@@ -248,36 +248,6 @@
               <td>Europe</td>
               <td>Low</td>
             </tr>
-            <tr>
-              <td>136.700</td>
-              <td>USA</td>
-              <td>Unknown, need to test</td>
-            </tr>
-            <tr>
-              <td>136.750</td>
-              <td>USA, Europe</td>
-              <td>Unknown, need to test</td>
-            </tr>
-            <tr>
-              <td>136.800</td>
-              <td>USA</td>
-              <td>Unknown, need to test</td>
-            </tr>
-            <tr>
-              <td>136.850</td>
-              <td>USA, Canada</td>
-              <td>Unknown, need to test</td>
-            </tr>
-            <tr>
-              <td>136.900</td>
-              <td>Europe</td>
-              <td>Unknown, need to test</td>
-            </tr>
-            <tr>
-              <td>136.925</td>
-              <td>Europe</td>
-              <td>Unknown, need to test</td>
-            </tr>
           </tbody>
         </table>
       </div>
