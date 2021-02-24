@@ -7,6 +7,9 @@
     <MessageBox
       v-if="isSearching"
       :message="searchingText" />
+    <MessageBox
+      v-if="isErrorGettingMessages"
+      message="There was an error trying to get messages with these filters. Please try again." />
     <LoadingDots v-if="messages.length == 0 && !instructions" loadingText="Loading" />
     <MessagesListItemSlim
       v-for="message in messages"
@@ -37,6 +40,8 @@ import MessagesLivePaused from '@/components/messages/MessagesLivePaused.vue';
 })
 export default class MessagesList extends Vue {
   @Prop() private instructions!: String;
+
+  @Prop({ default: false }) private isErrorGettingMessages!: boolean;
 
   @Prop({ default: false }) private isSearching!: boolean;
 
