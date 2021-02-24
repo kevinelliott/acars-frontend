@@ -21,7 +21,7 @@
       </div>
       <h5>Decoded</h5>
       <div class="text-wrap">
-        <span v-if="decodeMessage(message)" v-html="decodeMessage(message)" />
+        <span v-if="decodeMessage(message)" v-html="decodedMessage" />
         <span v-else>
           Not decodable at this time.
         </span>
@@ -53,7 +53,16 @@
                   <div v-html="convertNewlinesToBRs(message.text || message.data)"></div>
                   <div v-if="decodeMessage(message)">
                     <div class="mt-1 text-muted"><small>DECODED</small></div>
-                    <div v-html="decodeMessage(message)"></div>
+                    <div v-if="decodedMessage.formatted">
+                      <div>{{ decodedMessage.formatted.description }}</div>
+                      <b-table small bordered caption-top
+                        :caption="decodedMessage.formatted.description"
+                        :items="decodedMessage.formatted.items"
+                        :fields="['label', 'value']"
+                        >
+                      </b-table>
+                    </div>
+                    <div v-else v-html="decodedMessage"></div>
                   </div>
                 </span>
                 <span v-else class="text-muted">
@@ -98,13 +107,16 @@ import MessageItemFooter from '@/components/messages/MessageItemFooter.vue';
 export default class MessagesListItemSlim extends Vue {
   @Prop() private message!: any;
 
+  decodedMessage: any = {};
+
   convertNewlinesToBRs(text: string) : string { // eslint-disable-line class-methods-use-this
     return text ? text.split('\n').join('<br>') : text;
   }
 
-  decodeMessage(message: any) : string { // eslint-disable-line class-methods-use-this
+  decodeMessage(message: any) : boolean { // eslint-disable-line class-methods-use-this
     const decoder = new MessageDecoder();
-    return decoder.decode(message);
+    this.decodedMessage = decoder.decode(message);
+    return this.decodedMessage.decoded;
   }
 
   showFlightModal() {

@@ -2,7 +2,7 @@
   <div>
     <MessagesLivePaused />
     <MessageBox
-      v-if="!isSearching && messages.length == 0 && instructions"
+      v-if="!isSearching && !isErrorGettingMessages && messages.length == 0 && instructions"
       :message="instructions" />
     <MessageBox
       v-if="isSearching"
