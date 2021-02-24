@@ -80,7 +80,18 @@ export default class FlightDetailModal extends Vue {
       console.log('Fetched flight.');
       console.log(response.data);
       const flightDetail = response.data;
-      flightDetail.messages = flightDetail.messages.sort((a: any, b: any) => (new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())); // eslint-disable-line max-len
+      flightDetail.messages = flightDetail.messages.sort((a: any, b: any) => {
+        if (a.messageNumber == null || b.messageNumber == null) return 0;
+        const msgA = a.messageNumber.toUpperCase();
+        const msgB = b.messageNumber.toUpperCase();
+        if (msgA < msgB) {
+          return -1;
+        }
+        if (msgA > msgB) {
+          return 1;
+        }
+        return 0;
+      });
       this.flightDetail = flightDetail;
       this.refreshing = false;
     });
