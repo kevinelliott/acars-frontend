@@ -16,6 +16,7 @@ export default new Vuex.Store({
   state: {
     acarsData,
     activeFlights: [],
+    airframes: [],
     apiServerBaseUrl: process.env.NODE_ENV === 'production' ? 'https://api.airframes.io' : 'http://localhost:3001',
     clients: {},
     isConnected: false,
@@ -32,14 +33,15 @@ export default new Vuex.Store({
   },
   mutations: {
     socket_clients(state, clients) {
-      console.log('Store: Socket: clients');
+      console.log('Store: socket_clients');
       Vue.set(state, 'clients', clients);
     },
     socket_connect(state, status) {
-      console.log('Socket connect');
+      console.log('Store: socket_connect');
       state.isConnected = true;
     },
     calculateMessagesLivePerSecond(state: any) {
+      console.log('Store: calculateMessagesLivePerSecond');
       if (!state.isLiveMessagesPaused) {
         const { messagesLiveCountLast } = state;
         const messagesLiveCountNow = state.messagesLive.length;
@@ -52,19 +54,42 @@ export default new Vuex.Store({
         Vue.set(state, 'messagesLiveCountLast', 0);
       }
     },
+    initializeStore(state) {
+      console.log('Store: initializeStore');
+      const existingAirframes = localStorage.getItem('airframes');
+      if (existingAirframes) {
+        console.log(existingAirframes);
+        Vue.set(state, 'airframes', JSON.parse(existingAirframes));
+      }
+
+      const existingStations = localStorage.getItem('stations');
+      if (existingStations) {
+        console.log(existingStations);
+        Vue.set(state, 'stations', JSON.parse(existingStations));
+      }
+    },
     pauseLiveMessages(state: any) {
+      console.log('Store: pauseLiveMessages');
       Vue.set(state, 'isLiveMessagesPaused', true);
     },
     playLiveMessages(state: any) {
+      console.log('Store: playLiveMessages');
       Vue.set(state, 'isLiveMessagesPaused', false);
     },
     prependNewLiveMessages(state: any, newMessages: Array<any>) {
+      console.log('Store: prependNewLiveMessages');
       Vue.set(state, 'messagesLive', newMessages.concat(state.messagesLive).slice(0, 500));
     },
+    setAirframes(state: any, airframes: Array<any>) {
+      console.log('Store: setAirframes');
+      Vue.set(state, 'airframes', airframes);
+    },
     setActiveFlights(state: any, flights: Array<any>) {
+      console.log('Store: setActiveFlights');
       Vue.set(state, 'activeFlights', flights);
     },
     setLastHeardFromAirframe(state: any, tail: any) {
+      console.log('Store: setLastHeardFromAirframe');
       if (!state.isLiveMessagesPaused) {
         let { lastMessageFromAirframes } = state;
 
@@ -85,6 +110,7 @@ export default new Vuex.Store({
       }
     },
     setLastHeardFromStation(state: any, station: any) {
+      console.log('Store: setLastHeardFromStation');
       const { lastMessageFromStations } = state;
 
       const last = { station, when: Date.now() };
@@ -93,9 +119,11 @@ export default new Vuex.Store({
       Vue.set(state, 'lastMessageFromStations', lastMessageFromStations);
     },
     setStations(state: any, stations: Array<any>) {
+      console.log('Store: setStations');
       Vue.set(state, 'stations', stations);
     },
     setStats(state: any, stats: any) {
+      console.log('Store: setStats');
       Vue.set(state, 'stats', stats);
     },
   },
@@ -118,6 +146,9 @@ export default new Vuex.Store({
       }
 
       commit('prependNewLiveMessages', messages);
+    },
+    socket_airframes({ commit, dispatch }, airframes) {
+      commit('setAirframes', airframes);
     },
     socket_clients({ commit, dispatch }, clients) {
       commit('socket_clients', clients);

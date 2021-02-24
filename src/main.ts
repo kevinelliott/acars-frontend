@@ -86,5 +86,17 @@ Vue.use(VueGtag, {
 new Vue({
   router,
   store,
+  beforeCreate() {
+    this.$store.commit('initializeStore');
+  },
   render: (h) => h(App),
 }).$mount('#app');
+
+store.subscribe((mutation, state) => {
+  if (mutation.type === 'setAirframes') {
+    localStorage.setItem('airframes', JSON.stringify(state.airframes));
+  }
+  if (mutation.type === 'setStations') {
+    localStorage.setItem('stations', JSON.stringify(state.stations));
+  }
+});

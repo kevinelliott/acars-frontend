@@ -15,16 +15,21 @@
         <label>Stations</label>
         <multiselect
           v-model="filterIncludeStations"
+          placeholder="Select Stations to Include"
+          label="ident"
+          track-by="ident"
+          open-direction="bottom"
           :options="$props.knownStations"
           :multiple="true"
           :close-on-select="false"
           :clear-on-select="false"
-          :preserve-search="true"
-          placeholder="Select Stations to Include"
-          label="ident"
-          track-by="ident"
+          :preserve-search="false"
           :preselect-first="false"
           :disabled="!filterDataIsReady()"
+          :searchable="true"
+          :hide-selected="true"
+          :internal-search="true"
+          :loading="isStationsLoading"
           @input="onFiltersUpdated"
           />
       </div>
@@ -33,20 +38,22 @@
         <label>Airframes</label>
         <multiselect
           v-model="filterIncludeAirframes"
-          :multiple="true"
-          :options="knownAirframes"
-          :close-on-select="false"
-          :clear-on-select="false"
-          :preserve-search="true"
           placeholder="Select Airframes to Include"
           label="tail"
           track-by="tail"
+          open-direction="bottom"
+          :multiple="true"
+          :options="$props.knownAirframes"
+          :close-on-select="false"
+          :clear-on-select="false"
+          :preserve-search="false"
           :preselect-first="false"
           :disabled="!filterDataIsReady()"
           :searchable="true"
-          :internal-search="false"
+          :hide-selected="true"
+          :internal-search="true"
+          :loading="isAirframesLoading"
           @input="onFiltersUpdated"
-          @search-change="asyncFindAirframes"
           />
       </div>
 
@@ -117,6 +124,27 @@
         </div>
       </div>
 
+      <div class="mb-4">
+        <label>Timeframe</label>
+        <div>
+          <multiselect
+            v-model="filterTimeframe"
+            placeholder="Messages Since"
+            track-by="value"
+            label="name"
+            :options="optionsForTimeframe"
+            :allow-empty="false"
+            :multiple="false"
+            :close-on-select="true"
+            :clear-on-select="false"
+            :preselect-first="true"
+            :preserve-search="false"
+            :searchable="false"
+            >
+          </multiselect>
+        </div>
+      </div>
+
       <hr class="mb-4" />
 
       <b-button
@@ -169,32 +197,43 @@ import Multiselect from 'vue-multiselect';
 })
 
 export default class MessageFilters extends Vue {
-  @Prop({ default: false }) private isSearching!: boolean;
+  @Prop({ default: false })
+  private isSearching!: boolean;
 
-  @Prop() private knownAirframes!: Array<any>;
+  @Prop({ default: [] })
+  private knownAirframes!: Array<any>;
 
-  @Prop() private knownStations!: Array<any>;
+  @Prop({ default: [] })
+  private knownStations!: Array<any>;
 
-  @PropSync('selectedAirframeIds') private airframeIds!: Array<any>;
+  @PropSync('selectedAirframeIds')
+  private airframeIds!: Array<any>;
 
-  @PropSync('selectedLabels') private labels!: Array<any>;
+  @PropSync('selectedLabels')
+  private labels!: Array<any>;
 
-  @PropSync('selectedStationIds') private stationIds!: Array<any>;
+  @PropSync('selectedStationIds')
+  private stationIds!: Array<any>;
 
-  @PropSync('selectedText') private text!: Array<any>;
+  @PropSync('selectedText')
+  private text!: Array<any>;
 
-  @Prop() private showButton!: boolean;
+  @PropSync('selectedTimeframe')
+  private timeframe!: String;
+
+  @Prop({ default: false })
+  private showButton!: boolean;
 
   @Emit()
   onFiltersUpdated() {
     console.log('Filters clicked.');
-    console.log(this.filterIncludeAirframes);
     const airframeIdsToInclude = this.filterIncludeAirframes.map((airframe: any) => airframe.id);
     const errorsToExclude = this.filterExcludeErrors.map((value: any) => value.error);
     const labelsToExclude = this.filterExcludeLabels.map((value: any) => value.label);
     const labelsToInclude = this.filterIncludeLabels.map((value: any) => value.label);
     const stationIdsToInclude = this.filterIncludeStations.map((station: any) => station.id);
     const textToInclude = this.filterIncludeTextSearch;
+    const timeframeToUse = this.filterTimeframe.value;
 
     return {
       airframeIdsToInclude,
@@ -203,24 +242,22 @@ export default class MessageFilters extends Vue {
       labelsToInclude,
       stationIdsToInclude,
       textToInclude,
+      timeframeToUse,
     };
   }
 
   @Watch('knownAirframes')
   onAirframesChanged(val: any, oldVal: any) {
-    this.filterIncludeAirframes = val.filter((airframe: any) => this.airframeIds.includes(airframe.id)); // eslint-disable-line max-len
+    this.filterAirframes(val);
   }
 
   @Watch('knownStations')
   onStationsChanged(val: any, oldVal: any) {
-    this.filterIncludeStations = val.filter((station: any) => this.stationIds.includes(station.id)); // eslint-disable-line max-len
+    this.filterStations(val);
   }
 
   @Watch('labels')
   onLabelsChanged(val: any, oldVal: any) {
-    console.log(this.labels);
-    console.log(val);
-    console.log(this.optionsForFilterLabels());
     this.filterIncludeLabels = this.optionsForFilterLabels().filter((option: any) => this.labels.includes(option.label)); // eslint-disable-line max-len
   }
 
@@ -229,35 +266,21 @@ export default class MessageFilters extends Vue {
     this.filterIncludeTextSearch = val;
   }
 
-  copyMessage(val: string) { // eslint-disable-line class-methods-use-this
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-  }
-
-  onCopySearchURL() {
-    console.log('Copy Search URL clicked.');
-    let newLocation = document.location.toString();
-    if (!newLocation.includes('action=execute')) {
-      newLocation += '&action=execute';
-    }
-
-    this.copyMessage(newLocation);
-  }
-
   optionsForFilterExcludeErrors = [
     { name: 'Level 0', error: 0 },
     { name: 'Level 1', error: 1 },
     { name: 'Level 2', error: 2 },
     { name: 'Level 3', error: 3 },
+  ]
+
+  optionsForTimeframe = [
+    { name: 'Within Last Day', value: 'last-day' },
+    { name: 'Within Last Week', value: 'last-week' },
+    { name: 'Within Last Month', value: 'last-month' },
+    { name: 'Within Last 3 Months', value: 'last-3-months' },
+    // { name: 'Within Last 6 Months', value: 'last-6-months' },
+    // { name: 'Within Last Year', value: 'last-year' },
+    // { name: 'All Time', value: 'all-time' },
   ]
 
   defaultFilterLabels = ['_d', 'Q0'];
@@ -274,15 +297,43 @@ export default class MessageFilters extends Vue {
 
   filterExcludeLabels : Array<any> = this.optionsForFilterLabels().filter((option: any) => this.defaultFilterLabels.includes(option.label)); // eslint-disable-line max-len
 
-  asyncFindAirframes(query : any) {
-    console.log(query);
-    Vue.axios({
-      url: `${this.$store.state.apiServerBaseUrl}/airframes?search=${query}`,
-      method: 'GET',
-    }).then((response) => {
-      console.log('Fetched airframes.');
-      this.knownAirframes = response.data;
-    });
+  filterTimeframe = { name: 'Within Last Week', value: 'last-week' };
+
+  isAirframesLoading = false;
+
+  isStationsLoading = false;
+
+  copyMessage(val: string) { // eslint-disable-line class-methods-use-this
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
+  mounted() {
+    this.filterAirframes(this.knownAirframes);
+    this.filterStations(this.knownStations);
+  }
+
+  filterAirframes(airframes: any[]) {
+    console.log('MessageFilters: Filtering airframes');
+    console.log(airframes);
+    console.log(this.airframeIds);
+    this.filterIncludeAirframes = airframes.filter((airframe: any) => this.airframeIds.includes(airframe.id)); // eslint-disable-line max-len
+  }
+
+  filterStations(stations: any[]) {
+    console.log('MessageFilters: Filtering stations');
+    console.log(stations);
+    console.log(this.stationIds);
+    this.filterIncludeStations = stations.filter((station: any) => this.stationIds.includes(station.id)); // eslint-disable-line max-len
   }
 
   filterDataIsReady() : boolean { // eslint-disable-line class-methods-use-this
@@ -299,6 +350,16 @@ export default class MessageFilters extends Vue {
       return fixedLabel;
     });
     return values;
+  }
+
+  onCopySearchURL() {
+    console.log('Copy Search URL clicked.');
+    let newLocation = document.location.toString();
+    if (!newLocation.includes('action=execute')) {
+      newLocation += '&action=execute';
+    }
+
+    this.copyMessage(newLocation);
   }
 
   textSearchChanged(event: any) {

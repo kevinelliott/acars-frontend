@@ -12,6 +12,7 @@
             :selectedExcludeLabels.sync="currentFilters().labelsToExclude"
             :selectedStationIds.sync="currentFilters().stationIdsToInclude"
             :selectedText.sync="currentFilters().textToInclude"
+            :selectedTimeframe.sync="currentFilters().timeframe"
             v-on:on-filters-updated="filtersUpdated"
             :showButton="true"
             :isSearching="isSearching"
@@ -94,6 +95,12 @@ export default class MessagesHistorical extends Vue {
     } else {
       delete this.queries.text;
     }
+
+    if (val.timeframeToUse && val.timeframeToUse !== '') {
+      this.queries.timeframe = val.timeframeToUse;
+    } else {
+      delete this.queries.timeframe;
+    }
     this.updateRoute();
   }
 
@@ -106,6 +113,7 @@ export default class MessagesHistorical extends Vue {
     labelsToInclude: [],
     stationIdsToInclude: [],
     textToInclude: '',
+    timeframeToUse: 'last-week',
   };
 
   instructions = 'Begin searching the historical archives by selecting filters to the left and then click Search.';
@@ -123,7 +131,7 @@ export default class MessagesHistorical extends Vue {
     return this.filters;
   }
 
-  mounted() {
+  created() {
     console.log('Query params', this.$route.query);
 
     // this.$router.replace({
@@ -159,21 +167,15 @@ export default class MessagesHistorical extends Vue {
       this.filters.textToInclude = this.queries.text;
     }
 
-    // this.fetchAirframes();
-
-    if (this.queries.action === 'execute') {
-      this.fetchMessages();
+    if (this.queries.timeframe && this.queries.timeframe !== '') {
+      this.filters.timeframeToUse = this.queries.timeframe;
     }
   }
 
-  fetchAirframes() {
-    Vue.axios({
-      url: `${this.$store.state.apiServerBaseUrl}/airframes`,
-      method: 'GET',
-    }).then((response) => {
-      console.log('Fetched airframes.');
-      this.airframes = response.data;
-    });
+  mounted() {
+    if (this.queries.action === 'execute') {
+      this.fetchMessages();
+    }
   }
 
   fetchMessages() {
@@ -189,6 +191,7 @@ export default class MessagesHistorical extends Vue {
         labels: this.filters.labelsToInclude.join(','),
         station_ids: this.filters.stationIdsToInclude.join(','),
         text: this.filters.textToInclude,
+        timeframe: this.filters.timeframeToUse,
       },
     }).then((response) => {
       console.log('Fetched messages.');
@@ -207,7 +210,7 @@ export default class MessagesHistorical extends Vue {
   get knownAirframes() {
     const result = [];
     const map = new Map();
-    for (const airframe of this.airframes) { // eslint-disable-line no-restricted-syntax
+    for (const airframe of this.$store.state.airframes) { // eslint-disable-line no-restricted-syntax,max-len
       if (!map.has(airframe.id) && airframe.tail !== '') {
         map.set(airframe.id, true);
         result.push(airframe);
