@@ -23,6 +23,7 @@
             :instructions="instructions"
             :messages="messages"
             :isSearching="isSearching"
+            :isErrorGettingMessages="isErrorGettingMessages"
             />
         </div>
       </div>
@@ -118,6 +119,8 @@ export default class MessagesHistorical extends Vue {
 
   instructions = 'Begin searching the historical archives by selecting filters to the left and then click Search.';
 
+  isErrorGettingMessages = false;
+
   isSearching = false;
 
   messages = [];
@@ -179,6 +182,7 @@ export default class MessagesHistorical extends Vue {
   }
 
   fetchMessages() {
+    this.isErrorGettingMessages = false;
     this.isSearching = true;
     this.messages = [];
     Vue.axios({
@@ -197,6 +201,9 @@ export default class MessagesHistorical extends Vue {
       console.log('Fetched messages.');
       this.saveMessages(response.data);
       this.isSearching = false;
+    }).catch((reason) => {
+      this.isSearching = false;
+      this.isErrorGettingMessages = true;
     });
   }
 
