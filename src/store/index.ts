@@ -109,15 +109,6 @@ export default new Vuex.Store({
         Vue.set(state, 'lastMessageFromAirframes', lastMessageFromAirframes);
       }
     },
-    setLastHeardFromStation(state: any, station: any) {
-      // console.log('Store: setLastHeardFromStation');
-      const { lastMessageFromStations } = state;
-
-      const last = { station, when: Date.now() };
-      lastMessageFromStations[station.id] = last;
-
-      Vue.set(state, 'lastMessageFromStations', lastMessageFromStations);
-    },
     setStations(state: any, stations: Array<any>) {
       console.log('Store: setStations');
       Vue.set(state, 'stations', stations);
@@ -133,11 +124,6 @@ export default new Vuex.Store({
     },
     socket_newMessages({ commit, dispatch }, messages) {
       // console.log('Store: Socket: newMessages');
-      for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in
-        if (message.station) {
-          commit('setLastHeardFromStation', message.station);
-        }
-      }
 
       for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in,max-len
         if (message.airframe && message.airframe.tail) {
