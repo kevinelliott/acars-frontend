@@ -77,7 +77,7 @@ export default new Vuex.Store({
       Vue.set(state, 'isLiveMessagesPaused', false);
     },
     prependNewLiveMessages(state: any, newMessages: Array<any>) {
-      console.log('Store: prependNewLiveMessages');
+      // console.log('Store: prependNewLiveMessages');
       Vue.set(state, 'messagesLive', newMessages.concat(state.messagesLive).slice(0, 500));
     },
     setAirframes(state: any, airframes: Array<any>) {
@@ -89,7 +89,7 @@ export default new Vuex.Store({
       Vue.set(state, 'activeFlights', flights);
     },
     setLastHeardFromAirframe(state: any, tail: any) {
-      console.log('Store: setLastHeardFromAirframe');
+      // console.log('Store: setLastHeardFromAirframe');
       if (!state.isLiveMessagesPaused) {
         let { lastMessageFromAirframes } = state;
 
@@ -110,7 +110,7 @@ export default new Vuex.Store({
       }
     },
     setLastHeardFromStation(state: any, station: any) {
-      console.log('Store: setLastHeardFromStation');
+      // console.log('Store: setLastHeardFromStation');
       const { lastMessageFromStations } = state;
 
       const last = { station, when: Date.now() };
