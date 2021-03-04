@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
-import LogRocket from 'logrocket';
 import VueMoment from 'vue-moment';
 import Toasted from 'vue-toasted';
 import VeeValidate from 'vee-validate';
@@ -30,8 +29,6 @@ import 'leaflet/dist/leaflet.css';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-
-LogRocket.init('6n9b7u/acars-dev');
 
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
