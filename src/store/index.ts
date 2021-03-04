@@ -78,7 +78,7 @@ export default new Vuex.Store({
     },
     prependNewLiveMessages(state: any, newMessages: Array<any>) {
       // console.log('Store: prependNewLiveMessages');
-      Vue.set(state, 'messagesLive', newMessages.concat(state.messagesLive).slice(0, 500));
+      Vue.set(state, 'messagesLive', newMessages.concat(state.messagesLive).slice(0, 100));
     },
     setAirframes(state: any, airframes: Array<any>) {
       console.log('Store: setAirframes');
