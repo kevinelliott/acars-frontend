@@ -125,11 +125,11 @@ export default new Vuex.Store({
     socket_newMessages({ commit, dispatch }, messages) {
       // console.log('Store: Socket: newMessages');
 
-      for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in,max-len
-        if (message.airframe && message.airframe.tail) {
-          commit('setLastHeardFromAirframe', message.airframe.tail);
-        }
-      }
+      // for (const message of messages) { // eslint-disable-line no-restricted-syntax,guard-for-in,max-len
+      //   if (message.airframe && message.airframe.tail) {
+      //     commit('setLastHeardFromAirframe', message.airframe.tail);
+      //   }
+      // }
 
       commit('prependNewLiveMessages', messages);
     },
