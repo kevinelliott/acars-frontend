@@ -58,13 +58,11 @@ export default new Vuex.Store({
       console.log('Store: initializeStore');
       const existingAirframes = localStorage.getItem('airframes');
       if (existingAirframes) {
-        console.log(existingAirframes);
         Vue.set(state, 'airframes', JSON.parse(existingAirframes));
       }
 
       const existingStations = localStorage.getItem('stations');
       if (existingStations) {
-        console.log(existingStations);
         Vue.set(state, 'stations', JSON.parse(existingStations));
       }
     },

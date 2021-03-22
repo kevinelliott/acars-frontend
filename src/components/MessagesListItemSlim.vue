@@ -51,7 +51,7 @@
               <div class="p-3 bg-inner inner-shadow">
                 <span v-if="message.text || message.data">
                   <div v-html="convertNewlinesToBRs(message.text || message.data)"></div>
-                  <div v-if="decodeMessage(message)">
+                  <div v-if="decodedMessage">
                     <div class="mt-1 text-muted"><small>DECODED</small></div>
                     <div v-if="decodedMessage.formatted">
                       <div>{{ decodedMessage.formatted.description }}</div>
