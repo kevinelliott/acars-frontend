@@ -21,7 +21,7 @@
       </div>
       <h5>Decoded</h5>
       <div class="text-wrap">
-        <span v-if="decodeMessage(message)" v-html="decodedMessage" />
+        <span v-if="decodedMessage.decoded" v-html="decodedMessage" />
         <span v-else>
           Not decodable at this time.
         </span>
